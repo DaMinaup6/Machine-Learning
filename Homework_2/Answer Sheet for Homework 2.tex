@@ -261,7 +261,7 @@ so the VC dimension is $4-1=3$.
 
 \subsection*{Problem 8}
 
-It is like choose two points in $\SBrackets{0,~N}$, so we have $\binom{N+1}{2}$ choices.
+It is like choose two radius in ${\left(0,~N\right]}$, so we have $\binom{N+1}{2}$ choices in polar coordinate.
 
 But we need to add the case when $a$ and $b$ make all hypothesis $-1$, which means $b^2 - a^2 < r^2_i$, $1\leq i\leq N$, where $r_i$ is the distance from origin to hypothesis point.
 
@@ -337,7 +337,7 @@ where $c_i\in\mathbb{R}$, $\forall i$. Apply L'Hospital rule for this formula, w
 \end{align}
 Now we have $D+1$ coefficients to decide how $h_c$ is. If $c_m\neq0$ and $c_k=0$, $\forall D\geq k>m\geq 0$, then $h_c=\text{sign}\ParTh{c_m}$ as $x\rightarrow\infty$ due to the conclusion above. With this, we know that the VC dimension is $D+1$ since we have $D+1$ degree of freedom.
 \end{comment}
-For $\sum_{i=0}^{D}c_ix^i$, we have $D$ roots at most, separated $\mathbb{R}$ ($x$-axis) into $D+1$ sections; or no root in $\mathbb{R}$, which makes $h_c$ to be $+1$ or $-1$, $\forall x$.
+For $\sum_{i=0}^{D}c_ix^i$, we have $D$ different roots at most, separated $\mathbb{R}$ ($x$-axis) into $D+1$ sections; or no root in $\mathbb{R}$, which makes $h_c$ to be $+1$ or $-1$, $\forall x$.
 
 The number of roots (from $0$ to $D$) forms different result in $\CBrackets{+1,~-1}^{D+1}$, like all $+1$ or $\SBrackets{+1,~-1,~+1,\ldots},\cdots$, which has at most $2^{D+1}$ choices. So the VC dimension is $D+1$.
 
@@ -350,6 +350,10 @@ The number of roots (from $0$ to $D$) forms different result in $\CBrackets{+1,~
 The VC dimension of simplified decision tree is equal to the number of hyper-rectangular regions, where each region returns the same $\BF{v}$.
 
 $d$-dimension space has $2^d$ independent hyper-rectangular regions separated by $d$ lines since each dimension in $\mathbb{R}^d$ has two choices $0$ or $1$. This can shatter at most $2^d$ vectors. So the VC dimension is $2^d$.
+
+For example, we can have $2^d$ points $\BF{x}_1$, $\BF{x}_2$,$\ldots$, $\BF{x}_{2^d}$ are different combination of $\CBrackets{-1,+1}^d$. Choose $\BF{t}=\CBrackets{0,0,\ldots,0}$, we can put each $\BF{x}_i$ in different hyper-rectangular. If $\BF{S}_i\in\BF{S}$, then $h_{\BF{t},\BF{S}}=1$, else $-1$. Hence the $2^d$ points can be shattered by choosing different collection $\BF{S}$.
+
+If there are $2^d + 1$ points, then there are at least two points in the same hyper-rectangular region. These two points have same label no matter what $\BF{S}$ is, so the hypothesis cannot shatter $2^d+1$ points.
 
 \QEDB
 
@@ -458,7 +462,13 @@ which violates the definition of growth function.
 
 The smallest case of $\bigcap^K_{k=1}\mathcal{H}_k=\CBrackets{0}$, so $d_{vc}\ParTh{\CBrackets{0}}=0$.
 
-The biggest subset is the smallest set of $\mathcal{H}_i$, $1\leq i\leq k$. So the upper bound of $d_{vc}\ParTh{\bigcap^K_{k=1}\mathcal{H}_k}=\min_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}$. Hence
+The biggest intersection is the smallest set of $\mathcal{H}_i$, $1\leq i\leq k$, which is
+\begin{align}
+\CBrackets{0}\subseteq{\bigcap^K_{k=1}\mathcal{H}_k}\subseteq\min_{1\leq k\leq K}\CBrackets{{\mathcal{H}_k}}
+\end{align}
+Suppose $A\subseteq B$, then we have $d_{vc}\ParTh{A}\leq d_{vc}\ParTh{B}$ since if hypothesis set is greater than or equal, the VC dimension cannot be smaller.
+
+So the upper bound of $d_{vc}\ParTh{\bigcap^K_{k=1}\mathcal{H}_k}$ is $\min_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}$. Hence
 \begin{align}
 0\leq d_{vc}\ParTh{\bigcap^K_{k=1}\mathcal{H}_k}\leq\min_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}
 \end{align}
@@ -469,7 +479,7 @@ The biggest subset is the smallest set of $\mathcal{H}_i$, $1\leq i\leq k$. So t
 
 \subsection*{Problem 15}
 
-The smallest subset is the biggest set of $\mathcal{H}_i$, $1\leq i\leq k$. So the lower bound of $d_{vc}\ParTh{\bigcup^K_{k=1}\mathcal{H}_k}=\max_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}$.
+The smallest union is the biggest set of $\mathcal{H}_i$, $1\leq i\leq k$. So the lower bound of $d_{vc}\ParTh{\bigcup^K_{k=1}\mathcal{H}_k}$ is $\max_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}$.
 
 \underline{Claim}: $d_{vc}\ParTh{\mathcal{H}_1\cup\mathcal{H}_2}\leq d_{vc}\ParTh{\mathcal{H}_1}+d_{vc}\ParTh{\mathcal{H}_2}+1$.
 
@@ -480,7 +490,7 @@ number of classifications using $\mathcal{H}_1$ plus the number of classificatio
 \begin{align}
 m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}\leq m_{\mathcal{H}_1}\ParTh{N}+m_{\mathcal{H}_2}\ParTh{N}
 \end{align}
-Since $B\ParTh{N,K}\leq\sum_{i=0}^{d}\binom{N}{i}$, we have
+Since $B\ParTh{N,K}\leq\sum_{i=0}^{d}\binom{N}{i}$ ($d=K-1$), we have
 %By $\text{Sauer-Shelah Lemma}^{[2]}$, we have
 \begin{align}
 m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}\leq\sum_{i=0}^{d_1}\binom{N}{i}+\sum_{i=0}^{d_2}\binom{N}{i}
@@ -491,13 +501,19 @@ m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}\leq\sum_{i=0}^{d_1}\binom{N}{i}+\sum
 \end{align}
 Now, if $N - d_2 > d_1 + 1$, that is $N \geq d_1 + d_2 + 2$.
 \begin{align}
-m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}\leq\sum_{i=0}^{N}\binom{N}{i}-\binom{N}{d_1+1}=2^N-\binom{N}{d_1+1}<2^N\Rightarrow m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}<2^{d_1+d_2+2}
+m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}&\leq\sum_{i=0}^{N}\binom{N}{i}-\binom{N}{d_1+1}=2^N-\binom{N}{d_1+1}<2^N\\
+\Rightarrow m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}&<2^{d_1+d_2+2}\\
+\Rightarrow m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}&\leq2^{d_1+d_2+1}
 \end{align}
-Hence, $d_{vc}\ParTh{\mathcal{H}_1\cup\mathcal{H}_2}<d_1+d_2+2\Rightarrow d_{vc}\ParTh{\mathcal{H}_1\cup\mathcal{H}_2}\leq d_1+d_2+1$.
+If $N-d_2\leq d_1+1$, then we have $N\leq d_1+d_2+1$ and
+\begin{align}
+\underbrace{m_{\mathcal{H}_1\cup\mathcal{H}_2}\ParTh{N}\leq2^N}_{\text{holds for all }m_{\mathcal{H}}\ParTh{N}}\leq2^{d_1+d_2+1}
+\end{align}
+Hence, $d_{vc}\ParTh{\mathcal{H}_1\cup\mathcal{H}_2}\leq d_1+d_2+1$.
 
 From the equation above, we have
 \begin{align}
-\max_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}\leq d_{vc}\ParTh{\bigcup^K_{k=1}\mathcal{H}_k}\leq \ParTh{K-1}+\sum_{i=0}^{K}d_{vc}\ParTh{\mathcal{H}_i}
+\max_{1\leq k\leq K}\CBrackets{d_{vc}\ParTh{\mathcal{H}_k}}\leq d_{vc}\ParTh{\bigcup^K_{k=1}\mathcal{H}_k}\leq \ParTh{K-1}+\sum_{i=1}^{K}d_{vc}\ParTh{\mathcal{H}_i}
 \end{align}
 
 \QEDB
