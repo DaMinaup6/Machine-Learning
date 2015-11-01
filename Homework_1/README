@@ -1,0 +1,21 @@
+## Requirement
+
+* python 2.7.10
+* numpy
+* matplotlib
+
+## Usage
+
+Decompress the .zip file into the current folder and run ``` python QXX.py ``` (XX is ineger in [15, 20]), the following messages will be printed.
+
+```
+=====================================
+Question XX: THE_ANSWER_OF_QUESTION
+-------------------------------------
+QXX costs X.XXXXXXXXXXXXXXX seconds
+=====================================
+```
+
+If QXX is asked to draw histogram, then the histogram figure will automatically stored into the same folder with file name "QXX.png".
+
+If want to run all questions at once, type ``` python main.py ``` will show all the results together.
