@@ -1,2 +1,6 @@
 *.DS_Store
+*.aux
+*.log
+*.synctex.gz
+*.pyc
 ML_Scores.xlsx
