@@ -67,12 +67,12 @@ def main():
     TEST18_FILE = "ntumlone%2Fhw1%2Fhw1_18_test.dat"
 
     TRAIN18_DATA = np.loadtxt(TRAIN18_FILE, dtype=np.float)
-    x18 = np.column_stack((np.ones(TRAIN18_DATA.shape[0]), TRAIN18_DATA[:, 0:4]))
-    y18 = TRAIN18_DATA[:, 4]
+    x18 = np.column_stack((np.ones(TRAIN18_DATA.shape[0]), TRAIN18_DATA[:, 0:(TRAIN18_DATA.shape[1] - 1)]))
+    y18 = TRAIN18_DATA[:, (TRAIN18_DATA.shape[1] - 1)]
 
     TEST18_DATA = np.loadtxt(TEST18_FILE, dtype=np.float)
-    a = np.column_stack((np.ones(TEST18_DATA.shape[0]), TEST18_DATA[:, 0:4]))
-    b = TEST18_DATA[:, 4]
+    a = np.column_stack((np.ones(TEST18_DATA.shape[0]), TEST18_DATA[:, 0:(TEST18_DATA.shape[1] - 1)]))
+    b = TEST18_DATA[:, (TEST18_DATA.shape[1] - 1)]
 
     print "====================================="
     t6 = time.time()

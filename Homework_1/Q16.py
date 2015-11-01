@@ -58,8 +58,8 @@ def main():
     TRAIN15_FILE = "ntumlone%2Fhw1%2Fhw1_15_train.dat"
 
     TRAIN15_DATA = np.loadtxt(TRAIN15_FILE, dtype=np.float)
-    x15 = np.column_stack((np.ones(TRAIN15_DATA.shape[0]), TRAIN15_DATA[:, 0:4]))
-    y15 = TRAIN15_DATA[:, 4]
+    x15 = np.column_stack((np.ones(TRAIN15_DATA.shape[0]), TRAIN15_DATA[:, 0:(TRAIN15_DATA.shape[1] - 1)]))
+    y15 = TRAIN15_DATA[:, (TRAIN15_DATA.shape[1] - 1)]
 
     print "====================================="
     t2 = time.time()
