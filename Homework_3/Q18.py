@@ -1,6 +1,7 @@
 import math
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def theta(num):
 	return 1 / (1 + np.exp(-num))
@@ -29,10 +30,26 @@ def errRate(x, y, w):
     errCount = yErr.shape[0]
     return float(errCount) / len(y)
 
+def plotHist(x, xLabel, yLabel, title, width, isFloat):
+    plt.title(str(title))
+    plt.xlabel(str(xLabel))
+    plt.ylabel(str(yLabel))
+    if isFloat: plt.hist(x)
+    else:
+        freq = np.bincount(x)
+        freqIndex = np.nonzero(freq)[0]
+        plt.bar(freqIndex, freq[freqIndex], width)
+    plt.grid(True)
+    plt.draw()
+    plt.savefig(title)
+    plt.close()
+
 def main():
 	eta = 0.001
-	Times = 2000
+	Times = 100
+	repeat = 100
 
+	eOutList = []
 	t0 = time.time()
 	TRAIN18_FILE = 'hw3_train.dat'
 	TRAIN18_DATA = np.loadtxt(TRAIN18_FILE, dtype=np.float)
@@ -44,11 +61,17 @@ def main():
 	xTest18 = np.column_stack((np.ones(TEST18_DATA.shape[0]), TEST18_DATA[:, 0:(TEST18_DATA.shape[1] - 1)]))
 	yTest18 = TEST18_DATA[:, (TEST18_DATA.shape[1] - 1)]
 
+	# for times in range(repeat):
+	# 	w18 = GDA(xTrain18, yTrain18, eta, Times)
+	# 	eOutList.append(errRate(xTest18, yTest18, w18))
+	# eOutAve = sum(eOutList) / float(repeat)
+	# plotHist(eOutList, "Eout Error Rate", "Frequency", "Q18", 0.01, True)
 	w18 = GDA(xTrain18, yTrain18, eta, Times)
-	eOut = errRate(xTest18, yTest18, w18)
+	eOutList.append(errRate(xTest18, yTest18, w18))
+	eOutAve = sum(eOutList)
 	t1 = time.time()
 	print '========================================================='
-	print 'Question 18:', eOut
+	print 'Question 18:', eOutAve
 	print '---------------------------------------------------------'
 	print 'Q18 costs', t1 - t0, 'seconds'
 	print '========================================================='

@@ -1,6 +1,7 @@
 import math
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def sign(data, const):
 	if (math.pow(data[0], 2) + math.pow(data[1], 2) + const) > 0:
@@ -33,19 +34,36 @@ def dataGeneration(dataSize, dataDimension, noise):
 		yArray.append(y)
 	return (dArray, np.array(yArray))
 
+def plotHist(x, xLabel, yLabel, title, width, isFloat):
+    plt.title(str(title))
+    plt.xlabel(str(xLabel))
+    plt.ylabel(str(yLabel))
+    if isFloat: plt.hist(x)
+    else:
+        freq = np.bincount(x)
+        freqIndex = np.nonzero(freq)[0]
+        plt.bar(freqIndex, freq[freqIndex], width)
+    plt.grid(True)
+    plt.draw()
+    plt.savefig(title)
+    plt.close()
+
 def main():
 	repeat = 1000
 
 	errTot = 0.0
+	w3List = []
 	wLinTot = np.zeros(6)
 	t0 = time.time()
 	for times in range(repeat):
 		(xArr, y14) = dataGeneration(1000, 2, 0.1)
 		x14 = np.column_stack((np.ones(xArr.shape[0]), featVec(xArr)))
 		wLin = np.dot(np.linalg.pinv(x14), y14)
+		w3List.append(wLin[3])
 		wLinTot += wLin
 		errTot += errRate(x14, y14, wLin)
 	wLinTot /= repeat
+	plotHist(w3List, "W3", "Frequency", "Q14", 0.01, True)
 	t1 = time.time()
 	print '========================================================='
 	print 'Question 14:', wLin

@@ -84,7 +84,7 @@
 {\small R04942045} \\
 {\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
 }
-%\date{November 2, 2015}
+\date{November 16, 2015}
 %\allowdisplaybreaks[4]
 \maketitle
 
@@ -92,7 +92,7 @@
 
 Set $\sigma=0.1$ and $d=8$, then we can rewrite the formula to be
 \begin{align}
-\mathbb{E}_{\mathcal{D}}\SBrackets{E_{\text{in}}\ParTh{\BF{w}_{\text{lin}}}}=0.01\ParTh{1-\dfrac{9}{N}}>0.008\Rightarrow0.2>\dfrac{9}{N}\Rightarrow N>45
+\mathbb{E}_{\mathcal{D}}\SBrackets{E_{\text{in}}\ParTh{\BF{w}_{\text{lin}}}}=0.01\ParTh{1-\dfrac{9}{N}}>0.008\Rightarrow0.2>\dfrac{9}{N}\Rightarrow N>45\Rightarrow N \geq 46
 \end{align}
 
 \QEDB
@@ -182,12 +182,14 @@ Hence, $f\ParTh{z}$ is not differentiable at $z=0$.
 
 Consider following cases.
 \begin{enumerate}
-	\item $y = \text{sign}\ParTh{\BF{w}^T\BF{x}}$.
+	\item $y = \text{sign}\ParTh{\BF{w}^T\BF{x}}$. PLA update term is 0.
+	
 	Then we have $y\BF{w}^T\BF{x} > 0$. So
 	\begin{align}
 	\max\ParTh{0, -y\BF{w}^T\BF{x}}=0
 	\end{align}
-	\item $y \neq \text{sign}\ParTh{\BF{w}^T\BF{x}}$.
+	\item $y \neq \text{sign}\ParTh{\BF{w}^T\BF{x}}$. PLA update term is $y\BF{x}$.
+	
 	Then we have $y\BF{w}^T\BF{x} < 0$. So
 	\begin{align}
 	\max\ParTh{0, -y\BF{w}^T\BF{x}}=-y\BF{w}^T\BF{x}\Rightarrow-\nabla_{\BF{w}}\max\ParTh{0, -y\BF{w}^T\BF{x}}=y\BF{x}
@@ -301,7 +303,31 @@ This equals to the value of Problem 7 after 746 updates.
 
 \subsection*{Problem 11}
 
-Write a program Q11.py to test, $\CBrackets{\BF{x}_1,\BF{x}_2,\BF{x}_3,\BF{x}_4,\BF{x}_5,\BF{x}_6}$ is the biggest subset that can be shattered by the union of quadratic, linear, or constant hypotheses of $\BF{x}$.
+Write a program Q11.py to test, $\CBrackets{\BF{x}_1,\BF{x}_2,\BF{x}_3,\BF{x}_4,\BF{x}_5,\BF{x}_6}$ is the biggest subset that can be shattered by the union of quadratic, linear, or constant hypotheses of $\BF{x}$ by feature form of
+\begin{align}
+\Phi\ParTh{\BF{x}}=\ParTh{1,x_1,x_2,x^2_1,x_1x_2,x^2_2}
+\end{align}
+The $\BF{w}$ for $2^6=64$ cases are
+\begin{align}
+\begin{array}{llll}
+\left[ 0,  0,  0,  0,  0,  0\right],~&\left[ 0,  1,  0,  1,  0, -4\right],~&\left[ 1,  0,  1, -2, -1, -1\right],~&\left[ 2,  0,  0,  0,  0, -2\right],\\
+\left[-1, -2,  0,  0, -2,  0\right],~&\left[ 0,  0,  1,  2, -1, -3\right],~&\left[ 1, -1,  2, -1, -2,  0\right],~&\left[ 2, -1,  1,  1, -1, -3\right],\\
+\left[ 0,  0, -2,  0,  2,  0\right],~&\left[ 0,  0, -3,  2,  3, -3\right],~&\left[ 1, -1, -2, -1,  2,  0\right],~&\left[ 2,  0, -2,  0,  2, -2\right],\\
+\left[-1, -4,  0,  0,  0,  0\right],~&\left[ 0, -2, -1,  4,  1, -3\right],~&\left[ 1, -2, -1,  0,  1,  1\right],~&\left[ 3, -2,  0,  2,  0, -4\right],\\
+\left[-1,  1,  0, -1, -2,  0\right],~&\left[ 0,  2,  0,  0, -2,  0\right],~&\left[ 1,  1, -2, -3, -2,  0\right],~&\left[ 1,  1, -1, -1, -3, -1\right],\\
+\left[-1,  0,  1,  0, -3,  1\right],~&\left[ 0,  1,  0,  1, -4,  0\right],~&\left[ 1, -1,  1, -1, -3,  1\right],~&\left[ 1,  0,  0,  0, -4,  0\right],\\
+\left[ 0,  0, -3,  0,  1,  1\right],~&\left[ 0,  1, -4,  1,  0,  0\right],~&\left[ 1, -1, -3, -1,  1,  1\right],~&\left[ 1,  0, -4,  0,  0,  0\right],\\
+\left[ 0, -1, -2,  1,  0,  2\right],~&\left[ 0,  0, -3,  2, -1,  1\right],~&\left[ 1, -1, -1, -1, -1,  1\right],~&\left[ 1, -1, -3,  1, -1,  1\right],\\
+\left[ 0,  0,  2,  0,  2,  0\right],~&\left[ 0,  2,  3,  0,  1, -1\right],~&\left[ 1,  0,  3, -2,  1, -1\right],~&\left[ 1,  1,  3, -1,  1, -1\right],\\
+\left[-1,  0,  4,  0,  0,  0\right],~&\left[ 0,  1,  4,  1,  0,  0\right],~&\left[ 1, -1,  4, -1,  0,  0\right],~&\left[ 1,  0,  4,  0,  0,  0\right],\\
+\left[ 0,  0,  0,  0,  4,  0\right],~&\left[ 0,  1,  0,  1,  4,  0\right],~&\left[ 1, -1,  0, -1,  4,  0\right],~&\left[ 1,  0,  0,  0,  4,  0\right],\\
+\left[ 0, -1,  1,  1,  3,  1\right],~&\left[ 0,  0,  1,  2,  3,  1\right],~&\left[ 1, -2,  1,  0,  3,  1\right],~&\left[ 1, -1,  1,  1,  3,  1\right],\\
+\left[-2,  2,  0, -2,  0,  4\right],~&\left[ 0,  4,  0,  0,  0,  0\right],~&\left[ 1,  2,  1, -4, -1,  3\right],~&\left[ 2,  4,  0,  0,  0,  0\right],\\
+\left[-1,  0,  2,  0, -2,  2\right],~&\left[ 0,  1,  3,  1, -1,  1\right],~&\left[ 1,  0,  3, -2, -3,  3\right],~&\left[ 1,  1,  3,  1, -1,  1\right],\\
+\left[-1,  1, -1, -1,  1,  3\right],~&\left[ 0,  3, -1,  1,  1,  1\right],~&\left[ 1,  0, -1, -2,  1,  3\right],~&\left[ 1,  2,  0,  0,  2,  0\right],\\
+\left[-1,  0,  0,  0,  0,  2\right],~&\left[ 0,  1,  1,  1,  1,  1\right],~&\left[ 1, -1,  0, -1,  0,  4\right],~&\left[ 1,  1,  1,  1,  1,  1\right]
+\end{array}
+\end{align}
 \begin{comment}
 If $\BF{x}_1$ and $\BF{x}_3$ are on the same side, then $\BF{x}_2$ and $\BF{x}_4$ can't be the same side. So $\CBrackets{\BF{x}_1,\BF{x}_2,\BF{x}_3}$ is the biggest subset that can be shattered by the union of quadratic, linear, or constant hypotheses of $\BF{x}$.
 \begin{align}
@@ -329,6 +355,20 @@ So, this transform shatter any $N$ points. Hence $d_{vc}\ParTh{\mathcal{H}_\Phi}
 \subsection*{Problem 13}
 
 The average $E_{\text{in}}$ is 0.503979.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q13-1.png}
+	\caption{Q13 histogram}
+	\label{Q13}
+\end{figure}
+
+After feature transform, we have
+\begin{align}
+\tilde{\BF{w}}=&\left[-0.991720295,\SciNum{-3.00273423}{-4},\SciNum{-1.31851902}{-3},\right.\\
+\nonumber
+&~\left.\SciNum{1.09524038}{-3},1.55703088,1.55594342\right]
+\end{align}
+with average $E_{\text{out}}=0.124126$.
 
 \QEDB
 
@@ -336,7 +376,13 @@ The average $E_{\text{in}}$ is 0.503979.
 
 \subsection*{Problem 14}
 
-The returned $\BF{w}_{\text{Lin}}=\ParTh{-1.00134023,  0.07529962  0.01237623,  0.0812999,   1.69273348,  1.53664765}$.
+The average $\tilde{\BF{w}}_{3}={0.06306984}$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q14.png}
+	\caption{Q14 histogram}
+	\label{Q14}
+\end{figure}
 
 \QEDB
 
@@ -344,7 +390,13 @@ The returned $\BF{w}_{\text{Lin}}=\ParTh{-1.00134023,  0.07529962  0.01237623,  
 
 \subsection*{Problem 15}
 
-The average $E_{\text{out}}=0.127198$.
+The average $E_{\text{out}}=0.123968$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q15.png}
+	\caption{Q15 histogram}
+	\label{Q15}
+\end{figure}
 
 \QEDB
 
@@ -393,7 +445,35 @@ The $E_{\text{out}}=0.220$.
 
 \subsection*{Problem 20}
 
-The $E_{\text{out}}=0.473$.
+The $E_{\text{out}}=0.473$ with
+\begin{align}
+\tilde{\BF{w}}=&\left[0.01826899, -0.01308051,  0.04072894, -0.03295698,  0.01498363,\right.\\
+\nonumber
+&~-0.03691042,0.01232819,  0.04791334, -0.02244958,  0.02470544,\\
+\nonumber
+&~0.06878235,  0.01897378,-0.02032107, -0.00901469,  0.04589259,\\
+\nonumber
+&~\left.0.05776824,  0.06102487, -0.04756147,0.06035018, -0.01660574, -0.03509342\right]
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 21}
+
+\begin{align}
+\BF{h}^T\BF{y}=\sum_{i=1}^{N}h\ParTh{\BF{x}_i}y_i
+\end{align}
+\begin{align}
+N\ParTh{\text{RMSE}\ParTh{h}}^2=\sum_{i=1}^{N}\ParTh{y_i-h\ParTh{\BF{x_i}}}^2=\sum_{i=1}^{N}y^2_i-2h\ParTh{\BF{x}_i}y_i+h^2\ParTh{\BF{x_i}}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 22}
 
 \QEDB
 

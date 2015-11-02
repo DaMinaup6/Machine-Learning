@@ -1,6 +1,7 @@
 import math
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def sign(data, const):
 	if (math.pow(data[0], 2) + math.pow(data[1], 2) + const) > 0:
@@ -33,26 +34,41 @@ def dataGeneration(dataSize, dataDimension, noise):
 		yArray.append(y)
 	return (dArray, np.array(yArray))
 
+def plotHist(x, xLabel, yLabel, title, width, isFloat):
+    plt.title(str(title))
+    plt.xlabel(str(xLabel))
+    plt.ylabel(str(yLabel))
+    if isFloat: plt.hist(x)
+    else:
+        freq = np.bincount(x)
+        freqIndex = np.nonzero(freq)[0]
+        plt.bar(freqIndex, freq[freqIndex], width)
+    plt.grid(True)
+    plt.draw()
+    plt.savefig(title)
+    plt.close()
+
 def main():
 	repeat = 1000
 
-	errTot = 0.0
-	errOut = 0.0
-	wLinTot = np.zeros(6)
+	# errTot = 0.0
+	# wLinTot = np.zeros(6)
+	eOutList = []
 	t0 = time.time()
-	for times in range(repeat):
-		(xArr, y15) = dataGeneration(1000, 2, 0.1)
-		x15 = np.column_stack((np.ones(xArr.shape[0]), featVec(xArr)))
-		wLin = np.dot(np.linalg.pinv(x15), y15)
-		wLinTot += wLin
-		errTot += errRate(x15, y15, wLin)
-	wLinTot /= repeat
-
+	# for times in range(repeat):
+	# 	(xArr, y15) = dataGeneration(1000, 2, 0.1)
+	# 	x15 = np.column_stack((np.ones(xArr.shape[0]), featVec(xArr)))
+	# 	wLin = np.dot(np.linalg.pinv(x15), y15)
+	# 	wLinTot += wLin
+	# 	errTot += errRate(x15, y15, wLin)
+	# wLinTot /= repeat
 	for times in range(repeat):
 		(outArr, outY) = dataGeneration(1000, 2, 0.1)
-		outX = np.column_stack((np.ones(xArr.shape[0]), featVec(outArr)))
-		errOut += errRate(outX, outY, wLin)
-	errOut /= repeat
+		outX = np.column_stack((np.ones(outArr.shape[0]), featVec(outArr)))
+		wLin = np.dot(np.linalg.pinv(outX), outY)
+		eOutList.append(errRate(outX, outY, wLin))
+	errOut = sum(eOutList) / float(repeat)
+	plotHist(eOutList, "Eout Error Rate", "Frequency", "Q15", 0.01, True)
 	t1 = time.time()
 	print '========================================================='
 	print 'Question 15:', errOut

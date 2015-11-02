@@ -56,7 +56,9 @@ def main():
     t1 = time.time()
     print '========================================================='
     if plaResult:
-        print 'Question 11:', TRAIN11_DATA.shape[0], 'points shattred'
+        print 'Question 11:', TRAIN11_DATA.shape[0], 'points shattred by'
+        for w in wList:
+            print w
     else:
         print 'Question 11: time out error'
     print '---------------------------------------------------------'

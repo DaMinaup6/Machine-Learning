@@ -45,7 +45,7 @@ def main():
 	eOut = errRate(xTest20, yTest20, w20)
 	t1 = time.time()
 	print '========================================================='
-	print 'Question 20:', eOut
+	print 'Question 20:', eOut, 'with w', w20
 	print '---------------------------------------------------------'
 	print 'Q20 costs', t1 - t0, 'seconds'
 	print '========================================================='
