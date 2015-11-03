@@ -70,7 +70,7 @@ def main():
 	errAve2 = sum(eInList2) / float(repeat)
 
 	plotHist(eInList1, "No Transform Ein", "Frequency", "Q13-1", 0.01, True)
-	plotHist(eInList2, "Feature Transform Ein", "Frequency", "Q13-2", 0.01, True)
+	# plotHist(eInList2, "Feature Transform Ein", "Frequency", "Q13-2", 0.01, True)
 	t1 = time.time()
 	print '========================================================='
 	print 'Question 13:', errAve1, '; with feature transform:', errAve2, 'with w', wFeat
