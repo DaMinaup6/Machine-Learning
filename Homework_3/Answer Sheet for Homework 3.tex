@@ -429,7 +429,18 @@ E_{\text{in}}&=\dfrac{1}{N}\sum_{n=1}^{N}\ParTh{-\ln\ParTh{\dfrac{\exp\ParTh{\BF
 
 \subsection*{Problem 18}
 
-The $E_{\text{out}}=0.475$.
+The $E_{\text{out}}=0.475$ with
+\begin{align}
+\tilde{\BF{w}}=&\left[0.01878417, -0.01260595,  0.04084862, -0.03266317,  0.01502334,\right.\\
+\nonumber
+&~-0.03667437,0.01255934,  0.04815065, -0.02206419,  0.02479605,\\
+\nonumber
+&~0.06899284,  0.0193719,
+-0.01988549, -0.0087049,   0.04605863,\\
+\nonumber
+&~\left.0.05793382,  0.061218,   -0.04720391,
+0.06070375, -0.01610907, -0.03484607\right]
+\end{align}
 
 \QEDB
 
@@ -437,7 +448,19 @@ The $E_{\text{out}}=0.475$.
 
 \subsection*{Problem 19}
 
-The $E_{\text{out}}=0.220$.
+The $E_{\text{out}}=0.220$ with
+\begin{align}
+\tilde{\BF{w}}=&\left[-0.00385379, -0.18914564,  0.26625908, -0.35356593,  0.04088776,\right.\\
+\nonumber
+&~-0.3794296,
+0.01982783,  0.33391527, -0.26386754,  0.13489328,\\
+\nonumber
+&~0.4914191,   0.08726107,
+-0.25537728, -0.16291797,  0.30073678,\\
+\nonumber
+&~\left.0.40014954,  0.43218808, -0.46227968,
+0.43230193, -0.20786372, -0.36936337\right]
+\end{align}
 
 \QEDB
 
@@ -465,15 +488,37 @@ The $E_{\text{out}}=0.473$ with
 \begin{align}
 \BF{h}^T\BF{y}=\sum_{i=1}^{N}h\ParTh{\BF{x}_i}y_i
 \end{align}
+We just need two times queries to obtain $\BF{h}^T\BF{y}$.
+
+First, take some $h^\prime$ such that $h^\prime\ParTh{\BF{x}_i}=0$, $\forall i$. Then we have
 \begin{align}
-N\ParTh{\text{RMSE}\ParTh{h}}^2=\sum_{i=1}^{N}\ParTh{y_i-h\ParTh{\BF{x_i}}}^2=\sum_{i=1}^{N}y^2_i-2h\ParTh{\BF{x}_i}y_i+h^2\ParTh{\BF{x_i}}
+\text{RMSE}\ParTh{h^\prime}=\sqrt{\dfrac{1}{N}\sum_{i=1}^{N}\ParTh{y_i-h^\prime\ParTh{\BF{x_i}}}^2}=\sqrt{\dfrac{1}{N}\sum_{i=1}^{N}y^2_i}\Rightarrow\sum_{i=1}^{N}y^2_i=N\ParTh{\text{RMSE}\ParTh{h^\prime}}^2
 \end{align}
+Second, query for some $h$,
+\begin{align}
+\text{RMSE}\ParTh{h}&=\sqrt{\dfrac{1}{N}\sum_{i=1}^{N}\ParTh{y_i-h\ParTh{\BF{x_i}}}^2}\\
+N\ParTh{\text{RMSE}\ParTh{h}}^2&=\sum_{i=1}^{N}\ParTh{y_i-h\ParTh{\BF{x_i}}}^2=\sum_{i=1}^{N}y^2_i-2h\ParTh{\BF{x}_i}y_i+h^2\ParTh{\BF{x_i}}\\
+\Rightarrow\BF{h}^T\BF{y}&=-\dfrac{1}{2}\ParTh{N\ParTh{\text{RMSE}\ParTh{h}-\text{RMSE}\ParTh{h^\prime}}^2-\sum_{i=1}^{N}h^2\ParTh{\BF{x_i}}}
+\end{align}
+where we have known the value of $\sum_{i=1}^{N}h^2\ParTh{\BF{x_i}}$ since we have already known all $\BF{x}_i$.
 
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 22}
+
+To find $\min_{\BF{w}}\text{RMSE}\ParTh{H}$, we need to find $\nabla\text{RMSE}\ParTh{H}=0$.
+\begin{align}
+\nabla\text{RMSE}\ParTh{H}=0&\Rightarrow\dfrac{\partial}{\partial w_k}\sum_{i=1}^{N}\ParTh{y_i-\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}^2=0, \forall k\\
+&\Rightarrow2\sum_{i=1}^{N}\ParTh{h_k\ParTh{\BF{x}_i}y_i-h_k\ParTh{\BF{x}_i}\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}=0, \forall k
+\end{align}
+Hence, we need to know the value of $\BF{h}^T_k\BF{y}$ for all $k$. Hence, follow the conclusion above, we need to query for $K+1$ times, where the $+1$ is for querying the value of $\sum_{i=1}^{N}y^2_i$.
+\begin{comment}
+\begin{align}
+\text{RMSE}\ParTh{H}=\sqrt{\dfrac{1}{N}\sum_{i=1}^{N}\ParTh{y_i-\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}}
+\end{align}
+\end{comment}
 
 \QEDB
 
