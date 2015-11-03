@@ -224,6 +224,11 @@ Set $\eta=1$ and let $\BF{w}^T_t\BF{x}_n$ be large enough, we have
 
 \subsection*{Problem 7}
 
+I write a program Q07.py to calculate the result by using
+\begin{align}
+\ParTh{u_{t+1},v_{t+1}}=\ParTh{u_t,v_t}-0.01\nabla E\ParTh{u_t,v_t}
+\end{align}
+iteratively.
 \begin{align}
 \ParTh{u_1,v_1}&=\ParTh{0,0}-0.01\nabla E\ParTh{0,0}=\ParTh{0.02,0}\\
 \ParTh{u_2,v_2}&=\ParTh{0.02,0}-0.01\nabla E\ParTh{0.02,0}\approx\ParTh{0.039398,0.0002}\\
@@ -287,6 +292,11 @@ So
 
 \subsection*{Problem 10}
 
+I write a program Q10.py to calculate the result by using
+\begin{align}
+\ParTh{u_{t+1},v_{t+1}}=\ParTh{u_t,v_t}-\ParTh{\nabla^2E\ParTh{u_t,v_t}}^{-1}\nabla E\ParTh{u_t,v_t}
+\end{align}
+iteratively.
 \begin{align}
 \ParTh{u_1,v_1}&\approx\ParTh{0.695652173913, 0.0869565217391}\\
 \ParTh{u_2,v_2}&\approx\ParTh{0.613762221112, 0.0711078990173}\\
