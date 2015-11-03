@@ -317,7 +317,7 @@ Write a program Q11.py to test, $\CBrackets{\BF{x}_1,\BF{x}_2,\BF{x}_3,\BF{x}_4,
 \begin{align}
 \Phi\ParTh{\BF{x}}=\ParTh{1,x_1,x_2,x^2_1,x_1x_2,x^2_2}
 \end{align}
-The $\BF{w}$ for $2^6=64$ cases are
+Then I ran the PLA and all cases are stasified. The $\BF{w}$ for $2^6=64$ cases are
 \begin{align}
 \begin{array}{llll}
 \left[ 0,  0,  0,  0,  0,  0\right],~&\left[ 0,  1,  0,  1,  0, -4\right],~&\left[ 1,  0,  1, -2, -1, -1\right],~&\left[ 2,  0,  0,  0,  0, -2\right],\\
@@ -523,7 +523,16 @@ To find $\min_{\BF{w}}\text{RMSE}\ParTh{H}$, we need to find $\nabla\text{RMSE}\
 \nabla\text{RMSE}\ParTh{H}=0&\Rightarrow\dfrac{\partial}{\partial w_k}\sum_{i=1}^{N}\ParTh{y_i-\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}^2=0, \forall k\\
 &\Rightarrow2\sum_{i=1}^{N}\ParTh{h_k\ParTh{\BF{x}_i}y_i-h_k\ParTh{\BF{x}_i}\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}=0, \forall k
 \end{align}
-Hence, we need to know the value of $\BF{h}^T_k\BF{y}$ for all $k$. Hence, follow the conclusion above, we need to query for $K+1$ times, where the $+1$ is for querying the value of $\sum_{i=1}^{N}y^2_i$.
+Hence, we need to know the value of $\BF{h}^T_k\BF{y}$ for all $k$. Hence, follow the conclusion above, we need to query for $K+1$ times, where the $+1$ is for querying the value of $\sum_{i=1}^{N}y^2_i$. The derivation steps are
+\begin{enumerate}
+	\item First, use some hypothesis $h^\prime$ such that $h^\prime\ParTh{\BF{x}_i}=0$, $\forall i$ to get the value of $\sum_{i=1}^{N}y^2_i$.
+	\item Second, query for $\text{RMSE}\ParTh{h_k}$, $\forall k$, costs $K$ times query. Then we have all $\BF{h}^T_k\BF{y}$.
+\end{enumerate}
+Hence, we have
+\begin{align}
+\BF{h}^T_k\BF{y}-\sum_{i=1}^{N}\ParTh{h_k\ParTh{\BF{x}_i}\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x}_i}}=0,~\forall k
+\end{align}
+Then we can solve the value of $\BF{w}$ to get the minimized value.
 \begin{comment}
 \begin{align}
 \text{RMSE}\ParTh{H}=\sqrt{\dfrac{1}{N}\sum_{i=1}^{N}\ParTh{y_i-\sum_{k=1}^{K}w_kh_k\ParTh{\BF{x_i}}}}
