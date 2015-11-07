@@ -108,22 +108,40 @@ Set $\sigma=0.1$ and $d=8$, then we can rewrite the formula to be
 	\end{comment}
 	$\BF{H}$ is positive semi-definite $\Leftrightarrow$ All eigenvalues is non-negative. Refer to choice (c), we have shown the properties.
 	\item[(b)]
+	Refer to (e), $\BF{H}$ is idempotent matrix. Suppose $\BF{H}^{-1}$ exists, we have
+	\begin{align}
+	\BF{H}^{-1}\ParTh{\BF{H}^2}=\BF{H}^{-1}\ParTh{\BF{H}}\Rightarrow\BF{H}=\BF{I}
+	\end{align}
+	Hence, $\BF{H}$ is invertible if and only if $\BF{H}=\BF{I}$. Hence, $\BF{H}$ is not always invertible.
 	\begin{comment}
 	Consider the physical meaning of $\BF{H}$. The inverse of projection is not injective, which implies that $\BF{H}$ is not always invertible.
 	\end{comment}
+	\begin{comment}
 	Consider $\BF{X}=\Matrix{ccc}{1&2&1\\0&1&1\\1&1&1}$, we have
 	\begin{align}
 	\BF{H}=\BF{X}\ParTh{\BF{X}^T\BF{X}}^{-1}\BF{X}^T=\Matrix{ccc}{0&0&1\\0&0&1\\1&1&-1}
 	\end{align}
 	which has no inverse.
 	
-	Also, consider the physical meaning of $\BF{H}$. The inverse of projection is not injective, which implies that $\BF{H}$ is not always invertible.
+	Consider the physical meaning of $\BF{H}$. The inverse of projection is not injective, which implies that $\BF{H}$ is not always invertible.
+	\end{comment}
 	\item[(c)] Refer to choice (e), we have $\BF{H}^2=\BF{H}$. Suppose $\lambda$ is the eigenvalue of some non-zero vector $\vec{v}$,
 	\begin{align}
 	\BF{H}\vec{v}=\lambda\vec{v}=\BF{H}^2\vec{v}=\BF{H}\ParTh{\lambda\vec{v}}=\lambda\ParTh{\BF{H}\vec{v}}=\lambda^2\vec{v}\Rightarrow\lambda^2=\lambda
 	\end{align}
 	Hence, the possible results of $\lambda$ is 1 or 0.
-	\item[(d)] Consider the physical meaning of $\BF{H}$. Since there are $d$ features, so at least $d+1$ (since the feature vector contains $x_0$ term) eigenvalues are 1.
+	\item[(d)] For a symmetric and idempotent matrix $\BF{H}$, $\text{rank}\ParTh{\BF{H}}=\text{trace}\ParTh{\BF{H}}$, the
+	number of non-zero eigenvalues of $\BF{H}$.
+	\begin{align}
+	\text{trace}\ParTh{\BF{H}}&=\text{trace}\ParTh{\BF{X}\ParTh{\BF{X}^T\BF{X}}^{-1}\BF{X}^T}=\text{trace}\ParTh{\ParTh{\BF{X}^T\BF{X}}^{-1}\BF{X}^T\BF{X}}\\
+	&=\text{trace}\ParTh{\BF{I}_{d+1}}=d+1
+	\end{align}
+	where we have used $\text{trace}\ParTh{\BF{A}\BF{B}}=\text{trace}\ParTh{\BF{B}\BF{A}}$.
+	
+	Since eigenvalue can only be 0 or 1, so there are $d+1$ eigenvalues of 1.
+	\begin{comment}
+	Consider the physical meaning of $\BF{H}$. Since there are $d$ features, so at least $d+1$ (since the feature vector contains $x_0$ term) eigenvalues are 1.
+	\end{comment}
 	\item[(e)] By the definition of $\BF{H}$, we have
 	\begin{align}
 	\BF{H}^2&=\ParTh{\BF{X}\ParTh{\BF{X}^T\BF{X}}^{-1}\BF{X}^T}\ParTh{\BF{X}\ParTh{\BF{X}^T\BF{X}}^{-1}\BF{X}^T}\\
