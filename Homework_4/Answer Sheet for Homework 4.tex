@@ -1,0 +1,290 @@
+\documentclass[12pt]{article}
+
+% Use packages %
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd}
+\usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
+
+% Set length %
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{235mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\topmargin}{-10mm}
+
+% Define h-bar %
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
+
+% Chinese input %
+%\usepackage{xeCJK} 
+%\setCJKmainfont{微軟正黑體}
+%\usepackage[T1]{fontenc}
+%\makeatletter
+
+% Equation number %
+%\@addtoreset{equation}{section} 
+%\renewcommand\theequation{{\thesection}.{\arabic{equation}}}
+%\makeatletter 
+
+% Helper Command %
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\rmnum}[1]{\romannumeral #1} 
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\makeatother
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+\newcommand*{\BmVert}{\bigm\vert}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
+\newcommand{\CBrackets}[1]{\left\{#1\right\}}
+\newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\ParTh}[1]{\left(#1\right)}
+\newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\BF}[1]{{\bf#1}}
+\newcommand{\Inverse}[1]{{#1}^{-1}}
+\newcommand{\Generator}[1]{\left\langle#1\right\rangle}
+\newcommand{\AbsVal}[1]{\left|#1\right|}
+\newcommand{\VecAbsVal}[1]{\left\|#1\right\|}
+\newcommand{\BSlash}[2]{\left.#1\middle\backslash#2\right.}
+\newcommand{\Divide}[2]{\left.#1\middle/#2\right.}
+\newcommand{\SciNum}[2]{#1\times{10}^{#2}}
+\newcommand{\Matrix}[2]{\ParTh{\begin{array}{#1}#2\end{array}}}
+\newcommand{\MatrixTwo}[4]{\ParTh{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\newcommand{\MatrixNByN}[1]{\Matrix{cccc}{{#1}_{11} & {#1}_{12} & \cdots & {#1}_{1n} \\ {#1}_{21} & {#1}_{22} & \cdots & {#1}_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ {#1}_{n1} & {#1}_{n2} & \cdots & {#1}_{nn}}}
+\newcommand{\ndiv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\newcount\arrowcount
+\newcommand\arrows[1]{\global\arrowcount#1 \ifnum\arrowcount>0
+\begin{matrix}\expandafter\nextarrow\fi}
+\newcommand\nextarrow[1]{\global\advance\arrowcount-1 \ifx\relax#1\relax\else \xrightarrow{#1}\fi\ifnum\arrowcount=0 \end{matrix}\else\\\expandafter\nextarrow\fi}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Tikz settings %
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{mapsto}   = [draw, |->]
+\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+
+\begin{document}
+
+\baselineskip 6.5mm
+\setlength{\parindent}{0pt}
+\title{ 
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm]
+\huge { \Huge Machine Learning \\ \large Answer Sheet for Homework 4 }\\ % The assignment title
+\horrule{2pt} \\ [0.5cm]
+}
+\author{ { \Large Da-Min HUANG } \\
+{\small R04942045} \\
+{\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
+}
+%\date{}
+%\allowdisplaybreaks[4]
+\maketitle
+
+\subsection*{Problem 1}
+
+Deterministic error is the difference between best $h^* \in H$ and $f$. If $H^\prime\subset H$, then the complexity of $H^\prime$ is lower than $H$ in general. Hence, in general, the deterministic error increases.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+\begin{enumerate}
+	\item
+	\begin{align}
+	H\ParTh{10,0,3}\cap H\ParTh{10,0,4}&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}\cap\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}}\\
+	&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}=H_2
+	\end{align}
+	\item
+	\begin{align}
+	H\ParTh{10,0,3}\cup H\ParTh{10,1,4}&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}\cup\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}+\sum_{i=4}^{10}L_q\ParTh{x}}\\
+	&=\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}+\sum_{i=4}^{10}L_q\ParTh{x}}
+	\end{align}
+	\item
+	\begin{align}
+	H\ParTh{10,1,3}\cap H\ParTh{10,1,4}&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}+\sum_{i=3}^{10}L_q\ParTh{x}}\cap\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}+\sum_{i=4}^{10}L_q\ParTh{x}}\\
+	&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}+\sum_{i=4}^{10}L_q\ParTh{x}}
+	\end{align}
+	\item
+	\begin{align}
+	H\ParTh{10,0,3}\cup H\ParTh{10,0,4}&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}\cup\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}}\\
+	&=\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}}=H_3
+	\end{align}
+\end{enumerate}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+We have
+\begin{align}
+\BF{w}_{t+1}\leftarrow\BF{w}_{t}-\eta\nabla E_{\text{aug}}\ParTh{\BF{w}_t}
+\end{align}
+where $\nabla E_{\text{aug}}\ParTh{\BF{w}_t}$ is
+\begin{align}
+\nabla E_{\text{aug}}\ParTh{\BF{w}_t}=\dfrac{\partial}{\partial\BF{w}^T_t}\ParTh{E_{\text{in}}\ParTh{\BF{w}_t}+\dfrac{\lambda}{N}\BF{w}^T_t\BF{w}_t}=\dfrac{\partial E_{\text{in}}\ParTh{\BF{w}_t}}{\partial\BF{w}^T_t}+\dfrac{2\lambda}{N}\BF{w}_t
+\end{align}
+Hence, we have
+\begin{align}
+\BF{w}_{t+1}\leftarrow\ParTh{1-\dfrac{2\eta\lambda}{N}}\BF{w}_{t}-\eta\nabla E_{\text{in}}\ParTh{\BF{w}_t}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+Since $\BF{w}_{\text{lin}}$ is the optimal solution for the plain-vanilla linear regression, we have
+\begin{align}
+E_{\text{in}}\ParTh{\BF{w}_{\text{lin}}}\leq E_{\text{in}}\ParTh{\BF{w}_{\text{reg}}\ParTh{\lambda}}
+\end{align}
+Also, $\BF{w}_{\text{reg}}\ParTh{\lambda}$ is the optimal solution for $E_{\text{aug}}\ParTh{\BF{w}}$, we have
+\begin{align}
+E_{\text{aug}}\ParTh{\BF{w}_{\text{reg}}\ParTh{\lambda}}\leq E_{\text{aug}}\ParTh{\BF{w}_{\text{lin}}}
+\end{align}
+So, we have
+\begin{align}
+E_{\text{in}}\ParTh{\BF{w}_{\text{reg}}\ParTh{\lambda}}+\dfrac{\lambda}{N}\BF{w}^T_{\text{reg}}\ParTh{\lambda}\BF{w}_{\text{reg}}\ParTh{\lambda}&\leq E_{\text{in}}\ParTh{\BF{w}_{\text{lin}}}+\dfrac{\lambda}{N}\BF{w}^T_{\text{lin}}\BF{w}_{\text{lin}}\\
+0\leq E_{\text{in}}\ParTh{\BF{w}_{\text{reg}}\ParTh{\lambda}}-E_{\text{in}}\ParTh{\BF{w}_{\text{lin}}}&\leq \dfrac{\lambda}{N}\ParTh{\VecAbsVal{\BF{w}_{\text{lin}}}^2-\VecAbsVal{\BF{w}_{\text{reg}}\ParTh{\lambda}}^2},~\forall\lambda
+\end{align}
+Hence, we have $\VecAbsVal{\BF{w}_{\text{lin}}}\geq\VecAbsVal{\BF{w}_{\text{reg}}\ParTh{\lambda}}$ if $\lambda>0$.
+
+Since this inequality holds for all $\lambda$ and $\VecAbsVal{\BF{w}_{\text{lin}}}$ is not a function of $\lambda$. We know that $\VecAbsVal{\BF{w}_{\text{reg}}\ParTh{\lambda}}$ is a non-increasing function of $\lambda$ for $\lambda\geq0$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+For constant model with three points $A\ParTh{-1,0}$, $B\ParTh{\rho,1}$ and $C\ParTh{1,0}$.
+\begin{align}
+\dfrac{1}{3}\ParTh{\underbrace{\ParTh{0-\dfrac{1}{2}}^2}_{\text{leave }A}+\underbrace{\ParTh{1-0}^2}_{\text{leave }B}+\underbrace{\ParTh{0-\dfrac{1}{2}}^2}_{\text{leave }C}}=\dfrac{1}{2}
+\end{align}
+For linear model. Leave $A$, we get line $y=\dfrac{1}{\rho-1}\ParTh{x-1}$; leave $B$, we get line $y=0$; leave $C$, we get line $y=\dfrac{1}{\rho+1}\ParTh{x+1}$. So the error is
+\begin{align}
+\dfrac{1}{3}\ParTh{\ParTh{0-\ParTh{\dfrac{-2}{\rho-1}}}^2+\ParTh{1-0}^2+\ParTh{0-\dfrac{2}{\rho+1}}^2}
+\end{align}
+Then we have
+\begin{align}
+\dfrac{1}{3}\ParTh{\dfrac{4}{{\rho^2-2\rho+1}}+1+\dfrac{4}{{\rho^2+2\rho+1}}}=\dfrac{1}{2}\Rightarrow\rho=\pm\sqrt{9+4\sqrt{6}}
+\end{align}
+Since $\rho>0$, we have $\rho=\sqrt{9+4\sqrt{6}}$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 8}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 9}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 10}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 11}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 12}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 13}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 14}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 15}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 16}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 17}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 18}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 19}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 20}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section*{Reference}
+
+\begin{enumerate}
+
+\item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
+
+%\item[{[2]}] Three proofs of Sauer-Shelah Lemma. (n. d. ). Retrieved Fall, 2010, from \url{http://www.cse.buffalo.edu/~hungngo/classes/2010/711/lectures/sauer.pdf}
+
+\end{enumerate}
+
+\end{document}
