@@ -17,24 +17,25 @@ def errRate(x, y, w):
 
 def main():
 	LAMB = 10
+	SPLIT = 120
 
 	t0 = time.time()
-	TRAIN17_FILE = 'hw4_train_subtract.dat'
+	TRAIN17_FILE = 'hw4_train.dat'
 	TRAIN17_DATA = np.loadtxt(TRAIN17_FILE, dtype=np.float)
-	xTrain17 = np.column_stack((np.ones(TRAIN17_DATA.shape[0]), TRAIN17_DATA[:, 0:(TRAIN17_DATA.shape[1] - 1)]))
-	yTrain17 = TRAIN17_DATA[:, (TRAIN17_DATA.shape[1] - 1)]
+	xTrain17 = np.column_stack((np.ones(SPLIT), TRAIN17_DATA[0:SPLIT, 0:(TRAIN17_DATA.shape[1] - 1)]))
+	yTrain17 = TRAIN17_DATA[0:SPLIT, (TRAIN17_DATA.shape[1] - 1)]
 
-	VALD17_FILE = 'hw4_validate.dat'
+	VALD17_FILE = 'hw4_train.dat'
 	VALD17_DATA = np.loadtxt(VALD17_FILE, dtype=np.float)
-	xVald17 = np.column_stack((np.ones(VALD17_DATA.shape[0]), VALD17_DATA[:, 0:(VALD17_DATA.shape[1] - 1)]))
-	yVald17 = VALD17_DATA[:, (VALD17_DATA.shape[1] - 1)]
+	xVald17 = np.column_stack((np.ones(TRAIN17_DATA.shape[0] - SPLIT), VALD17_DATA[SPLIT:, 0:(VALD17_DATA.shape[1] - 1)]))
+	yVald17 = VALD17_DATA[SPLIT:, (VALD17_DATA.shape[1] - 1)]
 
 	TEST17_FILE = 'hw4_test.dat'
 	TEST17_DATA = np.loadtxt(TEST17_FILE, dtype=np.float)
 	xTest17 = np.column_stack((np.ones(TEST17_DATA.shape[0]), TEST17_DATA[:, 0:(TEST17_DATA.shape[1] - 1)]))
 	yTest17 = TEST17_DATA[:, (TEST17_DATA.shape[1] - 1)]
 
-	lambList = []
+	lambPowList = []
 	eInList  = []
 	eValList = []
 	eOutList = []
@@ -43,21 +44,23 @@ def main():
 		eIn	 = errRate(xTrain17, yTrain17, wREG)
 		eVal = errRate(xVald17,  yVald17,  wREG)
 		eOut = errRate(xTest17,  yTest17,  wREG)
-		lambList.append(lambPower)
+		lambPowList.append(lambPower)
 		eInList.append(eIn)
 		eValList.append(eVal)
 		eOutList.append(eOut)
 	eValList = np.array(eValList)
 	minIndex = np.where(eValList == eValList.min())
+	index    = minIndex[0].max()
 	t1 = time.time()
 	print '========================================================='
-	if len(minIndex[0]) > 1:
-		print 'Question 17:'
-		for index in minIndex[0]:
-			print 'log(lambda) is', lambList[index], 'Etrain is', eInList[index], ', Eval is', eValList[index], 'and Eout is', eOutList[index]
-	else:
-		index = minIndex[0][0]
-		print 'Question 17: log(lambda) is', lambList[index], 'Etrain is', eInList[index], ', Eval is', eValList[index], 'and Eout is', eOutList[index]
+	# if len(minIndex[0]) > 1:
+	# 	print 'Question 17:'
+	# 	for index in minIndex[0]:
+	# 		print 'log(lambda) is', lambPowList[index], 'Etrain is', eInList[index], ', Eval is', eValList[index], 'and Eout is', eOutList[index]
+	# else:
+	# 	index = minIndex[0][0]
+	# 	print 'Question 17: log(lambda) is', lambPowList[index], 'Etrain is', eInList[index], ', Eval is', eValList[index], 'and Eout is', eOutList[index]
+	print 'Question 17: log(lambda) is', lambPowList[index], 'Etrain is', eInList[index], ', Eval is', eValList[index], 'and Eout is', eOutList[index]
 	print '---------------------------------------------------------'
 	print 'Q17 costs', t1 - t0, 'seconds'
 	print '========================================================='

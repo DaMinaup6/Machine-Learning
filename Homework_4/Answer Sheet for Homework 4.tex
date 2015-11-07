@@ -213,9 +213,9 @@ From the conclusion above, we have
 
 \subsection*{Problem 8}
 
-The mathematical derivations with perfect prediction, which means the hypothesis set shatters the $N$ data. So the size of the hypothesis is $2^N$.
-\begin{comment}
 The mathematical derivations can just generate hypothesis set with size 1.
+\begin{comment}
+The mathematical derivations with perfect prediction, which means the hypothesis set shatters the $N$ data. So the size of the hypothesis is $2^N$.
 \end{comment}
 
 \QEDB
@@ -226,7 +226,7 @@ The mathematical derivations can just generate hypothesis set with size 1.
 
 The Hoeffding bound is
 \begin{align}
-2\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
+2M\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
 %2m_{\mathcal{H}}\ParTh{2N}\cdot2\exp\ParTh{-2\ParTh{\dfrac{\epsilon}{4}}^2N}=2^{20002}\exp\ParTh{-20000\ParTh{\dfrac{0.01}{4}}^2}
 \end{align}
 
@@ -333,17 +333,23 @@ There are eight lambda with minimal $E_{\text{in}}$.
 
 \subsection*{Problem 18}
 
+The returned $\log_{10}\ParTh{\lambda}=0\Rightarrow\lambda=1$. $E_{\text{in}}=0.035$ and $E_{\text{out}}=0.020$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 19}
 
+The returned $\log_{10}\ParTh{\lambda}=-8$ and $E_{\text{cv}}=0.030$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 20}
+
+$E_{\text{in}}=0.015$ and $E_{\text{out}}=0.020$.
 
 \QEDB
 

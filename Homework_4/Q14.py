@@ -29,27 +29,29 @@ def main():
 	xTest14 = np.column_stack((np.ones(TEST14_DATA.shape[0]), TEST14_DATA[:, 0:(TEST14_DATA.shape[1] - 1)]))
 	yTest14 = TEST14_DATA[:, (TEST14_DATA.shape[1] - 1)]
 
-	lambList = []
+	lambPowList = []
 	eInList  = []
 	eOutList = []
 	for lambPower in range(-10, 3):
 		wREG = RLRV(xTrain14, yTrain14, math.pow(LAMB, lambPower))
 		eIn	 = errRate(xTrain14, yTrain14, wREG)
 		eOut = errRate(xTest14,  yTest14,  wREG)
-		lambList.append(lambPower)
+		lambPowList.append(lambPower)
 		eInList.append(eIn)
 		eOutList.append(eOut)
 	eInList  = np.array(eInList)
 	minIndex = np.where(eInList == eInList.min())
+	index    = minIndex[0].max()
 	t1 = time.time()
 	print '========================================================='
-	if len(minIndex[0]) > 1:
-		print 'Question 14:'
-		for index in minIndex[0]:
-			print 'log(lambda) is', lambList[index], 'Ein is', eInList[index], 'and Eout is', eOutList[index]
-	else:
-		index = minIndex[0][0]
-		print 'Question 14: log(lambda) is', lambList[index], 'Ein is', eInList[index], 'and Eout is', eOutList[index]
+	# if len(minIndex[0]) > 1:
+	# 	print 'Question 14:'
+	# 	for index in minIndex[0]:
+	# 		print 'log(lambda) is', lambPowList[index], 'Ein is', eInList[index], 'and Eout is', eOutList[index]
+	# else:
+	# 	index = minIndex[0][0]
+	# 	print 'Question 14: log(lambda) is', lambPowList[index], 'Ein is', eInList[index], 'and Eout is', eOutList[index]
+	print 'Question 14: log(lambda) is', lambPowList[index], 'Ein is', eInList[index], 'and Eout is', eOutList[index]
 	print '---------------------------------------------------------'
 	print 'Q14 costs', t1 - t0, 'seconds'
 	print '========================================================='
