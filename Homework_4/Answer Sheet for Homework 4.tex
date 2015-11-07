@@ -189,11 +189,23 @@ Since $\rho>0$, we have $\rho=\sqrt{9+4\sqrt{6}}$.
 
 \subsection*{Problem 6}
 
+If the sender wants to make sure at least one person receives correct predictions on all 5 games. Then he should target at least 32 people at first game since there are half the number of people receive wrong prediction after each game and the sender can just ignore people who receives wrong prediction.
+
+The sender sends
+\begin{align}
+32+16+8+4+2+1=63\text{ letters}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 7}
+
+From the conclusion above, we have
+\begin{align}
+1000-63\times10=370
+\end{align}
 
 \QEDB
 
@@ -201,17 +213,32 @@ Since $\rho>0$, we have $\rho=\sqrt{9+4\sqrt{6}}$.
 
 \subsection*{Problem 8}
 
+The mathematical derivations can just generate hypothesis set with size 1.
+\begin{comment}
+The mathematical derivations with perfect prediction, which means the hypothesis set shatters the $N$ data. So the size of the hypothesis is $2^N$.
+\end{comment}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 9}
 
+The Hoeffding bound is
+\begin{align}
+2M\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
+%2m_{\mathcal{H}}\ParTh{2N}\cdot2\exp\ParTh{-2\ParTh{\dfrac{\epsilon}{4}}^2N}=2^{20002}\exp\ParTh{-20000\ParTh{\dfrac{0.01}{4}}^2}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 10}
+
+The computation of Hoeffding bound is computated with data verified by $a\ParTh{\BF{x}}$. To improve the performance of $g\ParTh{\BF{x}}$, we should only give data sampled by $a\ParTh{\BF{x}}$.
+
+Hence, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
 
 \QEDB
 
