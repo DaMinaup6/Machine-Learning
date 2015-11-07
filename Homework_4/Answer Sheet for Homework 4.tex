@@ -213,9 +213,9 @@ From the conclusion above, we have
 
 \subsection*{Problem 8}
 
-The mathematical derivations can just generate hypothesis set with size 1.
-\begin{comment}
 The mathematical derivations with perfect prediction, which means the hypothesis set shatters the $N$ data. So the size of the hypothesis is $2^N$.
+\begin{comment}
+The mathematical derivations can just generate hypothesis set with size 1.
 \end{comment}
 
 \QEDB
@@ -226,7 +226,7 @@ The mathematical derivations with perfect prediction, which means the hypothesis
 
 The Hoeffding bound is
 \begin{align}
-2M\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
+2\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
 %2m_{\mathcal{H}}\ParTh{2N}\cdot2\exp\ParTh{-2\ParTh{\dfrac{\epsilon}{4}}^2N}=2^{20002}\exp\ParTh{-20000\ParTh{\dfrac{0.01}{4}}^2}
 \end{align}
 
@@ -246,11 +246,27 @@ Hence, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
 
 \subsection*{Problem 11}
 
+To get optimal solution, consider the following equation.
+\begin{align}
+&\nabla\ParTh{\sum_{n=1}^{N}\ParTh{y_n-\BF{w}^T\BF{x}_n}^2+\sum_{k=1}^{K}\ParTh{\tilde{y}_k-\BF{w}^T\tilde{\BF{x}}_k}^2}\\
+=&-2\ParTh{\sum_{n=1}^{N}\BF{x}_n\ParTh{y_n-\BF{x}^T_n\BF{w}}+\sum_{k=1}^{K}\tilde{\BF{x}}_k\ParTh{\tilde{y}_k-\tilde{\BF{x}}^T_k\BF{w}}}\\
+=&-2\ParTh{\ParTh{\BF{X}^T\BF{y}-\BF{X}^T\BF{X}\BF{w}}+\ParTh{\tilde{\BF{X}}^T\tilde{\BF{y}}-\tilde{\BF{X}}^T\tilde{\BF{X}}\BF{w}}}\\
+=&\BF{0}
+\end{align}
+Hence, we have $\BF{w}=\ParTh{\BF{X}^T\BF{X}+\tilde{\BF{X}}^T\tilde{\BF{X}}}^{-1}\ParTh{\BF{X}^T\BF{y}+\tilde{\BF{X}}^T\tilde{\BF{y}}}$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 12}
+
+To minimize the formula, consider the following equation.
+\begin{align}
+\nabla\ParTh{\lambda\VecAbsVal{\BF{w}}^2+\VecAbsVal{\BF{X}\BF{w}+\BF{y}}^2}&=2\lambda\BF{w}+2\BF{X}^T\BF{X}\BF{w}-2\BF{X}^T\BF{y}=\BF{0}\\
+\Rightarrow\BF{w}&=\ParTh{\BF{X}^T\BF{X}+\lambda\BF{I}}^{-1}\BF{X}^T\BF{y}
+\end{align}
+Hence, we have $\tilde{\BF{X}}=\sqrt{\lambda}\BF{I}$, $\tilde{\BF{y}}=\BF{0}$.
 
 \QEDB
 
@@ -258,11 +274,20 @@ Hence, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
 
 \subsection*{Problem 13}
 
+$E_{\text{in}}=0.05$ and $E_{\text{out}}=0.045$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 14}
+
+There are three lambda with minimal $E_{\text{in}}$.
+\begin{enumerate}
+	\item $\log_{10}\lambda=-10$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
+	\item $\log_{10}\lambda=-9$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
+	\item $\log_{10}\lambda=-8$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
+\end{enumerate}
 
 \QEDB
 
@@ -270,17 +295,37 @@ Hence, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
 
 \subsection*{Problem 15}
 
+$\log_{10}\lambda=-7$, $E_{\text{in}}=0.03$ and $E_{\text{out}}=0.015$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 16}
 
+There are two lambda with minimal $E_{\text{in}}$.
+\begin{enumerate}
+	\item $\log_{10}\lambda=-9$, $E_{\text{train}}=0.0$, $E_{\text{val}}=0.1$ and $E_{\text{out}}=0.038$.
+	\item $\log_{10}\lambda=-8$, $E_{\text{train}}=0.0$, $E_{\text{val}}=0.05$ and $E_{\text{out}}=0.025$.
+\end{enumerate}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 17}
+
+There are eight lambda with minimal $E_{\text{in}}$.
+\begin{enumerate}
+	\item $\log_{10}\lambda=-7$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-6$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-5$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-4$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-3$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-2$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
+	\item $\log_{10}\lambda=-1$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.022$.
+	\item $\log_{10}\lambda=0$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.028$.
+\end{enumerate}
 
 \QEDB
 
