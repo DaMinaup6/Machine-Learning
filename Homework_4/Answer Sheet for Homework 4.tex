@@ -238,7 +238,7 @@ The Hoeffding bound is
 
 The computation of Hoeffding bound is computated with data verified by $a\ParTh{\BF{x}}$. To improve the performance of $g\ParTh{\BF{x}}$, we should only give data sampled by $a\ParTh{\BF{x}}$.
 
-Hence, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
+Hence, if lucky enough, $a\ParTh{\BF{x}}\text{ AND }g\ParTh{\BF{x}}$ can improve the system.
 
 \QEDB
 
@@ -251,7 +251,7 @@ To get optimal solution, consider the following equation.
 &\nabla\ParTh{\sum_{n=1}^{N}\ParTh{y_n-\BF{w}^T\BF{x}_n}^2+\sum_{k=1}^{K}\ParTh{\tilde{y}_k-\BF{w}^T\tilde{\BF{x}}_k}^2}\\
 =&-2\ParTh{\sum_{n=1}^{N}\BF{x}_n\ParTh{y_n-\BF{x}^T_n\BF{w}}+\sum_{k=1}^{K}\tilde{\BF{x}}_k\ParTh{\tilde{y}_k-\tilde{\BF{x}}^T_k\BF{w}}}\\
 =&-2\ParTh{\ParTh{\BF{X}^T\BF{y}-\BF{X}^T\BF{X}\BF{w}}+\ParTh{\tilde{\BF{X}}^T\tilde{\BF{y}}-\tilde{\BF{X}}^T\tilde{\BF{X}}\BF{w}}}\\
-=&\BF{0}
+=&~\BF{0}
 \end{align}
 Hence, we have $\BF{w}=\ParTh{\BF{X}^T\BF{X}+\tilde{\BF{X}}^T\tilde{\BF{X}}}^{-1}\ParTh{\BF{X}^T\BF{y}+\tilde{\BF{X}}^T\tilde{\BF{y}}}$.
 
