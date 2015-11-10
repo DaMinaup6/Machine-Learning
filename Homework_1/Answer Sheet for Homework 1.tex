@@ -202,13 +202,22 @@ But for $N<n\leq N+L$,
 \mathbb{P}_f\CBrackets{\CBrackets{E_{OTS}\ParTh{\mathcal{A}_1,~f}}^{N+L}_{n=N+1}=\CBrackets{E_{OTS}\ParTh{\mathcal{A}_2,~f}}^{N+L}_{n=N+1}}=\dfrac{1}{2^L}
 \end{align}
 \end{comment}
-Since $\mathcal{A}_1$ and $\mathcal{A}_2$ have $2^L$ choices. But
+If all those $f$ that can generate $\mathcal{D}$ in a noiseless setting are equally likely in probability, from previous problem, we know that there are $2^L$ possible $f$.
+
+Thus, for $\BF{x}=\BF{x}_k$, $N+1\leq k\leq N+L$, $f\ParTh{\BF{x}_k}=+1\text{ or }-1$.
+
+So
 \begin{align}
-\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{\mathcal{A}_1,~f}}&=\mathbb{E}_f\ParTh{\dfrac{1}{L}\sum_{\ell=1}^{L}\SBrackets{\mathcal{A}_1\ParTh{\BF{x_{N+\ell}}}\neq f\ParTh{\BF{x}_{N+\ell}}}}
+\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{g,~f}}&=\mathbb{E}_f\ParTh{\dfrac{1}{L}\sum_{\ell=1}^{L}\SBrackets{g\ParTh{\BF{x_{N+\ell}}}\neq f\ParTh{\BF{x}_{N+\ell}}}}
 \\
-&=\dfrac{1}{L}\mathbb{E}_f\ParTh{\sum_{\ell=1}^{L}\SBrackets{\mathcal{A}_1\ParTh{\BF{x_{N+\ell}}}\neq f\ParTh{\BF{x}_{N+\ell}}}}\\
+&=\dfrac{1}{L}\mathbb{E}_f\ParTh{\sum_{\ell=1}^{L}\SBrackets{g\ParTh{\BF{x_{N+\ell}}}\neq f\ParTh{\BF{x}_{N+\ell}}}}\\
 &=\dfrac{1}{L}\ParTh{\underbrace{\dfrac{L}{2}}_{\text{Expected error number}}}=\dfrac{1}{2}
 \end{align}
+Since $\mathcal{A}_1$ and $\mathcal{A}_2$ are deterministic, we have
+\begin{align}
+\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{g,~f}}=\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{\mathcal{A}_1,~f}}=\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{\mathcal{A}_2,~f}}
+\end{align}
+\begin{comment}
 and
 \begin{align}
 \mathbb{E}_f\CBrackets{E_{OTS}\ParTh{\mathcal{A}_2,~f}}&=\mathbb{E}_f\ParTh{\dfrac{1}{L}\sum_{\ell=1}^{L}\SBrackets{\mathcal{A}_2\ParTh{\BF{x_{N+\ell}}}\neq f\ParTh{\BF{x}_{N+\ell}}}}
@@ -218,6 +227,7 @@ and
 \end{align}
 because there are only 2 output choices, so the expectation value of error rate should be $\Divide{1}{2}$ in a noiseless setting.
 %\mathbb{E}_f\CBrackets{E_{OTS}\ParTh{\mathcal{A}_2,~f}}
+\end{comment}
 
 \QEDB
 
