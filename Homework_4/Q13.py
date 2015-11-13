@@ -1,6 +1,7 @@
 import math
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def RLRV(x, y, lamb):
 	XTX = np.dot(np.transpose(x), x)
@@ -16,7 +17,7 @@ def errRate(x, y, w):
     return float(errCount) / len(y)
 
 def main():
-	LAMB = 10
+	LAMB = 11.26
 
 	t0 = time.time()
 	TRAIN13_FILE = 'hw4_train.dat'

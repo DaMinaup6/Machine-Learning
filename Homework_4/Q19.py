@@ -1,6 +1,7 @@
 import math
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def RLRV(x, y, lamb):
 	XTX = np.dot(np.transpose(x), x)
@@ -39,8 +40,22 @@ def errRate(x, y, w):
     errCount = yErr.shape[0]
     return float(errCount) / len(y)
 
+def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
+    plt.title(str(title))
+    plt.xlabel(str(xLabel))
+    plt.ylabel(str(yLabel))
+    if isFloat: plt.hist(x)
+    else:
+        # freq = np.bincount(x)
+        # freqIndex = np.nonzero(freq)[0]
+        plt.plot(x, y)
+    plt.grid(True)
+    plt.draw()
+    plt.savefig(title)
+    plt.close()
+
 def main():
-	LAMB = 10
+	LAMB = 11.26
 	SPLIT = 40
 
 	t0 = time.time()
@@ -64,6 +79,7 @@ def main():
 	eCvList  = np.array(eCvList)
 	minIndex = np.where(eCvList == eCvList.min())
 	index    = minIndex[0].max()
+	plotHist(lambPowList, eCvList, "log(lambda)", "Ecv", "Q19", 1, False)
 
 	t1 = time.time()
 	print '========================================================='

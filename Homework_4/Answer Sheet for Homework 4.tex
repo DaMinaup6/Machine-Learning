@@ -98,6 +98,12 @@ Deterministic error is the difference between best $h^* \in H$ and $f$. If $H^\p
 
 \subsection*{Problem 2}
 
+\begin{align}
+H\ParTh{10,0,3}\cap H\ParTh{10,0,4}&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}\cap\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}}\\
+&=\CBrackets{\sum_{i=0}^{2}w_qL_q\ParTh{x}}=H_2
+\end{align}
+Hence, $Q=2$.
+\begin{comment}
 \begin{enumerate}
 	\item
 	\begin{align}
@@ -120,6 +126,7 @@ Deterministic error is the difference between best $h^* \in H$ and $f$. If $H^\p
 	&=\CBrackets{\sum_{i=0}^{3}w_qL_q\ParTh{x}}=H_3
 	\end{align}
 \end{enumerate}
+\end{comment}
 
 \QEDB
 
@@ -230,7 +237,7 @@ The mathematical derivations with perfect prediction, which means the hypothesis
 
 The Hoeffding bound is
 \begin{align}
-2M\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-20000\times\ParTh{0.01}^2}=2e^{-2}\approx0.271
+2M\exp\ParTh{-2\epsilon^2N}=2\exp\ParTh{-10000\times\ParTh{0.01}^2}=2e^{-1}\approx0.736
 %2m_{\mathcal{H}}\ParTh{2N}\cdot2\exp\ParTh{-2\ParTh{\dfrac{\epsilon}{4}}^2N}=2^{20002}\exp\ParTh{-20000\ParTh{\dfrac{0.01}{4}}^2}
 \end{align}
 
@@ -267,7 +274,7 @@ Hence, we have $\BF{w}=\ParTh{\BF{X}^T\BF{X}+\tilde{\BF{X}}^T\tilde{\BF{X}}}^{-1
 
 To minimize the formula, consider the following equation.
 \begin{align}
-\nabla\ParTh{\lambda\VecAbsVal{\BF{w}}^2+\VecAbsVal{\BF{X}\BF{w}+\BF{y}}^2}&=2\lambda\BF{w}+2\BF{X}^T\BF{X}\BF{w}-2\BF{X}^T\BF{y}=\BF{0}\\
+\nabla\ParTh{\lambda\VecAbsVal{\BF{w}}^2+\VecAbsVal{\BF{X}\BF{w}-\BF{y}}^2}&=2\lambda\BF{w}+2\BF{X}^T\BF{X}\BF{w}-2\BF{X}^T\BF{y}=\BF{0}\\
 \Rightarrow\BF{w}&=\ParTh{\BF{X}^T\BF{X}+\lambda\BF{I}}^{-1}\BF{X}^T\BF{y}
 \end{align}
 Hence, we have $\tilde{\BF{X}}=\sqrt{\lambda}\BF{I}$, $\tilde{\BF{y}}=\BF{0}$.
@@ -278,7 +285,7 @@ Hence, we have $\tilde{\BF{X}}=\sqrt{\lambda}\BF{I}$, $\tilde{\BF{y}}=\BF{0}$.
 
 \subsection*{Problem 13}
 
-$E_{\text{in}}=0.05$ and $E_{\text{out}}=0.045$.
+$E_{\text{in}}=0.055$ and $E_{\text{out}}=0.052$.
 
 \QEDB
 
@@ -286,12 +293,21 @@ $E_{\text{in}}=0.05$ and $E_{\text{out}}=0.045$.
 
 \subsection*{Problem 14}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q14.png}
+	\caption{Q14}
+	\label{Q14}
+\end{figure}
+$\log_{10}\lambda=-8$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
+\begin{comment}
 There are three lambda with minimal $E_{\text{in}}$.
 \begin{enumerate}
 	\item $\log_{10}\lambda=-10$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
 	\item $\log_{10}\lambda=-9$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
 	\item $\log_{10}\lambda=-8$, $E_{\text{in}}=0.015$ and $E_{\text{out}}=0.02$.
 \end{enumerate}
+\end{comment}
 
 \QEDB
 
@@ -299,7 +315,13 @@ There are three lambda with minimal $E_{\text{in}}$.
 
 \subsection*{Problem 15}
 
-$\log_{10}\lambda=-7$, $E_{\text{in}}=0.03$ and $E_{\text{out}}=0.015$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q15.png}
+	\caption{Q15}
+	\label{Q15}
+\end{figure}
+$\log_{10}\lambda=-7$, $E_{\text{in}}=0.02$ and $E_{\text{out}}=0.016$.
 
 \QEDB
 
@@ -307,11 +329,20 @@ $\log_{10}\lambda=-7$, $E_{\text{in}}=0.03$ and $E_{\text{out}}=0.015$.
 
 \subsection*{Problem 16}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q16.png}
+	\caption{Q16}
+	\label{Q16}
+\end{figure}
+$\log_{10}\lambda=-8$, $E_{\text{train}}=0.0$, $E_{\text{val}}=0.1$ and $E_{\text{out}}=0.03$.
+\begin{comment}
 There are two lambda with minimal $E_{\text{in}}$.
 \begin{enumerate}
 	\item $\log_{10}\lambda=-9$, $E_{\text{train}}=0.0$, $E_{\text{val}}=0.1$ and $E_{\text{out}}=0.038$.
 	\item $\log_{10}\lambda=-8$, $E_{\text{train}}=0.0$, $E_{\text{val}}=0.05$ and $E_{\text{out}}=0.025$.
 \end{enumerate}
+\end{comment}
 
 \QEDB
 
@@ -319,6 +350,14 @@ There are two lambda with minimal $E_{\text{in}}$.
 
 \subsection*{Problem 17}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q17.png}
+	\caption{Q17}
+	\label{Q17}
+\end{figure}
+$\log_{10}\lambda=0$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.028$.
+\begin{comment}
 There are eight lambda with minimal $E_{\text{in}}$.
 \begin{enumerate}
 	\item $\log_{10}\lambda=-7$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.021$.
@@ -330,6 +369,7 @@ There are eight lambda with minimal $E_{\text{in}}$.
 	\item $\log_{10}\lambda=-1$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.022$.
 	\item $\log_{10}\lambda=0$, $E_{\text{train}}=0.033$, $E_{\text{val}}=0.0375$ and $E_{\text{out}}=0.028$.
 \end{enumerate}
+\end{comment}
 
 \QEDB
 
@@ -345,7 +385,13 @@ The returned $\log_{10}\ParTh{\lambda}=0\Rightarrow\lambda=1$. $E_{\text{in}}=0.
 
 \subsection*{Problem 19}
 
-The returned $\log_{10}\ParTh{\lambda}=-8$ and $E_{\text{cv}}=0.030$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{Q19.png}
+	\caption{Q19}
+	\label{Q19}
+\end{figure}
+The returned $\log_{10}\ParTh{\lambda}=-8$ and $E_{\text{cv}}=0.035$.
 
 \QEDB
 
@@ -353,7 +399,33 @@ The returned $\log_{10}\ParTh{\lambda}=-8$ and $E_{\text{cv}}=0.030$.
 
 \subsection*{Problem 20}
 
-$E_{\text{in}}=0.015$ and $E_{\text{out}}=0.020$.
+$E_{\text{in}}=0.035$ and $E_{\text{out}}=0.020$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 21}
+
+To minimize the formula, consider the following equation.
+\begin{align}
+\nabla\ParTh{\lambda\VecAbsVal{\BF{\Gamma}\BF{w}}^2+\VecAbsVal{\BF{X}\BF{w}-\BF{y}}^2}&=2\lambda\BF{\Gamma}^T\BF{\Gamma}\BF{w}+2\BF{X}^T\BF{X}\BF{w}-2\BF{X}^T\BF{y}=\BF{0}\\
+\Rightarrow\BF{w}&=\ParTh{\BF{X}^T\BF{X}+\lambda\BF{\Gamma}^T\BF{\Gamma}}^{-1}\BF{X}^T\BF{y}
+\end{align}
+Hence, we have $\tilde{\BF{X}}=\sqrt{\lambda}\BF{\Gamma}$, $\tilde{\BF{y}}=\BF{0}$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 22}
+
+To minimize the formula, consider the following equation.
+\begin{align}
+\nabla\ParTh{\lambda\VecAbsVal{\BF{w}-\BF{w}_{\text{hint}}}^2+\VecAbsVal{\BF{X}\BF{w}-\BF{y}}^2}&=2\lambda\BF{w}-2\lambda\BF{w}_{\text{hint}}+2\BF{X}^T\BF{X}\BF{w}-2\BF{X}^T\BF{y}=\BF{0}\\
+\Rightarrow\BF{w}&=\ParTh{\BF{X}^T\BF{X}+\lambda\BF{I}}^{-1}\ParTh{\BF{X}^T\BF{y}+\lambda\BF{w}_{\text{hint}}}
+\end{align}
+Hence, we have $\tilde{\BF{X}}=\sqrt{\lambda}\BF{I}$, $\tilde{\BF{y}}=\sqrt{\lambda}\BF{w}_{\text{hint}}$.
 
 \QEDB
 
