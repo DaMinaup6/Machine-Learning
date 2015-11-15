@@ -66,7 +66,10 @@ def main():
 		(outArr, outY) = dataGeneration(1000, 2, 0.1)
 		outX = np.column_stack((np.ones(outArr.shape[0]), featVec(outArr)))
 		wLin = np.dot(np.linalg.pinv(outX), outY)
-		eOutList.append(errRate(outX, outY, wLin))
+		
+		(newOutArr, newOutY) = dataGeneration(1000, 2, 0.1)
+		newOutX = np.column_stack((np.ones(newOutArr.shape[0]), featVec(newOutArr)))
+		eOutList.append(errRate(newOutX, newOutY, wLin))
 	errOut = sum(eOutList) / float(repeat)
 	plotHist(eOutList, "Eout Error Rate", "Frequency", "Q15", 0.01, True)
 	t1 = time.time()
