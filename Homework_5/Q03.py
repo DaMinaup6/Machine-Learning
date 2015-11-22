@@ -4,12 +4,6 @@ import numpy as np
 from cvxopt import matrix
 from cvxopt import solvers
 
-def phi(x):
-    z = []
-    for i in range(len(x)):
-        z.append([math.pow(x[i][1], 2) - 2 * x[i][0] + 3, math.pow(x[i][0], 2) - 2 * x[i][1] - 3])
-    return np.array(z)
-
 def kerFunc(x1, x2):
     return math.pow(1 + np.dot(x1, x2), 2)
 
