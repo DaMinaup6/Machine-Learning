@@ -173,13 +173,26 @@ Since kernel function $K\ParTh{\BF{x},\BF{x}^\prime}=\ParTh{1+\BF{x}^T\BF{x}^\pr
 
 \subsection*{Problem 6}
 
-
+Since $\VecAbsVal{\BF{x}_n-\BF{c}}^2\leq R^2$, $\forall n$, the constraint to maximize is
+\begin{align}
+\VecAbsVal{\BF{x}_n-\BF{c}}^2-R^2\leq0
+\end{align}
+so $L\ParTh{R,\BF{c},\bm{\lambda}}$ is
+\begin{align}
+L\ParTh{R,\BF{c},\bm{\lambda}}=R^2+\sum_{n=1}^{N}\lambda_n\ParTh{\VecAbsVal{\BF{x}_n-\BF{c}}^2-R^2}
+\end{align}
 
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 7}
+
+At the optimal $(R,\BF{c},\bm{\lambda})$,
+\begin{align}
+\dfrac{\partial L}{\partial R}&=2R-2R\sum_{n=1}^{N}\lambda_n=0\Rightarrow\sum_{n=1}^{N}\lambda_n=1\text{ or }R=0\\
+\dfrac{\partial L}{\partial \BF{c}}&=
+\end{align}
 
 \QEDB
 
