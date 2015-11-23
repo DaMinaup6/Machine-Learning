@@ -40,7 +40,7 @@ def errRate(x, y, w):
     return float(errCount) / len(y)
 
 def main():
-	LAMB = 11.26
+	LAMB = 10.0
 	SPLIT = 40
 
 	t0 = time.time()

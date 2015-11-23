@@ -55,7 +55,7 @@ def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
     plt.close()
 
 def main():
-	LAMB = 11.26
+	LAMB = 10.0
 	SPLIT = 40
 
 	t0 = time.time()
