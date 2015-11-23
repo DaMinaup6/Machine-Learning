@@ -100,7 +100,7 @@ So soft-margin support vector machine is a quadratic programming problem with $N
 
 \subsection*{Problem 2}
 
-I wrote a \url{Q02.py} to help me get the answer. By using Python package \url{cvxopt}, with
+I wrote a \url{Q02.py} to help me get the answer. By using Python package \url{cvxopt}$^{[2]}$, with
 \begin{align}
 \BF{z}=\Matrix{rr}{1&-2\\4&-5\\4&-1\\5&-2\\7&-7\\7&1\\7&1}, \BF{y}=\Matrix{c}{-1\\-1\\-1\\+1\\+1\\+1\\+1}
 \end{align}
@@ -131,7 +131,7 @@ I wrote a \url{Q03.py} to help me get the answer. By using Python package \url{c
 \end{align}
 with
 \begin{align}
-\BF{G}=\Matrix{ccccccc}{-1&-1&-1&1&1&1&1}\text{ and }h=0
+\BF{G}=\BF{y}^T=\Matrix{ccccccc}{-1&-1&-1&1&1&1&1}\text{ and }h=0
 \end{align}
 and
 To use this package, I gave \url{solvers.qp(}$\BF{Q}, \BF{p}, -\BF{A}^T, \BF{c},\BF{G},h$\url{)} and got
@@ -172,6 +172,8 @@ Since kernel function $K\ParTh{\BF{x},\BF{x}^\prime}=\ParTh{1+\BF{x}^T\BF{x}^\pr
 \horrule{0.5pt}
 
 \subsection*{Problem 6}
+
+
 
 \QEDB
 
@@ -267,7 +269,9 @@ Since kernel function $K\ParTh{\BF{x},\BF{x}^\prime}=\ParTh{1+\BF{x}^T\BF{x}^\pr
 
 \item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
 
-%\item[{[2]}] Three proofs of Sauer-Shelah Lemma. (n. d. ). Retrieved Fall, 2010, from \url{http://www.cse.buffalo.edu/~hungngo/classes/2010/711/lectures/sauer.pdf}
+\item[{[2]}] Quadratic Programming with Python and CVXOPT
+
+\url{https://courses.csail.mit.edu/6.867/wiki/images/a/a7/Qp-cvxopt.pdf}
 
 \end{enumerate}
 
