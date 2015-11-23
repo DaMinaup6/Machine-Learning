@@ -191,13 +191,15 @@ L\ParTh{R,\BF{c},\bm{\lambda}}=R^2+\sum_{n=1}^{N}\lambda_n\ParTh{\VecAbsVal{\BF{
 At the optimal $(R,\BF{c},\bm{\lambda})$,
 \begin{align}
 \dfrac{\partial L}{\partial R}&=2R-2R\sum_{n=1}^{N}\lambda_n=0\Rightarrow\sum_{n=1}^{N}\lambda_n=1\text{ or }R=0\\
-\dfrac{\partial L}{\partial\BF{c}}&=2\sum_{n=1}^{N}\lambda_{n}\ParTh{\BF{c}-\BF{x}_{n}}=\BF{0}%\Rightarrow\lambda_n=0\text{ or }\BF{x}_n=\BF{c}
+\label{KKTC}
+\dfrac{\partial L}{\partial\BF{c}}&=2\sum_{n=1}^{N}\lambda_{n}\ParTh{\BF{c}-\BF{x}_{n}}=\BF{0}\Rightarrow\BF{c}=\Divide{\ParTh{\sum_{n=1}^{N}\lambda_n\BF{x}_n}}{\ParTh{\sum_{n=1}^{N}\lambda_n}}\text{ if }\sum_{n=1}^{N}\lambda_n\neq0
+%\Rightarrow\lambda_n=0\text{ or }\BF{x}_n=\BF{c}
 \end{align}
 So the KKT conditions are
 \begin{enumerate}
 	\item primal feasible: $\VecAbsVal{\BF{x}_n-\BF{c}}^2\leq R^2$.
 	\item dual feasible: $\lambda_n\geq0$.
-	\item dual-inner optimal: if $R\neq0$, $\sum_{n=1}^{N}\lambda_n=1$; $\sum_{n=1}^{N}\lambda_{n}\ParTh{\BF{c}-\BF{x}_{n}}=\BF{0}$.
+	\item dual-inner optimal: if $R\neq0$, $\sum_{n=1}^{N}\lambda_n=1$ and $\BF{c}=\sum_{n=1}^{N}\lambda_n\BF{x}_n$.
 	\item primal-inner optimal: $\lambda_n\ParTh{\VecAbsVal{\BF{x}_n-\BF{c}}^2-R^2}=0$.
 \end{enumerate}
 
@@ -207,17 +209,53 @@ So the KKT conditions are
 
 \subsection*{Problem 8}
 
+From Problem 6, we have
+\begin{align}
+L\ParTh{R,\BF{c},\bm{\lambda}}&=R^2+\sum_{n=1}^{N}\lambda_n\ParTh{\VecAbsVal{\BF{x}_n-\BF{c}}^2-R^2}=R^2+\sum_{n=1}^{N}\lambda_n\VecAbsVal{\BF{x}_n-\BF{c}}^2-\sum_{n=1}^{N}\lambda_nR^2\\
+&=R^2-R^2+\sum_{n=1}^{N}\lambda_n\VecAbsVal{\BF{x}_n-\BF{c}}^2=\sum_{n=1}^{N}\lambda_n\VecAbsVal{\BF{x}_n-\BF{c}}^2
+\end{align}
+where $\sum_{n=1}^{N}\lambda_n=1$ since $R\neq0$.
+
+Also, from (\ref{KKTC}), we have $\BF{c}=\sum_{n=1}^{N}\lambda_n\BF{x}_n$. Hence
+\begin{align}
+\text{Objective}\ParTh{\lambda}=\sum_{n=1}^{N}\lambda_n\VecAbsVal{\BF{x}_n-\sum_{m=1}^{N}\lambda_m\BF{x}_m}^2
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 9}
 
+We have
+\begin{align}
+\sum_{n=1}^{N}\lambda_n\VecAbsVal{\BF{x}_n-\BF{c}}^2&=\sum_{n=1}^{N}\lambda_n\ParTh{\BF{x}^T_n\BF{x}_n-\BF{x}^T_n\BF{c}-\BF{c}^T\BF{x}_n+\BF{c}^T\BF{c}}\\
+&=\sum_{n=1}^{N}\lambda_n\ParTh{\BF{x}^T_n\BF{x}_n-\BF{x}^T_n\sum_{m=1}^{N}\lambda_m\BF{x}_m-\ParTh{\sum_{m=1}^{N}\lambda_m\BF{x}_m}^T\BF{x}_n+\VecAbsVal{\sum_{m=1}^{N}\lambda_m\BF{x}_m}^2}
+\end{align}
+So
+\begin{align}
+&\sum_{n=1}^{N}\lambda_n\VecAbsVal{\phi\ParTh{\BF{x}_n}-\phi\ParTh{\BF{c}}}^2\\
+=&\sum_{n=1}^{N}\lambda_nK\ParTh{\BF{x}_n,\BF{x}_n}-2\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_mK\ParTh{\BF{x}_n,\BF{x}_m}+\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_mK\ParTh{\BF{x}_n,\BF{x}_m}\\
+=&\sum_{n=1}^{N}\lambda_nK\ParTh{\BF{x}_n,\BF{x}_n}-\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_mK\ParTh{\BF{x}_n,\BF{x}_m}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 10}
+
+From primal-inner optimal condition, pick some $\lambda_i=0$, we have
+\begin{align}
+\VecAbsVal{\BF{x}_i-\BF{c}}^2=R^2
+\end{align}
+so
+\begin{align}
+R^2&=\BF{x}^T_i\BF{x}_i-\BF{x}^T_i\sum_{m=1}^{N}\lambda_m\BF{x}_m-\ParTh{\sum_{m=1}^{N}\lambda_m\BF{x}_m}^T\BF{x}_i+\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_m\BF{x}^T_n\BF{x}_m\\
+&=K\ParTh{\BF{x}_i,\BF{x}_i}-2\sum_{m=1}^{N}\lambda_mK\ParTh{\BF{x}_i,\BF{x}_m}+\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_mK\ParTh{\BF{x}_n,\BF{x}_m}\\
+\Rightarrow R&=\sqrt{K\ParTh{\BF{x}_i,\BF{x}_i}-2\sum_{m=1}^{N}\lambda_mK\ParTh{\BF{x}_i,\BF{x}_m}+\sum_{n=1}^{N}\sum_{m=1}^{N}\lambda_n\lambda_mK\ParTh{\BF{x}_n,\BF{x}_m}}
+\end{align}
+where $R>0$.
 
 \QEDB
 
