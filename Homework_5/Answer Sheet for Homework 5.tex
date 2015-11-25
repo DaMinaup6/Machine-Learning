@@ -39,6 +39,7 @@
 \newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
 \newcommand{\CBrackets}[1]{\left\{#1\right\}}
 \newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\BooBrackets}[1]{\left\llbracket#1\right\rrbracket}
 \newcommand{\ParTh}[1]{\left(#1\right)}
 \newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
@@ -262,6 +263,30 @@ where $R>0$.
 \horrule{0.5pt}
 
 \subsection*{Problem 11}
+
+\underline{Claim}: Let $\tilde{\BF{w}}=\Matrix{c}{\BF{w}\\\sqrt{2C}\cdot\bm{\xi}}$ and $\tilde{\BF{x}}_n=\Matrix{c}{\BF{x}_n\\v_1\\v_2\\\vdots\\v_N}$, where $v_i=\dfrac{1}{\sqrt{2C}}\BooBrackets{i=n}$.
+
+\underline{Proof of Claim}:
+
+First, we have
+\begin{align}
+\dfrac{1}{2}\tilde{\BF{w}}^T\tilde{\BF{w}}&=\dfrac{1}{2}\Matrix{cc}{\BF{w}^T&\sqrt{2C}\cdot\bm{\xi}^T}\Matrix{c}{\BF{w}\\\sqrt{2C}\cdot\bm{\xi}}=\dfrac{1}{2}\BF{w}^T\BF{w}+C\bm{\xi}^T\bm{\xi}=\dfrac{1}{2}\BF{w}^T\BF{w}+C\sum_{n=1}^{N}\xi^2_n
+\end{align}
+And $\ParTh{P_2}$ can be rewritten as
+\begin{align}
+\min_{\tilde{\BF{w}},b,\bm{\xi}}\ParTh{\dfrac{1}{2}\tilde{\BF{w}}^T\tilde{\BF{w}}}
+\end{align}
+Then we have
+\begin{align}
+\tilde{\BF{w}}^T\tilde{\BF{x}}_n&=\Matrix{cc}{\BF{w}^T&\sqrt{2C}\cdot\bm{\xi}^T}\Matrix{c}{\BF{x}_n\\v_1\\v_2\\\vdots\\v_N}=\Matrix{cc}{\BF{w}^T&\sqrt{2C}\cdot\bm{\xi}^T}\Matrix{c}{\BF{x}_n\\0\\\vdots\\\underbrace{\dfrac{1}{\sqrt{2C}}}_{i=n}\\\vdots\\0}\\
+&=\BF{w}^T\BF{x}_n+0+\cdots+\xi_n+\cdots+0=\BF{w}^T\BF{x}_n+\xi_n
+\end{align}
+So
+\begin{align}
+&y_n\ParTh{\BF{w}^T\BF{x}_n+b}\geq1-\xi_n\\
+\Rightarrow ~&y_n\ParTh{\BF{w}^T\BF{x}_n+b}+\xi_n=y_n\ParTh{\BF{w}^T\BF{x}_n+\xi_n+b}=y_n\ParTh{\tilde{\BF{w}}^T\tilde{\BF{x}}_n+b}\geq1
+\end{align}
+where $y_n\xi_n=\xi_n$ is due to $y_n\in\CBrackets{+1,-1}$.
 
 \QEDB
 
