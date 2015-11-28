@@ -86,7 +86,7 @@
 {\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
 }
 %\date{}
-%\allowdisplaybreaks[4]
+\allowdisplaybreaks[4]
 \maketitle
 
 \subsection*{Problem 1}
@@ -294,17 +294,108 @@ where $y_n\xi_n=\xi_n$ is due to $y_n\in\CBrackets{+1,-1}$.
 
 \subsection*{Problem 12}
 
+\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}+K_2\ParTh{\BF{x},\BF{x}^\prime}$ is always a valid kernel.
+
+\underline{Proof of Calim}:
+
+Consider Mercer's conditions,
+\begin{enumerate}
+	\item Symmetric
+	
+	Since $K_1$ and $K_2$ are valid kernel, both of them are symmetric. So $K_1+K_2$ must be symmetric.
+	\item $K$ is positive semi-definite
+	
+	Consider any vector $\BF{v}$, we have
+	\begin{align}
+	\BF{v}^TK_1\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_N}}\BF{v}\\
+	&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_j}v_j\geq0\\
+	\BF{v}^TK_2\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_N}}\BF{v}\\
+	&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_j}v_j\geq0\\
+	\BF{v}^TK\BF{v}&=\BF{v}^T\ParTh{K_1+K_2}\BF{v}=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_j}+\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_j}}v_j\\
+	&=\BF{v}^TK_1\BF{v}+\BF{v}^TK_2\BF{v}\geq0
+	\end{align}
+	Hence, $K$ is positive semi-definite.
+\end{enumerate}
+By satisfying the Mercer's conditions, $K$ is a valid kernel.
+\begin{comment}
+\ParTh{\Matrix{cc}{\phi_1\ParTh{\BF{x}_1}^T\phi_1\ParTh{\BF{x_1}}&\cdots\\\vdots&\ddots}+\Matrix{cc}{\phi_2\ParTh{\BF{x}_1}^T\phi_2\ParTh{\BF{x_1}}&\cdots\\\vdots&\ddots}}}
+\end{comment}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 13}
 
+\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=\exp\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}$ is always a valid kernel.
+
+\underline{Proof of Claim}:
+
+Consider Mercer's conditions,
+\begin{enumerate}
+	\item Symmetric
+	
+	Since $K_1$ is valid kernel, $K_1$ is symmetric. So $K$ must be symmetric.
+	\item $K$ is positive semi-definite
+	
+	Consider any vector $\BF{v}$, we have
+	\begin{align}
+	\BF{v}^TK\BF{v}&=\BF{v}^T\exp\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}\BF{v}=\BF{v}^T\sum_{k=1}^{\infty}\dfrac{1}{k!}\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}\\
+	&=\sum_{k=1}^{\infty}\dfrac{\ParTh{-1}^k}{k!}\ParTh{\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}}
+	%=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\exp\ParTh{-K_1\ParTh{x_i,x^\prime_j}}v_j
+	\end{align}
+	where $\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}\geq0$ for all $k$ since $K_1$ is positive semi-definite. So we have
+	\begin{align}
+	\sum_{k=1}^{\infty}\dfrac{\ParTh{-1}^k}{k!}\ParTh{\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}}\geq0\Rightarrow\BF{v}^TK\BF{v}\geq0
+	\end{align}
+	Hence, $K$ is positive semi-definite.
+\end{enumerate}
+By satisfying the Mercer's conditions, $K$ is a valid kernel. \\
+
+\underline{Note}: Prove $A^k$ is positive semi-definite if $A$ is positive semi-definite $k\in\mathbb{N}$.
+
+Since $A$ is positive semi-definite, all eigenvalues $\lambda_i$ of $A$ is non-negative. Hence for any vector $\BF{v}$
+\begin{align}
+\BF{v}^TA^k\BF{v}&=\BF{v}^TA^{k-1}\ParTh{A\BF{v}}=\BF{v}^TA^{k-1}\ParTh{\sum_{i=1}^{N}\lambda_iv_i}=\BF{v}^TA^{k-2}\ParTh{\sum_{i=1}^{N}\lambda^2_iv_i}\\
+&=\cdots=\sum_{i=1}^{N}\lambda^k_iv^2_i\geq0\text{ since }\lambda_i\geq0,\forall i
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 14}
+
+\underline{Claim}: $\tilde{C}=\dfrac{C}{p}$, $\tilde{\beta}_n=\dfrac{\beta_n}{p}=\dfrac{C}{p}-\dfrac{\alpha_n}{p}=\tilde{C}-\tilde{\alpha}_n$, $\forall n$ for optimal solution.
+
+\underline{Proof of Claim}:
+\begin{comment}
+\begin{align}
+\dfrac{1}{2}\tilde{\BF{w}}^T\tilde{\BF{w}}+\tilde{C}\sum_{n=1}^{N}\xi_n
+\end{align}
+\end{comment}
+\begin{align}
+\tilde{g}_{\text{SVM}}\ParTh{\BF{x}}&=\text{sign}\ParTh{\sum_{n=1}^{N}\tilde{\alpha}_ny_n\tilde{K}\ParTh{\BF{x}_n,\BF{x}}+b}\\
+&=\text{sign}\ParTh{\sum_{n=1}^{N}\tilde{\alpha}_ny_n\ParTh{pK\ParTh{\BF{x}_n,\BF{x}}+q}+b}\\
+&=\text{sign}\ParTh{p\sum_{n=1}^{N}\tilde{\alpha}_ny_nK\ParTh{\BF{x}_n,\BF{x}}+q\sum_{n=1}^{N}\tilde{\alpha}_ny_n+b}\\
+&=\text{sign}\ParTh{p\sum_{n=1}^{N}\ParTh{\tilde{C}-\tilde{\beta}_n}y_nK\ParTh{\BF{x}_n,\BF{x}}+q\cdot0+b}\\
+&=\text{sign}\ParTh{\sum_{n=1}^{N}\ParTh{p\cdot\dfrac{C}{p}-p\tilde{\beta}_n}y_nK\ParTh{\BF{x}_n,\BF{x}}+b}\\
+&=\text{sign}\ParTh{\sum_{n=1}^{N}\ParTh{C-p\tilde{\beta}_n}y_nK\ParTh{\BF{x}_n,\BF{x}}+b}
+%&=\text{sign}\ParTh{\sum_{n=1}^{N}\ParTh{\tilde{C}-\beta_n}y_n\tilde{K}\ParTh{\BF{x}_n,\BF{x}}+b}\\
+%&=\text{sign}\ParTh{\tilde{C}\sum_{n=1}^{N}y_n\tilde{K}\ParTh{\BF{x}_n,\BF{x}}-\sum_{n=1}^{N}\beta_ny_n\tilde{K}\ParTh{\BF{x}_n,\BF{x}}+b}\\
+%&=\text{sign}\ParTh{\ParTh{\dfrac{C}{p}+q}\sum_{n=1}^{N}y_n\ParTh{pK\ParTh{\BF{x}_n,\BF{x}}+q}-\sum_{n=1}^{N}\beta_ny_n\ParTh{pK\ParTh{\BF{x}_n,\BF{x}}+q}+b}\\
+%&=\text{sign}\ParTh{\ParTh{C+pq}\sum_{n=1}^{N}y_nK\ParTh{\BF{x}_n,\BF{x}}+q\ParTh{\dfrac{C}{p}+q}\sum_{n=1}^{N}y_n-p\sum_{n=1}^{N}\beta_ny_nK\ParTh{\BF{x}_n,\BF{x}}-q\sum_{n=1}^{N}\beta_ny_n+b}\\
+%&=\text{sign}\ParTh{\sum_{n=1}^{N}\ParTh{C+pq-p\beta_n}y_nK\ParTh{\BF{x}_n,\BF{x}}+b}\\
+%&=\text{sign}\ParTh{p\sum_{n=1}^{N}\alpha_ny_n{K\ParTh{\BF{x}_n,\BF{x}}}+b+qN}
+\end{align}
+where $\sum_{n=1}^{N}\tilde{\alpha}_ny_n=0$ due to optimal constraint.
+
+Since $\tilde{\beta}_n=\dfrac{\beta_n}{p}$, then we have
+\begin{align}
+\tilde{g}_{\text{SVM}}\ParTh{\BF{x}}&=\text{sign}\ParTh{\sum_{n=1}^{N}\ParTh{C-\beta_n}y_nK\ParTh{\BF{x}_n,\BF{x}}+b}\\
+&=\text{sign}\ParTh{\sum_{n=1}^{N}\alpha_ny_nK\ParTh{\BF{x}_n,\BF{x}}+b}\\
+&=g_{\text{SVM}}\ParTh{\BF{x}}
+\end{align}
 
 \QEDB
 
