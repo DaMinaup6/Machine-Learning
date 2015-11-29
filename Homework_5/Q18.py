@@ -27,19 +27,19 @@ def main():
     x18 = TRAIN18_DATA[:, 1:TRAIN18_DATA.shape[1]]
     y18 = digitTrans(TRAIN18_DATA[:, 0], DIGIT)
 
-    CList   = [-3, -2, -1, 0, 1]
-    disList = []
+    CList    = [-3, -2, -1, 0, 1]
+    distList = []
     t0 = time.time()
     for cPower in range(-3, 2):
         clf = svm.SVC(C=(10 ** cPower), kernel='rbf', gamma=100)
         clf.fit(x18, y18)
         w = clf.dual_coef_.dot(clf.support_vectors_)[0]
         margin = 2 / np.sqrt((w ** 2).sum())
-        disList.append(margin)
-    plotHist(CList, disList, r"$\log_{10}C$", 'margin', "Q18", 1, False)
+        distList.append(margin)
+    plotHist(CList, distList, r"$\log_{10}C$", 'margin', "Q18", 1, False)
     t1 = time.time()
     print '========================================================='
-    print 'Question 18:', disList
+    print 'Question 18:', distList
     print '---------------------------------------------------------'
     print 'Q18 costs', t1 - t0, 'seconds'
     print '========================================================='
