@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 % Use packages %
-\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd}
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd, float}
 \usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
 
 % Set length %
@@ -86,7 +86,7 @@
 {\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
 }
 \date{December 9, 2015}
-\allowdisplaybreaks[4]
+%\allowdisplaybreaks[4]
 \maketitle
 
 \subsection*{Problem 1}
@@ -299,32 +299,74 @@ Hence, $\ParTh{P_2}$ is equivalent to a linear hard-margin support vector machin
 
 \subsection*{Problem 12}
 
-\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}+K_2\ParTh{\BF{x},\BF{x}^\prime}$ is always a valid kernel.
+\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}+K_2\ParTh{\BF{x},\BF{x}^\prime}$ and $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}\cdot K_2\ParTh{\BF{x},\BF{x}^\prime}$ are always valid kernels.
 
 \underline{Proof of Calim}:
 
-Consider Mercer's conditions,
 \begin{enumerate}
-	\item Symmetric
+	\item $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}+K_2\ParTh{\BF{x},\BF{x}^\prime}$
 	
-	Since $K_1$ and $K_2$ are valid kernel, both of them are symmetric. So $K_1+K_2$ must be symmetric.
-	\item $K$ is positive semi-definite
+	Consider Mercer's conditions,
+	\begin{enumerate}
+		\item Symmetric
+		
+		Since $K_1$ and $K_2$ are valid kernel, both of them are symmetric. So $K_1+K_2$ must be symmetry.
+		\item $K$ is positive semi-definite
+		
+		Consider any vector $\BF{v}$, we have
+		\begin{align}
+		\BF{v}^TK_1\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_N}}\BF{v}\\
+		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}v_j\geq0\\
+		\BF{v}^TK_2\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_N}}\BF{v}\\
+		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_j}v_j\geq0\\
+		\BF{v}^TK\BF{v}&=\BF{v}^T\ParTh{K_1+K_2}\BF{v}=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}+\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_j}}v_j\\
+		&=\BF{v}^TK_1\BF{v}+\BF{v}^TK_2\BF{v}\geq0
+		\end{align}
+		Hence, $K$ is positive semi-definite.
+	\end{enumerate}
+	By satisfying the Mercer's conditions, $K$ is a valid kernel.
 	
-	Consider any vector $\BF{v}$, we have
+	\item $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}\cdot K_2\ParTh{\BF{x},\BF{x}^\prime}$
+	
+	Similarly, $K$ is symmetry since $K_m\ParTh{x_i,x^\prime_j}=K_m\ParTh{x_j,x^\prime_i}$, for $m=1\text{ or }2$. Then
 	\begin{align}
-	\BF{v}^TK_1\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_N}}\BF{v}\\
-	&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_j}v_j\geq0\\
-	\BF{v}^TK_2\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_N}}\BF{v}\\
-	&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_j}v_j\geq0\\
-	\BF{v}^TK\BF{v}&=\BF{v}^T\ParTh{K_1+K_2}\BF{v}=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{x_i}^T\phi_1\ParTh{x^\prime_j}+\phi_2\ParTh{x_i}^T\phi_2\ParTh{x^\prime_j}}v_j\\
-	&=\BF{v}^TK_1\BF{v}+\BF{v}^TK_2\BF{v}\geq0
+	K\ParTh{x_i,x^\prime_j}=K_1\ParTh{x_i,x^\prime_j}K_2\ParTh{x_i,x^\prime_j}=K_1\ParTh{x_j,x^\prime_i}K_2\ParTh{x_j,x^\prime_i}=K\ParTh{x_j,x^\prime_i}
+	\end{align}
+	Applying Cholesky decomposition, rewrite
+	\begin{align}
+	K_1=A^TA=\sum_{k=1}^{N}a_{ik}a_{jk}\text{ and }K_2=B^TB=\sum_{k=1}^{N}b_{ik}b_{jk}
+	\end{align}
+	then for any $\BF{v}$, we have
+	\begin{align}
+	\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\sum_{k=1}^{N}a_{ik}a_{jk}}\ParTh{\sum_{\ell=1}^{N}b_{i\ell}b_{j\ell}}v_j\\
+	&=\sum_{k,\ell=1}^{N}\sum_{i,j=1}^{N}v_iv_ja_{ik}a_{jk}b_{i\ell}b_{j\ell}\\
+	&=\sum_{k,\ell=1}^{N}\ParTh{\sum_{i=1}^{N}v_ia_{ik}b_{i\ell}}\ParTh{\sum_{j=1}^{N}v_ja_{jk}b_{j\ell}}\\
+	&=\sum_{k,\ell=1}^{N}\ParTh{\sum_{i=1}^{N}v_ia_{ik}b_{i\ell}}^2\geq0
 	\end{align}
 	Hence, $K$ is positive semi-definite.
+	
+	By satisfying the Mercer's conditions, $K$ is a valid kernel.
+	\begin{comment}
+	To prove $K$ is positive semi-definite, we prove $\ParTh{K_1}^2$ is a valid kernel if $K_1$ is a valid kernel first.
+	
+	Since $K_1$ is a valid kernel, we have
+	\begin{align}
+	\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}v_j\geq0\text{ for any }\BF{v}
+	\end{align}
+	And we have $\ParTh{\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}}^2\geq0$, so
+	\begin{align}
+	\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}}^2v_j\geq0
+	\end{align}
+	Hence $\ParTh{K_1}^2$ is a valid kernel.
+	
+	With this property, we have
+	\begin{align}
+	&\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{K_1\ParTh{x_i,x^\prime_j}+K_2\ParTh{x_i,x^\prime_j}}^2v_j\geq0\\
+	&\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{K_1\ParTh{x_i,x^\prime_j}}^2v_j\geq0\\
+	&\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{K_2\ParTh{x_i,x^\prime_j}}^2v_j\geq0
+	\end{align}
+	\end{comment}
 \end{enumerate}
-By satisfying the Mercer's conditions, $K$ is a valid kernel.
-\begin{comment}
-\ParTh{\Matrix{cc}{\phi_1\ParTh{\BF{x}_1}^T\phi_1\ParTh{\BF{x_1}}&\cdots\\\vdots&\ddots}+\Matrix{cc}{\phi_2\ParTh{\BF{x}_1}^T\phi_2\ParTh{\BF{x_1}}&\cdots\\\vdots&\ddots}}}
-\end{comment}
 
 \QEDB
 
@@ -332,11 +374,36 @@ By satisfying the Mercer's conditions, $K$ is a valid kernel.
 
 \subsection*{Problem 13}
 
-\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=\exp\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}$ is always a valid kernel.
+\underline{Claim}: $K\ParTh{\BF{x},\BF{x}^\prime}=1126\cdot K_1\ParTh{\BF{x},\BF{x}^\prime}$ and $K\ParTh{\BF{x},\BF{x}^\prime}=\ParTh{1-{K_1\ParTh{\BF{x},\BF{x}^\prime}}}^{-1}$ are always valid kernels.
 
 \underline{Proof of Claim}:
 
-Consider Mercer's conditions,
+\begin{enumerate}
+	\item $K\ParTh{\BF{x},\BF{x}^\prime}=1126\cdot K_1\ParTh{\BF{x},\BF{x}^\prime}$
+	
+	Consider Mercer's conditions,
+	\begin{enumerate}
+		\item Symmetric
+		
+		Since $K_1$ is valid kernel, $K_1$ is symmetric. So $K$ must be symmetric.
+		\item $K$ is positive semi-definite
+		
+		Consider any vector $\BF{v}$, we have
+		\begin{align}
+		\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{1126k_1\ParTh{x_i,x^\prime_j}}v_j=1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_ik_1\ParTh{x_i,x^\prime_j}v_j
+		\end{align}
+		Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$, we have
+		\begin{align}
+		1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_ik_1\ParTh{x_i,x^\prime_j}v_j\geq0
+		\end{align}
+		where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite.
+		
+		Hence, $K$ is positive semi-definite.
+		By satisfying the Mercer's conditions, $K$ is a valid kernel.
+	\end{enumerate}
+	\item $K\ParTh{\BF{x},\BF{x}^\prime}=\ParTh{1-{K_1\ParTh{\BF{x},\BF{x}^\prime}}}^{-1}$
+	
+	Consider Mercer's conditions,
 \begin{enumerate}
 	\item Symmetric
 	
@@ -345,18 +412,21 @@ Consider Mercer's conditions,
 	
 	Consider any vector $\BF{v}$, we have
 	\begin{align}
-	\BF{v}^TK\BF{v}&=\BF{v}^T\exp\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}\BF{v}=\BF{v}^T\sum_{k=1}^{\infty}\dfrac{1}{k!}\ParTh{-K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}\\
-	&=\sum_{k=1}^{\infty}\dfrac{\ParTh{-1}^k}{k!}\ParTh{\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}}
-	%=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\exp\ParTh{-K_1\ParTh{x_i,x^\prime_j}}v_j
+	\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-k_1\ParTh{x_i,x^\prime_j}}}v_j
 	\end{align}
-	where $\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}\geq0$ for all $k$ since $K_1$ is positive semi-definite. So we have
+	Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ and $0<K_1\ParTh{\BF{x},\BF{x}^\prime}<1$, we have
 	\begin{align}
-	\sum_{k=1}^{\infty}\dfrac{\ParTh{-1}^k}{k!}\ParTh{\BF{v}^T\ParTh{K_1\ParTh{\BF{x},\BF{x}^\prime}}^k\BF{v}}\geq0\Rightarrow\BF{v}^TK\BF{v}\geq0
+	\dfrac{1}{1-K_1\ParTh{\BF{x},\BF{x}^\prime}}>K_1\ParTh{\BF{x},\BF{x}^\prime}
+	\end{align}
+	where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite. So we have
+	\begin{align}
+	\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-k_1\ParTh{x_i,x^\prime_j}}}v_j\geq\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0
 	\end{align}
 	Hence, $K$ is positive semi-definite.
+	By satisfying the Mercer's conditions, $K$ is a valid kernel.
 \end{enumerate}
-By satisfying the Mercer's conditions, $K$ is a valid kernel. \\
-
+\end{enumerate}
+\begin{comment}
 \underline{Note}: Prove $A^k$ is positive semi-definite if $A$ is positive semi-definite $k\in\mathbb{N}$.
 
 Since $A$ is positive semi-definite, all eigenvalues $\lambda_i$ of $A$ is non-negative. Hence for any vector $\BF{v}$
@@ -364,6 +434,7 @@ Since $A$ is positive semi-definite, all eigenvalues $\lambda_i$ of $A$ is non-n
 \BF{v}^TA^k\BF{v}&=\BF{v}^TA^{k-1}\ParTh{A\BF{v}}=\BF{v}^TA^{k-1}\ParTh{\sum_{i=1}^{N}\lambda_iv_i}=\BF{v}^TA^{k-2}\ParTh{\sum_{i=1}^{N}\lambda^2_iv_i}\\
 &=\cdots=\sum_{i=1}^{N}\lambda^k_iv^2_i\geq0\text{ since }\lambda_i\geq0,\forall i
 \end{align}
+\end{comment}
 
 \QEDB
 
@@ -409,17 +480,18 @@ Since $\tilde{\beta}_n=\dfrac{\beta_n}{p}$, then we have
 \subsection*{Problem 15}
 
 By using \url{scikit-learn} package, we have
-\begin{comment}
+%\begin{comment}
 \begin{align}
-\VecAbsVal{\BF{w}}\text{ list}=\SBrackets{\SciNum{1.75}{-3}, \SciNum{1.75}{-1}, 1.75, 2.00, 2.00}
+\VecAbsVal{\BF{w}}\text{ list}=\SBrackets{\SciNum{6.021}{-5}, \SciNum{6.019}{-3}, \SciNum{5.713}{-1}, \SciNum{1.133}{1}, \SciNum{1.309}{1}}
 \end{align}
-\end{comment}
-\begin{figure}[h]
+%\end{comment}
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q15.png}
+	\includegraphics[scale=0.5]{Q15.png}
 	\caption{Q15}
 	\label{Q15}
 \end{figure}
+As $C$ becomes larger, $\VecAbsVal{\BF{w}}$ becomes larger, too.
 
 \QEDB
 
@@ -427,12 +499,14 @@ By using \url{scikit-learn} package, we have
 
 \subsection*{Problem 16}
 
-\begin{figure}[h]
+All $E_{\text{in}}$ versus $\log_{10}\ParTh{C}$ is $\SciNum{7.434}{-2}$.
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q16.png}
+	\includegraphics[scale=0.5]{Q16.png}
 	\caption{Q16}
 	\label{Q16}
 \end{figure}
+$E_{\text{in}}$ is independent of $C$.
 
 \QEDB
 
@@ -440,12 +514,20 @@ By using \url{scikit-learn} package, we have
 
 \subsection*{Problem 17}
 
-\begin{figure}[h]
+%All $\sum_{n=1}^{N}\alpha_n$ versus $\log_{10}\ParTh{C}$ is $\SciNum{1.084}{1}$.
+\begin{align}
+\sum_{n=1}^{N}\alpha_n\text{ list}=\SBrackets{\SciNum{1.084}{-3}, \SciNum{1.084}{-1}, \SciNum{1.084}{1}, \SciNum{1.084}{3}, \SciNum{1.084}{5}}
+\end{align}
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q17.png}
+	\includegraphics[scale=0.5]{Q17.png}
 	\caption{Q17}
 	\label{Q17}
 \end{figure}
+From this figure, we have
+\begin{align}
+\sum_{n=1}^{N}\alpha_n\propto C
+\end{align}
 
 \QEDB
 
@@ -453,12 +535,16 @@ By using \url{scikit-learn} package, we have
 
 \subsection*{Problem 18}
 
-\begin{figure}[h]
+\begin{align}
+\text{margin list}=\SBrackets{3.607, \SciNum{3.577}{-1}, \SciNum{5.182}{-2}, \SciNum{3.210}{-2}, \SciNum{3.068}{-2}}
+\end{align}
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q18.png}
+	\includegraphics[scale=0.5]{Q18.png}
 	\caption{Q18}
 	\label{Q18}
 \end{figure}
+The margin is strictly decreasing as $C$ becomes larger.
 
 \QEDB
 
@@ -466,12 +552,16 @@ By using \url{scikit-learn} package, we have
 
 \subsection*{Problem 19}
 
-\begin{figure}[h]
+\begin{align}
+E_{\text{out}}\text{ list}=\SBrackets{\SciNum{1.071}{-1}, \SciNum{9.915}{-2}, \SciNum{1.051}{-1}, \SciNum{1.789}{-1}, \SciNum{1.789}{-1}}
+\end{align}
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q19.png}
+	\includegraphics[scale=0.5]{Q19.png}
 	\caption{Q19}
 	\label{Q19}
 \end{figure}
+The minimum occurs at $\gamma=10$. $E_{\text{out}}$ becomes larger as $\gamma$ becomes larger.
 
 \QEDB
 
@@ -479,12 +569,14 @@ By using \url{scikit-learn} package, we have
 
 \subsection*{Problem 20}
 
-\begin{figure}[h]
+The corresponding $\gamma$ of $\min E_{\text{val}}$ are 10 in 99 results, one result is 1.
+\begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{Q20.png}
+	\includegraphics[scale=0.5]{Q20.png}
 	\caption{Q20}
 	\label{Q20}
 \end{figure}
+Over almost all random choices, $\gamma=10$ always minimizes $E_{\text{val}}$.
 
 \QEDB
 
