@@ -33,10 +33,10 @@ def main():
     for cPower in range(-3, 2):
         clf = svm.SVC(C=(10 ** cPower), kernel='rbf', gamma=100)
         clf.fit(x18, y18)
-        w = clf.dual_coef_.dot(clf.support_vectors_)[0]
-        margin = 2 / np.sqrt((w ** 2).sum())
-        distList.append(margin)
-    plotHist(CList, distList, r"$\log_{10}C$", 'margin', "Q18", 1, False)
+        w    = clf.dual_coef_.dot(clf.support_vectors_)[0]
+        dist = 1 / np.sqrt((w ** 2).sum())
+        distList.append(dist)
+    plotHist(CList, distList, r"$\log_{10}C$", 'distance', "Q18", 1, False)
     t1 = time.time()
     print '========================================================='
     print 'Question 18:', distList

@@ -315,11 +315,11 @@ Hence, $\ParTh{P_2}$ is equivalent to a linear hard-margin support vector machin
 		
 		Consider any vector $\BF{v}$, we have
 		\begin{align}
-		\BF{v}^TK_1\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_N}}\BF{v}\\
-		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}v_j\geq0\\
-		\BF{v}^TK_2\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_N}}\BF{v}\\
-		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_j}v_j\geq0\\
-		\BF{v}^TK\BF{v}&=\BF{v}^T\ParTh{K_1+K_2}\BF{v}=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{x_i}\phi_1\ParTh{x^\prime_j}+\phi_2\ParTh{x_i}\phi_2\ParTh{x^\prime_j}}v_j\\
+		\BF{v}^TK_1\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_1\ParTh{\BF{x}_i}\phi_1\ParTh{\BF{x}^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_1\ParTh{\BF{x}_i}\phi_1\ParTh{\BF{x}^\prime_N}}\BF{v}\\
+		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_1\ParTh{\BF{x}_i}\phi_1\ParTh{\BF{x}^\prime_j}v_j\geq0\\
+		\BF{v}^TK_2\BF{v}&=\Matrix{ccc}{\sum_{i=1}^{N}v_i\phi_2\ParTh{\BF{x}_i}\phi_2\ParTh{\BF{x}^\prime_1}&\cdots&\sum_{i=1}^{N}v_i\phi_2\ParTh{\BF{x}_i}\phi_2\ParTh{\BF{x}^\prime_N}}\BF{v}\\
+		&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\phi_2\ParTh{\BF{x}_i}\phi_2\ParTh{\BF{x}^\prime_j}v_j\geq0\\
+		\BF{v}^TK\BF{v}&=\BF{v}^T\ParTh{K_1+K_2}\BF{v}=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\phi_1\ParTh{\BF{x}_i}\phi_1\ParTh{\BF{x}^\prime_j}+\phi_2\ParTh{\BF{x}_i}\phi_2\ParTh{\BF{x}^\prime_j}}v_j\\
 		&=\BF{v}^TK_1\BF{v}+\BF{v}^TK_2\BF{v}\geq0
 		\end{align}
 		Hence, $K$ is positive semi-definite.
@@ -328,9 +328,9 @@ Hence, $\ParTh{P_2}$ is equivalent to a linear hard-margin support vector machin
 	
 	\item $K\ParTh{\BF{x},\BF{x}^\prime}=K_1\ParTh{\BF{x},\BF{x}^\prime}\cdot K_2\ParTh{\BF{x},\BF{x}^\prime}$
 	
-	Similarly, $K$ is symmetry since $K_m\ParTh{x_i,x^\prime_j}=K_m\ParTh{x_j,x^\prime_i}$, for $m=1\text{ or }2$. Then
+	Similarly, $K$ is symmetry since $K_m\ParTh{\BF{x}_i,\BF{x}^\prime_j}=K_m\ParTh{\BF{x}_j,\BF{x}^\prime_i}$, for $m=1\text{ or }2$. Then
 	\begin{align}
-	K\ParTh{x_i,x^\prime_j}=K_1\ParTh{x_i,x^\prime_j}K_2\ParTh{x_i,x^\prime_j}=K_1\ParTh{x_j,x^\prime_i}K_2\ParTh{x_j,x^\prime_i}=K\ParTh{x_j,x^\prime_i}
+	K\ParTh{\BF{x}_i,\BF{x}^\prime_j}=K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}K_2\ParTh{\BF{x}_i,\BF{x}^\prime_j}=K_1\ParTh{\BF{x}_j,\BF{x}^\prime_i}K_2\ParTh{\BF{x}_j,\BF{x}^\prime_i}=K\ParTh{\BF{x}_j,\BF{x}^\prime_i}
 	\end{align}
 	Applying Cholesky decomposition, rewrite
 	\begin{align}
@@ -390,13 +390,13 @@ Hence, $\ParTh{P_2}$ is equivalent to a linear hard-margin support vector machin
 		
 		Consider any vector $\BF{v}$, we have
 		\begin{align}
-		\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{1126k_1\ParTh{x_i,x^\prime_j}}v_j=1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_ik_1\ParTh{x_i,x^\prime_j}v_j
+		\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{1126K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j=1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_iK_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}v_j
 		\end{align}
-		Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$, we have
+		Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j\geq0$, we have
 		\begin{align}
-		1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_ik_1\ParTh{x_i,x^\prime_j}v_j\geq0
+		1126\sum_{j=1}^{N}\sum_{i=1}^{N}v_iK_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}v_j\geq0
 		\end{align}
-		where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite.
+		where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite.
 		
 		Hence, $K$ is positive semi-definite.
 		By satisfying the Mercer's conditions, $K$ is a valid kernel.
@@ -412,15 +412,15 @@ Hence, $\ParTh{P_2}$ is equivalent to a linear hard-margin support vector machin
 	
 	Consider any vector $\BF{v}$, we have
 	\begin{align}
-	\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-k_1\ParTh{x_i,x^\prime_j}}}v_j
+	\BF{v}^TK\BF{v}&=\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}}v_j
 	\end{align}
-	Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ and $0<K_1\ParTh{\BF{x},\BF{x}^\prime}<1$, we have
+	Since $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j\geq0$ and $0<K_1\ParTh{\BF{x},\BF{x}^\prime}<1$, we have
 	\begin{align}
 	\dfrac{1}{1-K_1\ParTh{\BF{x},\BF{x}^\prime}}>K_1\ParTh{\BF{x},\BF{x}^\prime}
 	\end{align}
-	where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite. So we have
+	where $\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j\geq0$ due to $K_1$ is positive semi-definite. So we have
 	\begin{align}
-	\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-k_1\ParTh{x_i,x^\prime_j}}}v_j\geq\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{k_1\ParTh{x_i,x^\prime_j}}v_j\geq0
+	\sum_{j=1}^{N}\sum_{i=1}^{N}v_i\ParTh{\dfrac{1}{1-K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}}v_j\geq\sum_{j=1}^{N}\sum_{i=1}^{N}v_i{K_1\ParTh{\BF{x}_i,\BF{x}^\prime_j}}v_j\geq0
 	\end{align}
 	Hence, $K$ is positive semi-definite.
 	By satisfying the Mercer's conditions, $K$ is a valid kernel.
@@ -536,7 +536,7 @@ From this figure, we have
 \subsection*{Problem 18}
 
 \begin{align}
-\text{margin list}=\SBrackets{3.607, \SciNum{3.577}{-1}, \SciNum{5.182}{-2}, \SciNum{3.210}{-2}, \SciNum{3.068}{-2}}
+\text{distance list}=\SBrackets{1.804, \SciNum{1.789}{-1}, \SciNum{2.591}{-2}, \SciNum{1.605}{-2}, \SciNum{1.534}{-2}}
 \end{align}
 \begin{figure}[H]
 	\centering
@@ -544,7 +544,7 @@ From this figure, we have
 	\caption{Q18}
 	\label{Q18}
 \end{figure}
-The margin is strictly decreasing as $C$ becomes larger.
+The distance is strictly decreasing as $C$ becomes larger.
 
 \QEDB
 
@@ -582,6 +582,14 @@ Over almost all random choices, $\gamma=10$ always minimizes $E_{\text{val}}$.
 
 \horrule{0.5pt}
 
+\subsection*{Problem 21}
+
+
+
+\QEDB
+
+\horrule{0.5pt}
+
 \section*{Reference}
 
 \begin{enumerate}
@@ -591,6 +599,10 @@ Over almost all random choices, $\gamma=10$ always minimizes $E_{\text{val}}$.
 \item[{[2]}] Quadratic Programming with Python and CVXOPT
 
 \url{https://courses.csail.mit.edu/6.867/wiki/images/a/a7/Qp-cvxopt.pdf}
+
+\item[{[3]}] scikit-learn documentation: 1.4. Support Vector Machines
+
+\url{http://scikit-learn.org/stable/modules/svm.html#multi-class-classification}
 
 \end{enumerate}
 
