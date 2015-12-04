@@ -36,7 +36,7 @@ def main():
         w     = clf.coef_[0]
         wNorm = np.linalg.norm(w)
         wList.append(wNorm)
-    plotHist(CList, wList, r"$\log_{10}C$", r'$||\bf{w}||$', "Q15", 1, False)
+    plotHist(CList, wList, r"$\log_{10}C$", r'$\Vert\bf{w}\Vert$', "Q15", 1, False)
     t1 = time.time()
     print '========================================================='
     print 'Question 15:', wList

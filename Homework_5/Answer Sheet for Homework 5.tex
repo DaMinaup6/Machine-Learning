@@ -584,7 +584,48 @@ Over almost all random choices, $\gamma=10$ always minimizes $E_{\text{val}}$.
 
 \subsection*{Problem 21}
 
-
+Hard-margin SVM dual:
+\begin{align}
+\min_{\bm{\alpha}}\ParTh{\dfrac{1}{2}\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m-\sum_{n=1}^{N}\alpha_n}\text{ subject to }\sum_{n=1}^{N}y_n\alpha_n=0,~\alpha_n\geq0,~\forall n
+\end{align}
+then we have
+\begin{align}
+\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}=\ParTh{\dfrac{1}{2}\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m-\sum_{n=1}^{N}\alpha_n}-\sum_{n=1}^{N}\beta_n\alpha_n
+\end{align}
+Use $\max_{\beta_n\geq0,\forall n}$ to eliminate condition $\alpha_n\leq0$ since if there exists some $\alpha_n<0$ for some $n$, then $\max_{\beta_n\geq0,\forall n}\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}\rightarrow\infty$. So the dual SVM is
+\begin{align}
+\min_{\bm{\alpha}}\ParTh{\max_{\beta_n\geq0,\forall n}\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}}
+\end{align}
+Hence the Lagrangian dual problem is
+\begin{align}
+\min_{\bm{\alpha}}\ParTh{\max_{\beta_n\geq0,\forall n}\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}}\geq\max_{\beta_n\geq0,\forall n}\ParTh{\min_{\bm{\alpha}}\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}}
+\label{LD}
+\end{align}
+At optimal, we have
+\begin{align}
+\dfrac{\partial\mathcal{L}}{\partial\alpha_i}=0=y_i\ParTh{\sum_{n=1}^{N}\alpha_ny_n\BF{z}^T_n}\BF{z}_i-1-\beta_i\Rightarrow\beta_i=y_i\ParTh{\sum_{n=1}^{N}\alpha_ny_n\BF{z}^T_n}\BF{z}_i-1
+\end{align}
+Substitute this into (\ref{LD}), we have
+\begin{align}
+\nonumber
+\max_{\beta_n\geq0,\forall n}\mathcal{L}\ParTh{b,\BF{w},\bm{\alpha},\bm{\beta}}&=\max_{\beta_n\geq0,\forall n}\left(\ParTh{\dfrac{1}{2}\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m-\sum_{n=1}^{N}\alpha_n}\right.\\
+&\hspace{4mm}\left.-\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m+\sum_{n=1}^{N}\alpha_n\right)\\
+&=\max_{\beta_n\geq0,\forall n}\ParTh{-\dfrac{1}{2}\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m}
+\end{align}
+which is
+\begin{align}
+\min_{\beta_n\geq0,\forall n}\ParTh{\dfrac{1}{2}\sum_{n=1}^{N}\sum_{m=1}^{N}\alpha_n\alpha_my_ny_m\BF{z}^T_n\BF{z}_m}&=\min_{\beta_n\geq0,\forall n}\ParTh{\dfrac{1}{2}\VecAbsVal{\sum_{n=1}^{N}\alpha_ny_n\BF{z}_n}^2}\\
+&=\min_{\beta_n\geq0,\forall n}\ParTh{\dfrac{1}{2}\VecAbsVal{\BF{w}}^2}
+\end{align}
+This is the same as the original problem, but subject to
+\begin{align}
+\beta_n\geq0\Rightarrow y_n\ParTh{\sum_{m=1}^{N}\alpha_my_m\BF{z}^T_m}\BF{z}_n=y_n\BF{w}^T\BF{z}_n\geq1
+\end{align}
+this is different from
+\begin{align}
+y_n\ParTh{\BF{w}^T\BF{z}_n+b}\geq1
+\end{align}
+The reason that $b$ is missing is due to the optimal condition $\sum_{n=1}^{N}\alpha_ny_n=0$.
 
 \QEDB
 

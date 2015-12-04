@@ -17,6 +17,7 @@ def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
     plt.grid(True)
     plt.draw()
     plt.savefig(title)
+    plt.tight_layout()
     plt.close()
 
 def main():
