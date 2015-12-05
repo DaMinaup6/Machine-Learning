@@ -8,6 +8,13 @@ def digitTrans(y, digit):
     y[y == digit] = 1.0
     return y
 
+def gauKernel(x1, x2, gamma):
+    return np.exp(-1 * gamma * (np.linalg.norm(x1 - x2) ** 2))
+
+def svmMargin(supVec, dualCoef, gamma):
+    kerMat = np.matrix([[gauKernel(x1, x2, gamma) for x2 in supVec] for x1 in supVec])
+    return reduce(np.dot, [dualCoef, kerMat, dualCoef])
+
 def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
     plt.title(str(title))
     plt.xlabel(str(xLabel))
@@ -21,6 +28,7 @@ def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
 
 def main():
     DIGIT = 0
+    GAMMA = 100
 
     TRAIN18_FILE = 'hw5_train.dat'
     TRAIN18_DATA = np.loadtxt(TRAIN18_FILE, dtype=np.float)
@@ -31,11 +39,10 @@ def main():
     distList = []
     t0 = time.time()
     for cPower in range(-3, 2):
-        clf = svm.SVC(C=(10 ** cPower), kernel='rbf', gamma=100)
+        clf = svm.SVC(C=(10 ** cPower), kernel='rbf', gamma=GAMMA)
         clf.fit(x18, y18)
-        w    = clf.dual_coef_.dot(clf.support_vectors_)[0]
-        dist = 1 / np.sqrt((w ** 2).sum())
-        distList.append(dist)
+        wSquare = svmMargin(np.array(clf.support_vectors_), np.array(clf.dual_coef_[0]), GAMMA)
+        distList.append(1 / np.sqrt(wSquare.item(0)))
     plotHist(CList, distList, r"$\log_{10}C$", 'distance', "Q18", 1, False)
     t1 = time.time()
     print '========================================================='
