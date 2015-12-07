@@ -32,7 +32,6 @@ def eValCal():
     eValList = []
     for gamPower in gammaList:
         clf  = svm.SVC(C=0.1, kernel='rbf', gamma=(10 ** gamPower))
-        clf.fit(xTrain20, yTrain20)
         eVal = 1 - clf.fit(xTrain20, yTrain20).score(xValid20, yValid20)
         eValList.append(eVal)
     return np.argmin(eValList)
@@ -60,8 +59,8 @@ def main():
     plotHist(eValHist, r"$\log_{10}\gamma$", r'$E_{\mathrm{val}}$', "Q20", 1, False)
     eValHist = np.bincount(eValHist)
     eValHist = np.array(eValHist)
-    while len(eValHist) < 5:
-        eValHist = np.append(eValHist, 0)
+    # while len(eValHist) < 5:
+    #     eValHist = np.append(eValHist, 0)
     t1 = time.time()
 
     print '========================================================='

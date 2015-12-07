@@ -37,7 +37,6 @@ def main():
     t0 = time.time()
     for gamPower in gammaList:
         clf  = svm.SVC(C=0.1, kernel='rbf', gamma=(10 ** gamPower))
-        clf.fit(xTrain19, yTrain19)
         eOut = 1 - clf.fit(xTrain19, yTrain19).score(xTest19, yTest19)
         eOutList.append(eOut)
     plotHist(gammaList, eOutList, r"$\log_{10}\gamma$", r'$E_{\mathrm{out}}$', "Q19", 1, False)
