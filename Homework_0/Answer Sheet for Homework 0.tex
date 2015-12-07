@@ -1,0 +1,538 @@
+\documentclass[12pt]{article}
+
+% Use packages %
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment}
+\usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
+
+% Set length %
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{235mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\topmargin}{-10mm}
+
+% Define h-bar %
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
+
+% Chinese input %
+%\usepackage{xeCJK} 
+%\setCJKmainfont{微軟正黑體}
+%\usepackage[T1]{fontenc}
+%\makeatletter
+
+% Equation number %
+%\@addtoreset{equation}{section} 
+%\renewcommand\theequation{{\thesection}.{\arabic{equation}}}
+%\makeatletter 
+
+% Helper Command %
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\rmnum}[1]{\romannumeral #1} 
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\makeatother
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+\newcommand*{\BmVert}{\bigm\vert}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
+\newcommand{\CBrackets}[1]{\left\{#1\right\}}
+\newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\ParTh}[1]{\left(#1\right)}
+\newcommand{\BF}[1]{{\bf#1}}
+\newcommand{\Inverse}[1]{{#1}^{-1}}
+\newcommand{\Generator}[1]{\left\langle#1\right\rangle}
+\newcommand{\AbsVal}[1]{\left|#1\right|}
+\newcommand{\VecAbsVal}[1]{\left\|#1\right\|}
+\newcommand{\BSlash}[2]{\left.#1\middle\backslash#2\right.}
+\newcommand{\Divide}[2]{\left.#1\middle/#2\right.}
+\newcommand{\SciNum}[2]{#1\times{10}^{#2}}
+\newcommand{\Matrix}[2]{\ParTh{\begin{array}{#1}#2\end{array}}}
+\newcommand{\MatrixTwo}[4]{\ParTh{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\newcommand{\MatrixNByN}[1]{\Matrix{cccc}{{#1}_{11} & {#1}_{12} & \cdots & {#1}_{1n} \\ {#1}_{21} & {#1}_{22} & \cdots & {#1}_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ {#1}_{n1} & {#1}_{n2} & \cdots & {#1}_{nn}}}
+\newcommand{\ndiv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\newcount\arrowcount
+\newcommand\arrows[1]{\global\arrowcount#1 \ifnum\arrowcount>0
+\begin{matrix}\expandafter\nextarrow\fi}
+\newcommand\nextarrow[1]{\global\advance\arrowcount-1 \ifx\relax#1\relax\else \xrightarrow{#1}\fi\ifnum\arrowcount=0 \end{matrix}\else\\\expandafter\nextarrow\fi}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Tikz settings %
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{mapsto}   = [draw, |->]
+\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\baselineskip 6.5mm
+\setlength{\parindent}{0pt}
+\title{ 
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm]
+\huge { \Huge Machine Learning \\ \large Answer Sheet for Homework 0 }\\ % The assignment title
+\horrule{2pt} \\ [0.5cm]
+}
+\author{ { \Large Da-Min HUANG } \\
+{\small B00502124} \\
+{\small \textit{Department of Electrical Engineering, National Taiwan University, Taipei 106, Taiwan} }
+}
+\allowdisplaybreaks[4]
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Probability and Statics}
+
+\subsection*{Problem 1}
+
+Now we have
+\begin{enumerate}
+\item $C\ParTh{N,~0}=C\ParTh{N,~N}=1$
+\item $C\ParTh{N,~K}=C\ParTh{N-1,~K}+C\ParTh{N-1,~K-1}$
+\end{enumerate}
+for $N\geq1$, $N\geq K\geq0$.
+
+\underline{Claim}:
+\begin{align}
+C\ParTh{N,~K}=\dfrac{N!}{K!\ParTh{N-K}!}
+\end{align}
+
+\underline{Proof of Claim}:
+
+Prove by induction:
+\begin{align}
+C\ParTh{N-1,~K}+C\ParTh{N-1,~K-1}&=\dfrac{\ParTh{N-1}!}{K!\ParTh{\ParTh{N-1}-K}!}+\dfrac{\ParTh{N-1}!}{\ParTh{K-1}!\ParTh{\ParTh{N-1}-\ParTh{K-1}}!}\\
+&=\dfrac{\ParTh{N-K}\ParTh{N-1}!+K\ParTh{N-1}!}{K!\ParTh{N-K}!}\\
+&=\dfrac{N\ParTh{N-1}!}{K!\ParTh{N-K}!}=\dfrac{N!}{K!\ParTh{N-K}!}=C\ParTh{N,~K}
+\end{align}
+
+\begin{comment}
+We will prove it by induction.
+\begin{enumerate}
+\item For $K=0$:
+\begin{align}
+C\ParTh{N,~0}=\dfrac{N!}{0!\ParTh{N-0}!}=1
+\end{align}
+\item For $K=1$:
+\begin{align}
+C\ParTh{N,~1}&=C\ParTh{N-1,~1}+C\ParTh{N-1,~0}=C\ParTh{N-1,~1}+1\\
+&=C\ParTh{N-2,~1}+C\ParTh{N-2,~0}+1=C\ParTh{N-2,~1}+2\\
+&=\cdots=C\ParTh{N-\ParTh{N-1},~1}+\ParTh{N-1}=1+\ParTh{N-1}=N\\
+&=\dfrac{N!}{1!\ParTh{N-1}!}
+\end{align}
+\item For $K=2$:
+\begin{align}
+C\ParTh{N,~2}&=C\ParTh{N-1,~2}+C\ParTh{N-1,~1}=C\ParTh{N-1,~2}+\ParTh{N-1}\\
+&=C\ParTh{N-2,~2}+C\ParTh{N-2,~1}+\ParTh{N-1}\\
+&=C\ParTh{N-2,~2}+\ParTh{N-2}+\ParTh{N-1}\\
+&=\cdots=C\ParTh{N-\ParTh{N-2},~2}+\sum_{i=1}^{N-2}\ParTh{N-i}\\
+&=1+\sum_{i=1}^{N-2}\ParTh{N-i}=N\ParTh{N-2}-\dfrac{\ParTh{N-1}\ParTh{N-2}}{2}+1\\
+&=\dfrac{\ParTh{N+1}\ParTh{N-2}+2}{2}=\dfrac{N\ParTh{N-1}}{2}=\dfrac{N!}{2!\ParTh{N-2}!}
+\end{align}
+\item By assumption, we have
+\begin{align}
+C\ParTh{N,~k}=\dfrac{N!}{k!\ParTh{N-k}!}
+\end{align}
+for $K=k$.
+\item For $K=k+1$:
+\begin{align}
+C\ParTh{N,~k+1}&=C\ParTh{N-1,~k+1}+C\ParTh{N-1,~k}\\
+&=C\ParTh{N-1,~k+1}+\dfrac{\ParTh{N-1}!}{k!\ParTh{\ParTh{N-1}-k}!}\\
+&=C\ParTh{N-2,~k+1}+C\ParTh{N-2,~k}+\dfrac{\ParTh{N-1}!}{k!\ParTh{\ParTh{N-1}-k}!}\\
+&=C\ParTh{N-2,~k+1}+\dfrac{\ParTh{N-2}!}{k!\ParTh{\ParTh{N-2}-k}!}+\dfrac{\ParTh{N-1}!}{k!\ParTh{\ParTh{N-1}-k}!}\\
+\nonumber
+&\hspace{2mm}\vdots\\
+&=C\ParTh{N-\ParTh{N-\ParTh{k+1}},~k+1}+\sum_{i=1}^{N-\ParTh{k+1}}\dfrac{\ParTh{N-i}!}{k!\ParTh{\ParTh{N-i}-k}!}\\
+&=\dfrac{1}{k!}\SBrackets{k!+\sum_{i=1}^{N-\ParTh{k+1}}\dfrac{\ParTh{N-i}!}{\ParTh{\ParTh{N-i}-k}!}}=\dfrac{N!}{\ParTh{k+1}!\ParTh{N-\ParTh{k+1}}!}
+\end{align}
+\end{enumerate}
+Then, we have
+\begin{align}
+C\ParTh{N,~1}&=C\ParTh{N-1,~1}+C\ParTh{N-1,~0}=C\ParTh{N-1,~1}+1\\
+&=C\ParTh{N-2,~1}+C\ParTh{N-2,~0}+1=C\ParTh{N-2,~1}+2\\
+&=\cdots=C\ParTh{N-\ParTh{N-1},~1}+\ParTh{N-1}=1+\ParTh{N-1}=N
+\end{align}
+So we have
+\begin{align}
+C\ParTh{N,~K}&=C\ParTh{N-1,~K}+C\ParTh{N-1,~K-1}\\
+&=C\ParTh{N-1,~K}+C\ParTh{N-2,~K-1}+C\ParTh{N-2,~K-2}\\
+&=C\ParTh{N-2,~K}+2C\ParTh{N-2,~K-1}+C\ParTh{N-2,~K-2}\\
+&=C\ParTh{N-3,~K}+3C\ParTh{N-3,~K-1}+3C\ParTh{N-3,~K-2}\\
+\nonumber
+&\hspace{4mm}+C\ParTh{N-3,~K-3}\\
+\nonumber
+&\hspace{2mm}\vdots\\
+&=C\ParTh{N-K,~K}+\binom{K}{1}C\ParTh{N-K,~K-1}+\binom{K}{2}C\ParTh{N-K,~K-2}\\
+\nonumber
+&\hspace{4mm}+\cdots+\binom{K}{K-1}C\ParTh{N-K,~K-K+1}+\binom{K}{K}C\ParTh{N-K,~K-K}
+\end{align}
+\end{comment}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+The probability of getting exactly 4 heads is
+\begin{align}
+P_{\text{4 heads}}=\binom{10}{4}\ParTh{0.5}^{10}=\dfrac{105}{512}
+\end{align}
+The probability of getting full house is
+\begin{align}
+P_{\text{full house}}=\Divide{\binom{13}{1}\binom{4}{3}\binom{12}{1}\binom{4}{2}}{\binom{52}{5}}=\dfrac{6}{4165}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+\begin{align}
+P=\dfrac{1}{\binom{3}{1}+\binom{3}{2}+\binom{3}{3}}=\dfrac{1}{7}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+\begin{align}
+P=\dfrac{\frac{1}{2}\times\frac{1}{4}}{\frac{1}{2}\times\frac{1}{8}+\frac{1}{2}\times\frac{1}{4}}=\dfrac{2}{3}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+\begin{align}
+\max\ParTh{P\ParTh{A\cap B}}&=0.3\\
+\min\ParTh{P\ParTh{A\cap B}}&=0\\
+\max\ParTh{P\ParTh{A\cup B}}&=0.7\\
+\min\ParTh{P\ParTh{A\cup B}}&=0.4\\
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+We have
+\begin{align}
+\ParTh{X_n-\overbar{X}}^2=X^2_n-2X_n\overbar{X}+\overbar{X}^2
+\end{align}
+so
+\begin{align}
+\sigma^2_X&=\dfrac{1}{N-1}\sum_{n=1}^{N}\ParTh{X^2_n-2X_n\overbar{X}+\overbar{X}^2}\\
+&=\dfrac{1}{N-1}\ParTh{\sum_{n=1}^{N}X^2_n}-\dfrac{2\overbar{X}}{N-1}\ParTh{\sum_{n=1}^{N}X_n}+\dfrac{N\overbar{X}^2}{N-1}\\
+&=\dfrac{1}{N-1}\ParTh{\sum_{n=1}^{N}X^2_n}-\dfrac{2N\overbar{X}^2}{N-1}+\dfrac{N\overbar{X}^2}{N-1}\\
+&=\dfrac{N}{N-1}\SBrackets{\ParTh{\dfrac{1}{N}\sum_{n=1}^{N}X^2_n}-\overbar{X}^2}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\begin{align}
+f_Z\ParTh{z}&=\int_{-\infty}^{+\infty}f_{X_2}\ParTh{z-x_1}f_{X_1}\ParTh{x_1}dx_1\\
+&=\int_{-\infty}^{+\infty}\SBrackets{\dfrac{1}{\sqrt{2\pi}\sigma_{X_2}}\exp\ParTh{-\dfrac{\ParTh{z-x_1-\mu_{X_2}}^2}{2\sigma^2_{X_2}}}}\SBrackets{\dfrac{1}{\sqrt{2\pi}\sigma_{X_1}}\exp\ParTh{-\dfrac{\ParTh{x_1-\mu_{X_1}}^2}{2\sigma^2_{X_1}}}}dx_1\\
+&=\dfrac{1}{\sqrt{2\pi}\sqrt{\sigma^2_{X_1}+\sigma^2_{X_2}}}\exp\SBrackets{-\dfrac{\ParTh{z-\ParTh{\mu_{X_1}+\mu_{X_2}}^2}}{2\ParTh{\sigma^2_{X_1}+\sigma^2_{X_2}}}}
+\end{align}
+So the $\mu_Z=-1$ and $\sigma^2_Z=5$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section{Linear Algebra}
+
+\subsection*{Problem 1}
+
+The r.r.e.f. of this matrix is
+\begin{align}
+\Matrix{ccc}{1&0&3\\0&1&-1\\0&0&0}
+\end{align}
+so the rank is 2.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+\begin{align}
+\dfrac{1}{8}\Matrix{ccc}{1&-5&6\\-2&6&-4\\3&-3&2}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+Consider
+\begin{align}
+\det\Matrix{ccc}{3-\lambda&1&1\\2&4-\lambda&2\\-1&-1&1-\lambda}&=-\lambda^3+8\lambda^2-20\lambda+16\\
+&=-\ParTh{x-4}\ParTh{x-2}^2
+\end{align}
+So the eigenvalues are
+\begin{align}
+\lambda_1=4,~\lambda_2=\lambda_3=2
+\end{align}
+Then,
+\begin{align}
+\left\{
+\begin{array}{l}
+-x_1+x_2+x_3=0\\
+2x_1+2x_3=0\\
+-x_1-x_2-3x_3=0
+\end{array}
+\right.,~
+\left\{
+\begin{array}{l}
+x_1+x_2+x_3=0\\
+2x_1+2x_2+2x_3=0\\
+-x_1-x_2-x_3=0
+\end{array}
+\right.
+\end{align}
+The eigenvectors are
+\begin{align}
+\BF{v}_1=\Matrix{r}{-1\\-2\\1},~\BF{v}_2=\Matrix{r}{-1\\1\\0},~\BF{v}_3=\Matrix{r}{-1\\0\\1}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+It is easy to show that $\Sigma\Sigma^\dagger=I$ or $\Sigma^\dagger\Sigma=I$. So if $\Sigma$ is invertible, then $\Sigma^\dagger=\Sigma^{-1}$.
+
+Now we have $M=U\Sigma V^T$, so
+\begin{align}
+MM^{\dagger}M&=\ParTh{U\Sigma V^T}\ParTh{V\Sigma^{\dagger} U^T}\ParTh{U\Sigma V^T}=U\ParTh{\Sigma V^TV\Sigma^{\dagger}U^TU\Sigma}V^T\\
+&=U\SBrackets{\Sigma\ParTh{V^TV}\Sigma^{\dagger}\ParTh{U^TU}\Sigma}V^T=U\ParTh{\Sigma\Sigma^\dagger \Sigma}V^T\\
+&=U\ParTh{I\Sigma}V^T=U\Sigma V^T
+\end{align}
+where
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+Let $\BF{x}=\Matrix{c}{x_1\\x_2\\\vdots\\x_m}$, $Z=\Matrix{cccc}{a_{11}&a_{12}&\cdots&a_{1n}\\a_{21}&a_{22}&\cdots&a_{2n}\\\vdots&\vdots&\ddots&\vdots\\a_{m1}&a_{m2}&\cdots&a_{mn}}$, so
+\begin{comment}
+\begin{align}
+\BF{x}^TZZ^T\BF{x}&=\BF{x}^T\Matrix{cccc}{\sum_{i=1}^{n}a^2_{1i}&\sum_{i=1}^{n}a_{1i}a_{2i}&\cdots&\sum_{i=1}^{n}a_{1i}a_{mi}\\\sum_{i=1}^{n}a_{2i}a_{1i}&\sum_{i=1}^{n}a^2_{2i}&\cdots&\sum_{i=1}^{n}a_{2i}a_{mi}\\\vdots&\vdots&\ddots&\vdots\\\sum_{i=1}^{n}a_{mi}a_{1i}&\sum_{i=1}^{n}a_{mi}a_{2i}&\cdots&\sum_{i=1}^{n}a^2_{mi}}\BF{x}\\
+&=\Matrix{cc}{x_1\sum_{i=1}^{n}a^2_{1i}+\cdots+x_m\sum_{i=1}^{n}a_{mi}a_{1i}&\cdots}\Matrix{c}{x_1\\x_2\\\vdots\\x_m}\\
+&=\sum_{1\leq i,~j\leq m} \ParTh{x_{i}x_j\sum_{r=1}^{n}a_{ir}a_{jr}}
+\end{align}
+\end{comment}
+\begin{align}
+\BF{x}^TZZ^T\BF{x}&=\Matrix{cccc}{\sum_{i=1}^{m}x_ia_{i1}&\sum_{i=1}^{m}x_ia_{i2}&\cdots&\sum_{i=1}^{m}x_ia_{in}}\Matrix{c}{\sum_{i=1}^{m}x_ia_{i1}\\\sum_{i=1}^{m}x_ia_{i2}\\\vdots\\\sum_{i=1}^{m}x_ia_{in}}\\
+&=\sum_{j=1}^{n}\ParTh{\sum_{i=1}^{m}x_ia_{ij}}^2\geq0
+\end{align}
+If now $A$ is PD, then
+\begin{align}
+\BF{x}^TA\BF{x}&>0\\\BF{x}^TA\BF{x}&=\BF{x}^TA^T\BF{x}=\ParTh{A\BF{x}}^T\BF{x}=\ParTh{\lambda\BF{x}}^T\BF{x}=\lambda\left\|\BF{x}\right\|^2>0
+\end{align}
+so $\lambda>0$.
+If all eigenvalues are all positive, then
+\begin{align}
+\BF{x}^TA\BF{x}=\BF{x}^TA^T\BF{x}=\ParTh{A\BF{x}}^T\BF{x}=\ParTh{\lambda\BF{x}}^T\BF{x}=\lambda\left\|\BF{x}\right\|^2>0
+\end{align}
+so $A$ is PD.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\begin{align}
+\max\ParTh{\BF{u}^T\BF{x}}=\VecAbsVal{\BF{x}}&\Rightarrow\BF{u}=\dfrac{\BF{x}}{\VecAbsVal{\BF{x}}}\\
+\min\ParTh{\BF{u}^T\BF{x}}=-\VecAbsVal{\BF{x}}&\Rightarrow\BF{u}=-\dfrac{\BF{x}}{\VecAbsVal{\BF{x}}}\\
+\min\ParTh{\AbsVal{\BF{u}^T\BF{x}}}=0&\Rightarrow\BF{u}\perp\BF{x}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\begin{align}
+\AbsVal{\BF{w}^T\ParTh{\BF{x}_1-\BF{x}_2}}=\AbsVal{\BF{w}^T\BF{x}_1-\BF{w}^T\BF{x}_2}=5
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section{Calculus}
+
+\subsection*{Problem 1}
+
+\begin{align}
+\dfrac{df}{dx}&=\dfrac{-2e^{-2x}}{1+e^{-2x}},~\dfrac{\partial g}{\partial y}=2e^{2y}+6xye^{3xy^2}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+\begin{align}
+\dfrac{\partial f}{\partial v}&=\dfrac{\partial x}{\partial v}y+x\dfrac{\partial y}{\partial v}=-\SBrackets{\sin\ParTh{u+v}\sin\ParTh{u-v}}-\SBrackets{\cos\ParTh{u+v}\cos\ParTh{u-v}}\\
+&=-\cos\ParTh{2v}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+\begin{align}
+\int_{5}^{10}\dfrac{2}{x-3}dx=\int_{5}^{10}\dfrac{2}{x-3}d\ParTh{x-3}=2\int_{5}^{10}d\SBrackets{\ln\ParTh{x-3}}=2\ln\ParTh{3.5}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+\begin{align}
+\nabla E&=\Matrix{c}{2ue^{2v}+4v\ParTh{u-1}e^{v-u}-4v^2e^{-2u}\\2u^2e^{2v}-4u\ParTh{v+1}e^{v-u}+8ve^{-2u}}\\
+\nabla^2 E&=\Matrix{cc}{2e^{2v}+4v\ParTh{2-u}e^{v-u}+8v^2e^{-2u}&4ue^{2v}+4\ParTh{v+1}\ParTh{2-u}e^{v-u}-8ve^{-2u}\\4ue^{2v}+4\ParTh{u-1}\ParTh{v+1}e^{v-u}-16ve^{2u}&4u^2e^{2v}-4u\ParTh{v+2}e^{v-u}+8e^{-2u}}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+\begin{align}
+T\ParTh{u,~v}=&E\ParTh{1,~1}+\ParTh{u-1}E_u\ParTh{1,~1}+\ParTh{v-1}E_y\ParTh{1,~1}\\
+\nonumber
+&+\dfrac{1}{2!}\SBrackets{\ParTh{u-1}^2E_{uu}\ParTh{1,~1}+2\ParTh{u-1}\ParTh{v-1}E_{uv}\ParTh{1,~1}+\ParTh{v-1}^2E_{vv}\ParTh{1,~1}}+\cdots
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\begin{align}
+Ae^{\alpha}=2Be^{-2\alpha}\Rightarrow\alpha=-\dfrac{1}{3}\ln\ParTh{\dfrac{A}{2B}}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\begin{align}
+\dfrac{\partial}{\partial \BF{w}}\BF{w}^TA\BF{w}&=\SBrackets{\dfrac{\partial}{\partial w_k}\ParTh{\sum_{j=1}^{n}\sum_{i=1}^{n}a_{ij}w_iw_j}}_k\\
+&=\SBrackets{\sum_{j=1}^{n}a_{kj}w_j}_k+\SBrackets{\sum_{i=1}^{n}a_{ik}w_i}_k\\
+&=A^T\BF{w}+A\BF{w}=2A\BF{w}\\
+\dfrac{\partial}{\partial \BF{w}}\BF{b}^T\BF{w}&=\SBrackets{\dfrac{\partial}{\partial w_k}\ParTh{\sum_{i=1}^{n}b_iw_i}}_k=\SBrackets{b_k}_k=\BF{b}
+\end{align}
+So $\nabla E\ParTh{\BF{w}}=A\BF{w}+\BF{b}$. Also,
+\begin{align}
+\dfrac{\partial}{\partial \BF{w}^T}A\BF{w}=\SBrackets{\ParTh{\dfrac{\partial}{\partial w_i}\SBrackets{\sum_{k=1}^{n}a_{jk}w_k}_j}^T}_i=\SBrackets{a_{ji}}_{ji}=A
+\end{align}
+Hence, $\nabla^2 E = A$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 8}
+
+For $\nabla E\ParTh{\BF{w}}=\BF{0}\Rightarrow\BF{w}=-\Inverse{A}\BF{b}$. Hence $\argmin_{\BF{w}}\ParTh{E\ParTh{\BF{w}}}=-A^{-1}\BF{b}$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 9}
+
+Consider $\nabla\SBrackets{\dfrac{1}{2}\ParTh{w^2_1+2w^2_2+3w^2_3}-\lambda\ParTh{w_1+w_2+w_3-11}}=0$,
+\begin{align}
+\left.
+\begin{array}{r}
+w_1-\lambda=0\\
+2w_2-\lambda=0\\
+3w_3-\lambda=0\\
+w_1+w_2+w_3-11=0
+\end{array}
+\right\}
+\Rightarrow w_1=6,~w_2=3,~w_3=2
+\end{align}
+so $\min\SBrackets{\dfrac{1}{2}\ParTh{w^2_1+2w^2_2+3w^2_3}}=33$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 10}
+
+\begin{comment}
+Consider $\nabla\ParTh{E\ParTh{\BF{w}}-\bm{\lambda}^T\ParTh{A\BF{w}+\BF{b}}}=\BF{0}$,
+\begin{align}
+\left.
+\begin{array}{r}
+\partial_{\BF{w}}E\ParTh{\BF{w}}-\bm{\lambda}^TA=\BF{0}\\
+A\BF{w}+\BF{b}=\BF{0}
+\end{array}
+\right\}
+\Rightarrow\nabla E\ParTh{\BF{w}}-\bm{\lambda}^TA=\BF{0}\text{ at }\BF{w}=\Inverse{A}\BF{b}
+\end{align}
+where $\partial_{\bm{\lambda}}E\ParTh{\BF{w}}=\BF{0}$.
+\end{comment}
+Claim $\nabla E\ParTh{\BF{w}}=-\bm{\lambda}^T\text{A}$ for some vector $\bm{\lambda}$, if not, assume $\nabla E\ParTh{\BF{w}}=-\bm{\lambda}^T\text{A}+\BF{u}^T$ and consider
+\begin{align}
+E\ParTh{\BF{w}-\eta\cdot\BF{u}}\sim E\ParTh{\BF{w}}-\eta\nabla E\ParTh{\BF{w}}\BF{u}=E\ParTh{\BF{w}}-\eta\ParTh{\BF{u}^T\BF{u}-\bm{\lambda}^T\text{A}\BF{u}}=E\ParTh{\BF{w}}-\eta\VecAbsVal{\BF{u}}^2
+\end{align}
+for some small $\eta>0$. Then there must exists $\BF{u}$ such that $E\ParTh{\BF{w}}>E\ParTh{\BF{w}-\eta\cdot\BF{u}}$, which is a contradiction.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section*{Reference}
+
+\begin{enumerate}
+
+\item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
