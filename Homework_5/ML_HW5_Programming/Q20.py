@@ -11,7 +11,7 @@ def digitTrans(y, digit):
     y[y == digit] = 1.0
     return y
 
-def eValCal(i):
+def eValCal():
     DIGIT = 0
     RANDOM_SAMPLE = 1000
 
@@ -52,11 +52,11 @@ def plotHist(x, xLabel, yLabel, title, width, isFloat):
     plt.close()
 
 def main():
-    REPEAT = 1
+    REPEAT = 100
     num_cores = mp.cpu_count()
 
     t0 = time.time()
-    eValHist = Parallel(n_jobs=num_cores)(delayed(eValCal)(i) for i in range(REPEAT))
+    eValHist = Parallel(n_jobs=num_cores)(delayed(eValCal)() for i in range(REPEAT))
     plotHist(eValHist, r"$\log_{10}\gamma$", r'$E_{\mathrm{val}}$', "Q20", 1, False)
     eValHist = np.bincount(eValHist)
     eValHist = np.array(eValHist)
