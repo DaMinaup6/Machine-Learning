@@ -30,7 +30,7 @@ def main():
     CList = [-6, -4, -2, 0, 2]
     wList = []
     t0 = time.time()
-    for cPower in range(-6, 3, 2):
+    for cPower in CList:
         clf = svm.SVC(C=(10 ** cPower), kernel='linear')
         clf.fit(x15, y15)
         w     = clf.coef_[0]

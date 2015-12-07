@@ -35,7 +35,7 @@ def main():
     gammaList = [0, 1, 2, 3, 4]
     eOutList  = []
     t0 = time.time()
-    for gamPower in range(0, 5):
+    for gamPower in gammaList:
         clf  = svm.SVC(C=0.1, kernel='rbf', gamma=(10 ** gamPower))
         clf.fit(xTrain19, yTrain19)
         eOut = 1 - clf.fit(xTrain19, yTrain19).score(xTest19, yTest19)

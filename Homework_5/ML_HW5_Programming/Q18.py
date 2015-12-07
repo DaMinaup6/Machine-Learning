@@ -38,7 +38,7 @@ def main():
     CList    = [-3, -2, -1, 0, 1]
     distList = []
     t0 = time.time()
-    for cPower in range(-3, 2):
+    for cPower in CList:
         clf = svm.SVC(C=(10 ** cPower), kernel='rbf', gamma=GAMMA)
         clf.fit(x18, y18)
         wSquare = svmMargin(np.array(clf.support_vectors_), np.array(clf.dual_coef_[0]), GAMMA)

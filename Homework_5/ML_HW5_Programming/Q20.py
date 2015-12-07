@@ -1,13 +1,41 @@
 import time
 import numpy as np
 import random as rd
+import multiprocessing as mp
 import matplotlib.pyplot as plt
 from sklearn import svm
+from joblib import Parallel, delayed
 
 def digitTrans(y, digit):
     y[y != digit] = -1.0
     y[y == digit] = 1.0
     return y
+
+def eValCal(i):
+    DIGIT = 0
+    RANDOM_SAMPLE = 1000
+
+    TRAIN20_FILE = 'hw5_train.dat'
+    TRAIN20_DATA = np.loadtxt(TRAIN20_FILE, dtype=np.float)
+    x20 = TRAIN20_DATA[:, 1:TRAIN20_DATA.shape[1]]
+    y20 = digitTrans(TRAIN20_DATA[:, 0], DIGIT)
+
+    gammaList = [0, 1, 2, 3, 4]
+
+    randIdx  = np.array(rd.sample(range(len(x20)), RANDOM_SAMPLE))
+    pRandIdx = np.array([r for r in range(len(x20)) if r not in randIdx])
+    xTrain20 = x20[pRandIdx]
+    yTrain20 = y20[pRandIdx]
+    xValid20 = x20[randIdx]
+    yValid20 = y20[randIdx]
+
+    eValList = []
+    for gamPower in gammaList:
+        clf  = svm.SVC(C=0.1, kernel='rbf', gamma=(10 ** gamPower))
+        clf.fit(xTrain20, yTrain20)
+        eVal = 1 - clf.fit(xTrain20, yTrain20).score(xValid20, yValid20)
+        eValList.append(eVal)
+    return np.argmin(eValList)
 
 def plotHist(x, xLabel, yLabel, title, width, isFloat):
     plt.title(str(title))
@@ -24,35 +52,18 @@ def plotHist(x, xLabel, yLabel, title, width, isFloat):
     plt.close()
 
 def main():
-    DIGIT = 0
-    REPEAT = 100
-    RANDOM_SAMPLE = 1000
+    REPEAT = 1
+    num_cores = mp.cpu_count()
 
-    TRAIN20_FILE = 'hw5_train.dat'
-    TRAIN20_DATA = np.loadtxt(TRAIN20_FILE, dtype=np.float)
-    x20 = TRAIN20_DATA[:, 1:TRAIN20_DATA.shape[1]]
-    y20 = TRAIN20_DATA[:, 0]
-
-    gammaList = [0, 1, 2, 3, 4]
-    eValHist  = []
     t0 = time.time()
-    for times in range(REPEAT):
-        randIdx  = np.array(rd.sample(range(len(x20)), RANDOM_SAMPLE))
-        pRandIdx = np.array([r for r in range(len(x20)) if r not in randIdx])
-        xTrain20 = x20[randIdx]
-        yTrain20 = digitTrans(y20[randIdx], DIGIT)
-        xValid20 = x20[pRandIdx]
-        yValid20 = digitTrans(y20[pRandIdx], DIGIT)
-
-        eValList = []
-        for gamPower in range(0, 5):
-            clf  = svm.SVC(C=0.1, kernel='rbf', gamma=(10 ** gamPower))
-            clf.fit(xTrain20, yTrain20)
-            eVal = 1 - clf.fit(xTrain20, yTrain20).score(xValid20, yValid20)
-            eValList.append(eVal)
-        eValHist.append(np.argmin(eValList))
+    eValHist = Parallel(n_jobs=num_cores)(delayed(eValCal)(i) for i in range(REPEAT))
     plotHist(eValHist, r"$\log_{10}\gamma$", r'$E_{\mathrm{val}}$', "Q20", 1, False)
+    eValHist = np.bincount(eValHist)
+    eValHist = np.array(eValHist)
+    while len(eValHist) < 5:
+        eValHist = np.append(eValHist, 0)
     t1 = time.time()
+
     print '========================================================='
     print 'Question 20:', eValHist
     print '---------------------------------------------------------'

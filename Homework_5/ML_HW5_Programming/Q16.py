@@ -30,7 +30,7 @@ def main():
     CList   = [-6, -4, -2, 0, 2]
     eInList = []
     t0 = time.time()
-    for cPower in range(-6, 3, 2):
+    for cPower in CList:
         clf = svm.SVC(C=(10 ** cPower), kernel='poly', degree=2, gamma=1, coef0=1)
         clf.fit(x16, y16)
         eIn = 1 - clf.fit(x16, y16).score(x16, y16)
