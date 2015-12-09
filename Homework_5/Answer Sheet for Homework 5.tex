@@ -95,6 +95,16 @@ The hard-margin support vector machine is with $d+1$ variables. For soft-margin 
 
 So soft-margin support vector machine is a quadratic programming problem with $N+d+1$ variables.
 
+And there
+\begin{align}
+\left.
+\begin{array}{ll}
+\xi_n\geq0,&\text{for }1\leq n\leq N\\
+y_n\ParTh{\BF{w}^T\BF{z}_n+b}\geq1,&\text{for }1\leq n\leq N
+\end{array}
+\right\}\Rightarrow\text{ there are }2N\text{ constraints}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
@@ -159,7 +169,7 @@ b&=y_s-\sum_{n=1}^{N}\alpha_ny_nK\ParTh{\BF{x}_n,\BF{x}_s}
 \end{align}
 we have
 \begin{align}
-\BF{w}=\dfrac{1}{9}\ParTh{8x^2_1 - 16x_1 + 6x^2_2-15}
+\text{hyperplane: }\dfrac{1}{9}\ParTh{8x^2_1 - 16x_1 + 6x^2_2-15}
 \end{align}
 
 \QEDB
