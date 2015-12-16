@@ -1,0 +1,290 @@
+\documentclass[12pt]{article}
+
+% Use packages %
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd, float}
+\usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
+
+% Set length %
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{235mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\topmargin}{-10mm}
+
+% Define h-bar %
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
+
+% Chinese input %
+%\usepackage{xeCJK} 
+%\setCJKmainfont{微軟正黑體}
+%\usepackage[T1]{fontenc}
+%\makeatletter
+
+% Equation number %
+%\@addtoreset{equation}{section} 
+%\renewcommand\theequation{{\thesection}.{\arabic{equation}}}
+%\makeatletter 
+
+% Helper Command %
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\rmnum}[1]{\romannumeral #1} 
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\makeatother
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+\newcommand*{\BmVert}{\bigm\vert}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
+\newcommand{\CBrackets}[1]{\left\{#1\right\}}
+\newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\ParTh}[1]{\left(#1\right)}
+\newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\BF}[1]{{\bf#1}}
+\newcommand{\Inverse}[1]{{#1}^{-1}}
+\newcommand{\Generator}[1]{\left\langle#1\right\rangle}
+\newcommand{\AbsVal}[1]{\left|#1\right|}
+\newcommand{\VecAbsVal}[1]{\left\|#1\right\|}
+\newcommand{\BSlash}[2]{\left.#1\middle\backslash#2\right.}
+\newcommand{\Divide}[2]{\left.#1\middle/#2\right.}
+\newcommand{\SciNum}[2]{#1\times{10}^{#2}}
+\newcommand{\Matrix}[2]{\SBrackets{\begin{array}{#1}#2\end{array}}}
+\newcommand{\MatrixTwo}[4]{\ParTh{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\newcommand{\MatrixNByN}[1]{\Matrix{cccc}{{#1}_{11} & {#1}_{12} & \cdots & {#1}_{1n} \\ {#1}_{21} & {#1}_{22} & \cdots & {#1}_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ {#1}_{n1} & {#1}_{n2} & \cdots & {#1}_{nn}}}
+\newcommand{\ndiv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\newcount\arrowcount
+\newcommand\arrows[1]{\global\arrowcount#1 \ifnum\arrowcount>0
+\begin{matrix}\expandafter\nextarrow\fi}
+\newcommand\nextarrow[1]{\global\advance\arrowcount-1 \ifx\relax#1\relax\else \xrightarrow{#1}\fi\ifnum\arrowcount=0 \end{matrix}\else\\\expandafter\nextarrow\fi}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Tikz settings %
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{mapsto}   = [draw, |->]
+\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+
+\begin{document}
+
+\baselineskip 6.5mm
+\setlength{\parindent}{0pt}
+\title{ 
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm]
+\huge { \Huge Machine Learning \\ \large Answer Sheet for Homework 6 }\\
+\horrule{2pt} \\ [0.5cm]
+}
+\author{ { \Large Da-Min HUANG } \\
+{\small R04942045} \\
+{\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
+}
+\date{December 23, 2015}
+%\allowdisplaybreaks[4]
+\maketitle
+
+\subsection*{Problem 1}
+
+With the definition of $z_n$, rewrite the equation
+\begin{align}
+\min_{A,B}F\ParTh{A,B}=\dfrac{1}{N}\sum_{n=1}^{N}\ln\ParTh{1+\exp\ParTh{-y_n\ParTh{Az_n+B}}}
+\end{align}
+So
+\begin{align}
+\dfrac{\partial F}{\partial A}&=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{\exp\ParTh{-y_n\ParTh{Az_n+B}}}{1+\exp\ParTh{-y_n\ParTh{Az_n+B}}}}^Tz_n=\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_nz_n\\
+\dfrac{\partial F}{\partial B}&=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{\exp\ParTh{-y_n\ParTh{Az_n+B}}}{1+\exp\ParTh{-y_n\ParTh{Az_n+B}}}}^T=\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_n
+\end{align}
+Hence
+\begin{align}
+\nabla F\ParTh{A,B}=\dfrac{1}{N}\sum_{n=1}^{N}\SBrackets{-y_nz_np_n,-y_np_n}^T
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+Use the result of Problem 1 and define $\exp\ParTh{-y_n\ParTh{Az_n+B}}=\exp\ParTh{\xi_n}$, we have
+\begin{align}
+\dfrac{\partial^2F}{\partial A^2}&=\dfrac{\partial}{\partial A}\ParTh{\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_nz_n}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{-y_n\exp\ParTh{\xi_n}\ParTh{1+\exp\ParTh{\xi_n}}z_n-y_n\ParTh{\exp\ParTh{\xi_n}}^2z_n}{\ParTh{1+\exp\ParTh{\xi_n}}^2}}z_n\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{-y_n\exp\ParTh{\xi_n}z_n}{\ParTh{1+\exp\ParTh{\xi_n}}^2}}z_n\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\ParTh{y_n}^2\ParTh{\dfrac{\exp\ParTh{\xi_n}}{1+\exp\ParTh{\xi_n}}\ParTh{1-\dfrac{\exp\ParTh{\xi_n}}{1+\exp\ParTh{\xi_n}}}}z^2_n\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}z^2_np_n\ParTh{1-p_n}
+\end{align}
+where $y^2_n=1$ since $y_n\in\CBrackets{-1,+1}$.
+
+The other term is
+\begin{align}
+\dfrac{\partial^2F}{\partial A\partial B}&=\dfrac{\partial}{\partial A}\ParTh{\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_n}=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{-y_n\exp\ParTh{\xi_n}z_n}{\ParTh{1+\exp\ParTh{\xi_n}}^2}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}z_np_n\ParTh{1-p_n}\\
+\dfrac{\partial^2F}{\partial B\partial A}&=\dfrac{\partial}{\partial B}\ParTh{\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_nz_n}=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{-y_n\exp\ParTh{\xi_n}}{\ParTh{1+\exp\ParTh{\xi_n}}^2}}z_n\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}z_np_n\ParTh{1-p_n}\\
+\dfrac{\partial^2F}{\partial B^2}&=\dfrac{\partial}{\partial B}\ParTh{\dfrac{1}{N}\sum_{n=1}^{N}-y_np^T_n}=\dfrac{1}{N}\sum_{n=1}^{N}-y_n\ParTh{\dfrac{-y_n\exp\ParTh{\xi_n}}{\ParTh{1+\exp\ParTh{\xi_n}}^2}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}p_n\ParTh{1-p_n}
+\end{align}
+Hence, we have
+\begin{align}
+H\ParTh{F}=\dfrac{1}{N}\sum_{n=1}^{N}\Matrix{cc}{z^2_np_n\ParTh{1-p_n}&z_np_n\ParTh{1-p_n}\\z_np_n\ParTh{1-p_n}&p_n\ParTh{1-p_n}}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+As $\gamma\rightarrow\infty$, we have
+\begin{align}
+\lim\limits_{\gamma\rightarrow\infty}\exp\ParTh{-\gamma\VecAbsVal{\BF{x}_n-\BF{x}_m}^2}=0
+\end{align}
+So $K$ should be a zero matrix with size $N\times N$, which is $\BF{0}_{N\times N}$.
+
+And $\bm{\beta}$ is
+\begin{align}
+\bm{\beta}=\ParTh{\lambda I+K}^{-1}\BF{y}=\lambda^{-1}\BF{y}
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+If $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}>\epsilon$, then
+\begin{align}
+\left\{
+\begin{array}{ll}
+\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}-\epsilon=\xi^{\wedge}_n\text{ and }\xi^{\vee}_n=0,&\text{if }y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b>0\\\\
+\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}-\epsilon=\xi^{\vee}_n\text{ and }\xi^{\wedge}_n=0,&\text{if }y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b<0
+\end{array}
+\right.
+\end{align}
+ and if $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}\leq\epsilon$, then $\xi^{\wedge}_n=0$ and $\xi^{\vee}_n=0$.
+Hence, we have
+\begin{align}
+\ParTh{\xi^\wedge_n}^2+\ParTh{\xi^\vee_n}^2=\ParTh{\max\ParTh{0,\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}-\epsilon}}^2
+\end{align}
+So $P_2$ is equivalent to
+\begin{align}
+\min_{b,\BF{w}}\ParTh{\dfrac{1}{2}\BF{w}^T\BF{w}+C\sum_{n=1}^{N}\ParTh{\max\ParTh{0,\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}-\epsilon}}^2}
+\end{align}
+with no constraints.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 8}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 9}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 10}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 11}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 12}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 13}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 14}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 15}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 16}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 17}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 18}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 19}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 20}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section*{Reference}
+
+\begin{enumerate}
+
+\item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
+
+\end{enumerate}
+
+\end{document}
