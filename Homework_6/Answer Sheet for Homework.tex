@@ -247,17 +247,63 @@ Hence,
 
 \subsection*{Problem 7}
 
+Suppose the input is $\ParTh{a,b}$ with following cases.
+\begin{enumerate}
+	\item $0\leq a\leq b\leq1$.
+	
+	Then the output should be $\ParTh{a^2,b^2}$. The line equation of these two points $\ParTh{a,a^2}$ and $\ParTh{b,b^2}$ is
+\begin{align}
+y=\dfrac{b^2-a^2}{b-a}\ParTh{x-a}+a^2
+\end{align}
+Then $\bar{g}_1\ParTh{x}$ should be
+\begin{align}
+\int_{0}^{1}\int_{0}^{b}\ParTh{\dfrac{b^2-a^2}{b-a}\ParTh{x-a}+a^2}dadb&=\int_{0}^{1}\left.\ParTh{\dfrac{1}{2}a^2\ParTh{x-b}+abx}\right|^{a=b}_{a=0}db\\
+&=\int_{0}^{1}\ParTh{\dfrac{3}{2}b^2x-\dfrac{1}{2}b^3}db\\
+&=\left.\ParTh{\dfrac{1}{2}b^3x-\dfrac{1}{8}b^4}\right|^{b=1}_{b=0}=\dfrac{1}{2}x-\dfrac{1}{8}
+\end{align}
+
+\item $0\leq b<a\leq1$.
+
+Similarly, we have
+\begin{align}
+\bar{g}_2\ParTh{x}=\dfrac{1}{2}x-\dfrac{1}{8}
+\end{align}
+\end{enumerate}
+Hence, we have
+\begin{align}
+\bar{g}\ParTh{x}=\bar{g}_1\ParTh{x}+\bar{g}_2\ParTh{x}=x-\dfrac{1}{4}
+\end{align}
+This makes sence since $\bar{g}\ParTh{x}$ and $f\ParTh{x}$ should be the same at the average value of $\SBrackets{0,1}$, which is
+\begin{align}
+\bar{g}\ParTh{\dfrac{1}{2}}=\dfrac{1}{2}-\dfrac{1}{4}=\dfrac{1}{4}=\ParTh{\dfrac{1}{2}}^2=f\ParTh{\dfrac{1}{2}}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 8}
 
+Now we have
+\begin{align}
+u_n\ParTh{y_n-\BF{w}^T\BF{x}_n}^2=u_ny^2_n-2u_ny_n\BF{w}^T\BF{x}_n+u_n\ParTh{\BF{w}^T\BF{x}_n}^2
+\end{align}
+This is equal to
+\begin{align}
+u_n\ParTh{y_n-\BF{w}^T\BF{x}_n}^2=\ParTh{\sqrt{u_n}y_n}^2-2\ParTh{\sqrt{u_n}y_n}\ParTh{\BF{w}^T\ParTh{\sqrt{u_n}\BF{x}_n}}+\ParTh{\BF{w}^T\ParTh{\sqrt{u_n}\BF{x}_n}}^2
+\end{align}
+Hence, the pseudo data is $\CBrackets{\ParTh{\tilde{\BF{x}}_n,\tilde{y}_n}}^N_{n=1}=\CBrackets{\ParTh{\sqrt{u_n}x_n,\sqrt{u_n}y_n}}^N_{n=1}$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 9}
+
+With the rule of optimal re-weighting, we have
+\begin{align}
+u^{\ParTh{2}}_+=u^{\ParTh{1}}\cdot1\%,~u^{\ParTh{2}}_-=u^{\ParTh{1}}\cdot99\%\Rightarrow\dfrac{u^{\ParTh{2}}_+}{u^{\ParTh{2}}_-}=\dfrac{1}{99}
+\end{align}
 
 \QEDB
 
