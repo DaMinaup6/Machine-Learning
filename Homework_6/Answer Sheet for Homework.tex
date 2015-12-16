@@ -222,7 +222,24 @@ So we have
 
 \subsection*{Problem 6}
 
+First, we have
+\begin{align}
+e_t=\dfrac{1}{M}\sum_{m=1}^{M}\ParTh{g_t\ParTh{\tilde{\BF{x}}_m}}^2-2g_t\ParTh{\tilde{\BF{x}}_m}\tilde{y}_m+\ParTh{\tilde{y}_m}^2
+\end{align}
+And $e_0$ is
+\begin{align}
+e_0=\dfrac{1}{M}\sum_{m=1}^{M}\ParTh{0}^2-2\cdot0\cdot\tilde{y}_m+\ParTh{\tilde{y}_m}^2=\dfrac{1}{M}\sum_{m=1}^{M}\ParTh{\tilde{y}_m}^2
+\end{align}
+where we have used that $g_0\ParTh{\BF{x}}=0$, $\forall\BF{x}$.
 
+So $e_t$ can be rewritten as
+\begin{align}
+e_t=e_0+\dfrac{1}{M}\sum_{m=1}^{M}\ParTh{g_t\ParTh{\tilde{\BF{x}}_m}}^2-2g_t\ParTh{\tilde{\BF{x}}_m}\tilde{y}_m=e_0+s_t-\dfrac{2}{M}\sum_{m=1}^{M}g_t\ParTh{\tilde{\BF{x}}_m}\tilde{y}_m
+\end{align}
+Hence,
+\begin{align}
+\sum_{m=1}^{M}g_t\ParTh{\tilde{\BF{x}}_m}\tilde{y}_m=\dfrac{M}{2}\ParTh{e_0+s_t-e_t}
+\end{align}
 
 \QEDB
 
