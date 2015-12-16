@@ -39,6 +39,7 @@
 \newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
 \newcommand{\CBrackets}[1]{\left\{#1\right\}}
 \newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\BooBrackets}[1]{\left\llbracket#1\right\rrbracket}
 \newcommand{\ParTh}[1]{\left(#1\right)}
 \newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
@@ -157,7 +158,7 @@ And $\bm{\beta}$ is
 
 \subsection*{Problem 4}
 
-If $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}>\epsilon$, then
+If $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}\geq\epsilon$, then
 \begin{align}
 \left\{
 \begin{array}{ll}
@@ -166,7 +167,7 @@ If $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}>\epsilon$, then
 \end{array}
 \right.
 \end{align}
- and if $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}\leq\epsilon$, then $\xi^{\wedge}_n=0$ and $\xi^{\vee}_n=0$.
+ and if $\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}<\epsilon$, then $\xi^{\wedge}_n=0$ and $\xi^{\vee}_n=0$.
 Hence, we have
 \begin{align}
 \ParTh{\xi^\wedge_n}^2+\ParTh{\xi^\vee_n}^2=\ParTh{\max\ParTh{0,\AbsVal{y_n-\BF{w}^T\phi\ParTh{\BF{x}_n}-b}-\epsilon}}^2
@@ -183,13 +184,45 @@ with no constraints.
 
 \subsection*{Problem 5}
 
-
+The first term is of course
+\begin{align}
+\dfrac{\partial}{\partial\beta_m}\ParTh{\dfrac{1}{2}\sum_{m=1}^{N}\sum_{n=1}^{N}\beta_n\beta_mK\ParTh{\BF{x}_n,\BF{x}_m}}=\sum_{n=1}^{N}\beta_nK\ParTh{\BF{x}_n,\BF{x}_m}
+\end{align}
+With $\BF{w}_*$, rewrite the result of Problem 4,
+\begin{align}
+\text{something}&=C\sum_{n=1}^{N}\ParTh{\max\ParTh{0,\AbsVal{y_n-\sum_{m=1}^{N}\beta_mK\ParTh{\BF{x}_n,\BF{x}_m}-b}-\epsilon}}^2\\
+&=C\sum_{n=1}^{N}\ParTh{\max\ParTh{0,\AbsVal{y_n-s_n}-\epsilon}}^2
+\end{align}
+Consider the following cases.
+\begin{enumerate}
+	\item $\AbsVal{y_n-s_n}\geq\epsilon$.
+	
+	Then we have
+	\begin{align}
+	\dfrac{\partial}{\partial\beta_m}\ParTh{\text{something}}&=\dfrac{\partial}{\partial\beta_m}\ParTh{C\ParTh{\AbsVal{y_n-s_n}-\epsilon}^2}\\
+	&=\ParTh{2C\ParTh{\AbsVal{y_n-s_n}-\epsilon}}\dfrac{\partial}{\partial\beta_m}\AbsVal{y_n-s_n}\\
+	&=-2C\ParTh{\AbsVal{y_n-s_n}-\epsilon}\text{sign}\ParTh{y_n-s_n}\dfrac{\partial s_n}{\partial\beta_m}\\
+	&=-2C\ParTh{\AbsVal{y_n-s_n}-\epsilon}\text{sign}\ParTh{y_n-s_n}K\ParTh{\BF{x}_n,\BF{x}_m}
+	\end{align}
+	\item $\AbsVal{y_n-s_n}<\epsilon$.
+	
+	Then we have
+	\begin{align}
+	\dfrac{\partial}{\partial\beta_m}\ParTh{\text{something}}=0
+	\end{align}
+\end{enumerate}
+So we have
+\begin{align}
+\dfrac{\partial F\ParTh{b,\bm{\beta}}}{\partial\beta_m}=\sum_{n=1}^{N}\beta_nK\ParTh{\BF{x}_n,\BF{x}_m}-2C\sum_{n=1}^{N}\BooBrackets{\AbsVal{y_n-s_n}\geq\epsilon}\ParTh{\AbsVal{y_n-s_n}-\epsilon}\text{sign}\ParTh{y_n-s_n}K\ParTh{\BF{x}_n,\BF{x}_m}
+\end{align}
 
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 6}
+
+
 
 \QEDB
 
