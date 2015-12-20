@@ -310,6 +310,38 @@ u^{\ParTh{2}}_+=u^{\ParTh{1}}\cdot1\%,~u^{\ParTh{2}}_-=u^{\ParTh{1}}\cdot99\%\Ri
 \horrule{0.5pt}
 
 \subsection*{Problem 10}
+\begin{comment}
+For $L=1$, $R=6$, input vectors have 6 integers to choose in each dimension.
+
+The different combination of $\ParTh{s,\theta}$ causes different decision stumps with $s$ has two choices $+1$ and $-1$; $\theta$ has 7 choices: $\theta\leq1$, $i<\theta\leq i+1$ and $\theta>6$, where $1\leq i\leq5$, $i\in\mathbb{N}$.
+\end{comment}
+Consider the following cases.
+\begin{enumerate}
+	\item $1<\theta\leq6$:
+	
+	Since $s\in\CBrackets{+1,-1}$, $d=2$ and $R-L=5$ regions to put $\theta_i$, so there are $2\times2\times5=20$ different decision stumps.
+	\item $\theta\leq1$ or $\theta>6$:
+	
+	Then there are only $2$ decision stump: $g\ParTh{\BF{x}}=+1$ with $\ParTh{s=+1,\theta\leq1}$ or $\ParTh{s=-1,\theta>6}$; $g\ParTh{\BF{x}}=-1$ with $\ParTh{s=+1,\theta>6}$ or $\ParTh{s=-1,\theta\leq1}$ for all $\BF{x}$.
+\end{enumerate}
+\begin{comment}
+There are $2\times7=14$ combinations, but notice that $\ParTh{s=-1,\theta>6}$ and $\ParTh{s=+1,\theta\leq1}$ lead to the same $g$, which is $g\ParTh{\BF{x}}=\ParTh{+1,+1}$, for all $\BF{x}\in\mathcal{X}$.
+
+Also, $\ParTh{s=-1,\theta\leq1}$ and $\ParTh{s=+1,\theta>6}$ lead to the same $g$, which is $g\ParTh{\BF{x}}=\ParTh{-1,-1}$.
+
+Let $\theta\leq1$ be the $1^{\text{st}}$ region, $i<\theta\leq i+1$ be the $\ParTh{i+1}^{\text{th}}$ region and $\theta>6$ be the $7^{\text{th}}$ region. We can find out that $\ParTh{s=+1,\theta\text{ in }j^{\text{th}}\text{ region}}$ and $\ParTh{s=-1,\theta\text{ in }k^{\text{th}}\text{ region}}$ lead to same $g$ if $j+k=8$ and $j\in\mathbb{N}$, $k\in\mathbb{N}$, $j\neq k$, due to the symmetry property. But in the $4^{\text{th}}$ region, $s=+1$ and $s=-1$ lead to different decision stumps, so there are
+\end{comment}
+
+So there are
+\begin{align}
+20+2=22
+\end{align}
+different decision stumps.
+
+Also, this can be generalized to
+\begin{align}
+\underbrace{2}_{s\in\CBrackets{+1,-1}}\underbrace{d}_{\text{dimension}}{\underbrace{\ParTh{R-L}}_{\theta\text{ region}}}+\underbrace{2}_{\text{left and right region}}=2d\ParTh{R-L}+2
+\end{align}
 
 \QEDB
 
@@ -317,11 +349,40 @@ u^{\ParTh{2}}_+=u^{\ParTh{1}}\cdot1\%,~u^{\ParTh{2}}_-=u^{\ParTh{1}}\cdot99\%\Ri
 
 \subsection*{Problem 11}
 
+First, we have
+\begin{align}
+K_{ds}\ParTh{\BF{x},\BF{x}^\prime}&=\sum_{i=1}^{\AbsVal{\mathcal{G}}}\ParTh{g_i\ParTh{\BF{x}}}^Tg_i\ParTh{\BF{x}^\prime}\\
+&=\sum_{i=1}^{\AbsVal{\mathcal{G}}}\ParTh{s_i\text{sign}\ParTh{x_j-\theta_i}}\ParTh{s_i\text{sign}\ParTh{x^\prime_j-\theta_i}}\\
+&=\sum_{i=1}^{\AbsVal{\mathcal{G}}}\text{sign}\ParTh{x_j-\theta_i}\text{sign}\ParTh{x^\prime_j-\theta_i}
+\end{align}
+where $\ParTh{s_i}^2=1$ since $s_i\in\CBrackets{+1,-1}$.
+\begin{comment}
+Now if $x_j=x^\prime_j$, we have
+\begin{align}
+K_{ds}\ParTh{\BF{x},\BF{x}^\prime}=\sum_{i=1}^{\AbsVal{\mathcal{G}}}\sum_{j=1}^{d}\ParTh{\text{sign}\ParTh{x_j-\theta_i}}^2＝ㄅ=\sum_{i=1}^{\AbsVal{\mathcal{G}}}\sum_{j=1}^{d}1=d\AbsVal{\mathcal{G}}=2d\ParTh{R-L}+2d
+\end{align}
+\end{comment}
+
+Now if $x_j=x^\prime_j$, applying the general result of Problem 11, we have
+\begin{align}
+K_{ds}\ParTh{\BF{x},\BF{x}^\prime}=2d\ParTh{R-L}+2
+\end{align}
+since all $g_i$ are the same.
+
+If $x_j\neq x^\prime_j$, there are $\ParTh{x_j-x^\prime_j}$ different output by decision stump $g_i$ in $j^{\text{th}}$ dimension with some fixed $s_i$. One different output causes the result from $+1$ to $-1$, so the summation minus by 2 with each different output. Hence
+\begin{align}
+K_{ds}\ParTh{\BF{x},\BF{x}^\prime}&=2d\ParTh{R-L}+\underbrace{\ParTh{-2}}_{\text{from }+1\text{ to }-1}\times\underbrace{2}_{s\in\CBrackets{+1,-1}}\times\VecAbsVal{\BF{x}-\BF{x}^\prime}_1+2\\
+&=2d\ParTh{R-L}-4\AbsVal{\BF{x}-\BF{x}^\prime}_1+2
+\end{align}
+where $\AbsVal{\BF{x}-\BF{x}^\prime}_1$ denotes the one-norm of $\ParTh{\BF{x}-\BF{x}^\prime}$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 12}
+
+
 
 \QEDB
 
