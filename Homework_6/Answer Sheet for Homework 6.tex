@@ -490,11 +490,60 @@ Minimum $E_{\text{out}}\ParTh{g}$ is $0.39$, with $\lambda = 1000$, $\gamma = 0.
 
 \subsection*{Problem 21}
 
+First, we have
+\begin{align}
+U_1=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{0}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{0}=\dfrac{1}{N}\times N=1
+\end{align}
+Then, we have
+\begin{align}
+U_{t+1}&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\%=U_{t}\exp\ParTh{\alpha_tg_t\ParTh{\BF{x}_n}}\\
+%&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\exp\ParTh{\ln\ParTh{\sqrt{\dfrac{1-\epsilon_t}{\epsilon_t}}}g_t\ParTh{\BF{x}_n}}\\
+%&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\ParTh{\dfrac{1-\epsilon_t}{\epsilon_t}}^{\Divide{g_t\ParTh{\BF{x}_n}}{2}}
+&=\sum_{n=1}^{N}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\sum_{\substack{n \\ y_n\neq g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}+\sum_{\substack{n \\ y_n=g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\sum_{\substack{n \\ y_n\neq g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{\alpha_t}+\sum_{\substack{n \\ y_n=g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-\alpha_t}\\
+&=\exp\ParTh{\alpha_t}\ParTh{\epsilon_t}\sum_{n=1}^{N}u^{\ParTh{t}}_n+\exp\ParTh{-\alpha_t}\ParTh{1-\epsilon_t}\sum_{n=1}^{N}u^{\ParTh{t}}_n\\
+&=U_t\ParTh{\exp\ParTh{\alpha_t}\ParTh{\epsilon_t}+\exp\ParTh{-\alpha_t}\ParTh{1-\epsilon_t}}=U_t\cdot2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}
+\end{align}
+Since $\epsilon_t\leq\epsilon<\Divide{1}{2}$, we have
+\begin{align}
+\epsilon_t\ParTh{1-\epsilon_t}\leq\epsilon\ParTh{1-\epsilon}\Rightarrow U_t\cdot2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}\leq U_t\cdot2\sqrt{\epsilon\ParTh{1-\epsilon}}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 22}
+
+From the result of Problem 21, we have
+\begin{align}
+U_{t+1}=U_t\cdot2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}\leq U_t\cdot2\sqrt{\epsilon\ParTh{1-\epsilon}}\leq U_t\exp\ParTh{-2\ParTh{\dfrac{1}{2}-\epsilon}^2},~\epsilon<\dfrac{1}{2}
+\end{align}
+At $t=T$, we have
+\begin{align}
+0\leq E_{\text{in}}\ParTh{G_T}\leq U_{T+1}\leq U_T\exp\ParTh{-2\ParTh{\dfrac{1}{2}-\epsilon}^2}
+\end{align}
+And this can be rewritten as
+\begin{align}
+0\leq E_{\text{in}}\ParTh{G_T}&\leq U_T\exp\ParTh{-2\ParTh{\dfrac{1}{2}-\epsilon}^2}\leq U_{T-1}\exp\ParTh{-4\ParTh{\dfrac{1}{2}-\epsilon}^2}\\
+&\leq\cdots\leq U_1\exp\ParTh{-2T\ParTh{\dfrac{1}{2}-\epsilon}^2}=\exp\ParTh{-2T\ParTh{\dfrac{1}{2}-\epsilon}^2}
+\end{align}
+Let $O\ParTh{T}=O\ParTh{\ln N}$, say that $T=\ell\ln N+k$, where $\ell,~k\in\mathbb{R}$ and $\ell>0$. Then we have
+\begin{align}
+0\leq E_{\text{in}}\ParTh{G_T}\leq\exp\ParTh{-2\ell\ln N\ParTh{\dfrac{1}{2}-\epsilon}^2-2k\ParTh{\dfrac{1}{2}-\epsilon}^2}
+\end{align}
+Suupose $\ell$ is large enough that
+\begin{align}
+-2\ell\ln N\ParTh{\dfrac{1}{2}-\epsilon}^2-2k\ParTh{\dfrac{1}{2}-\epsilon}^2\approx-2\ell\ln N
+\end{align}
+So
+\begin{align}
+0\leq E_{\text{in}}\ParTh{G_T}\leq\exp\ParTh{-2\ell\ln N}=\dfrac{1}{N^{2\ell}}
+\end{align}
+As $\ell$ lerge enough, we have $\Divide{1}{N^{2\ell}}\approx0\Rightarrow E_{\text{in}}\ParTh{G_T}=0$.
 
 \QEDB
 
