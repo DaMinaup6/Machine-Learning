@@ -492,7 +492,11 @@ Minimum $E_{\text{out}}\ParTh{g}$ is $0.39$, with $\lambda = 1000$, $\gamma = 0.
 
 First, we have
 \begin{align}
-U_1=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{0}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{0}=\dfrac{1}{N}\times N=1
+U_{t+1}=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}=\sum_{n=1}^{N}u^{\ParTh{t+1}}_n
+\end{align}
+So
+\begin{align}
+U_{1}=\sum_{n=1}^{N}u^{\ParTh{1}}_n=\sum_{n=1}^{N}\dfrac{1}{N}=1
 \end{align}
 Then, we have
 \begin{align}
