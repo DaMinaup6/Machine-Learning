@@ -43,14 +43,14 @@ def errIn(y, H):
 
 def sTheta(data, indexMin, indexMax):
     if indexMax > indexMin:
-        (s, theta) = (1.0, data[indexMax][0])
+        (s, theta) = (1.0,  (data[indexMax][0] + data[indexMax - 1][0]) / 2)
     elif indexMax < indexMin:
-        (s, theta) = (-1.0, data[indexMin][0])
+        (s, theta) = (-1.0, (data[indexMin][0] + data[indexMin - 1][0]) / 2)
     else:
-        if data[indexMin][1] == 1:
-            (s, theta) = (1.0, -1.0)
-        else:
-            (s, theta) = (-1.0, -1.0)
+        if data[indexMin][1] == 1.0:
+            (s, theta) = (1.0, data[indexMin][0])
+        elif data[indexMin][0] == -1.0:
+            (s, theta) = (-1.0, data[indexMin][0])
     return (s, theta)
 
 def errOut(s, theta, x, y):

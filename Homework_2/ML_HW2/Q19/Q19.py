@@ -20,13 +20,30 @@ def HGenetation(N):
 
 def mulDSA(x, y, H):
     einErr = []
+    hList = []
+    dataList = []
     for xI in range(len(x[0])):
         xArr = x[:, xI]
         data = np.column_stack((xArr, y))
         data = np.array(sorted(data, key=lambda data: data[0]), dtype=np.float)
         (hArr, err) = errIn(data[:, 1], H)
         einErr.append(err)
-    return (min(einErr), np.argmin(einErr))
+        hList.append(hArr)
+        dataList.append(data)
+    eMin = np.argmin(einErr)
+    return (einErr[eMin], eMin, hList[eMin], dataList[eMin])
+
+def sTheta(data, indexMin, indexMax):
+    if indexMax > indexMin:
+        (s, theta) = (1.0,  (data[indexMax][0] + data[indexMax - 1][0]) / 2)
+    elif indexMax < indexMin:
+        (s, theta) = (-1.0, (data[indexMin][0] + data[indexMin - 1][0]) / 2)
+    else:
+        if data[indexMin][1] == 1.0:
+            (s, theta) = (1.0, data[indexMin][0])
+        elif data[indexMin][0] == -1.0:
+            (s, theta) = (-1.0, data[indexMin][0])
+    return (s, theta)
 
 def errIn(y, H):
     result = []
@@ -43,10 +60,11 @@ def main():
     x = TRAIN_DATA[:, 0:9]
     y = TRAIN_DATA[:, 9]
     H = HGenetation(len(y))
-    (eIn, eIndex) = mulDSA(x, y, H)
+    (eIn, eIndex, h, data) = mulDSA(x, y, H)
+    (s, theta) = sTheta(data, np.argmin(h), np.argmax(h))
     t1 = time.time()
     print "====================================="
-    print "Q19: E_in: ", eIn, ", index: ", eIndex
+    print "Q19: E_in =", eIn, ", index =", eIndex, ", s =", s, ", theta =", theta
     print "-------------------------------------"
     print "Q19 costs ", t1 - t0, ' seconds'
     print "====================================="
