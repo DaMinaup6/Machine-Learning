@@ -1,0 +1,220 @@
+\documentclass[12pt]{article}
+
+% Use packages %
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd, float}
+\usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
+
+% Set length %
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{235mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\topmargin}{-10mm}
+
+% Define h-bar %
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
+
+% Chinese input %
+%\usepackage{xeCJK} 
+%\setCJKmainfont{微軟正黑體}
+%\usepackage[T1]{fontenc}
+%\makeatletter
+
+% Equation number %
+%\@addtoreset{equation}{section} 
+%\renewcommand\theequation{{\thesection}.{\arabic{equation}}}
+%\makeatletter 
+
+% Helper Command %
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\rmnum}[1]{\romannumeral #1} 
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\makeatother
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+\newcommand*{\BmVert}{\bigm\vert}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
+\newcommand{\CBrackets}[1]{\left\{#1\right\}}
+\newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\BooBrackets}[1]{\left\llbracket#1\right\rrbracket}
+\newcommand{\ParTh}[1]{\left(#1\right)}
+\newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\BF}[1]{{\bf#1}}
+\newcommand{\Inverse}[1]{{#1}^{-1}}
+\newcommand{\Generator}[1]{\left\langle#1\right\rangle}
+\newcommand{\AbsVal}[1]{\left|#1\right|}
+\newcommand{\VecAbsVal}[1]{\left\|#1\right\|}
+\newcommand{\BSlash}[2]{\left.#1\middle\backslash#2\right.}
+\newcommand{\Divide}[2]{\left.#1\middle/#2\right.}
+\newcommand{\SciNum}[2]{#1\times{10}^{#2}}
+\newcommand{\Matrix}[2]{\ParTh{\begin{array}{#1}#2\end{array}}}
+\newcommand{\MatrixTwo}[4]{\ParTh{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\newcommand{\MatrixNByN}[1]{\Matrix{cccc}{{#1}_{11} & {#1}_{12} & \cdots & {#1}_{1n} \\ {#1}_{21} & {#1}_{22} & \cdots & {#1}_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ {#1}_{n1} & {#1}_{n2} & \cdots & {#1}_{nn}}}
+\newcommand{\ndiv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\newcount\arrowcount
+\newcommand\arrows[1]{\global\arrowcount#1 \ifnum\arrowcount>0
+\begin{matrix}\expandafter\nextarrow\fi}
+\newcommand\nextarrow[1]{\global\advance\arrowcount-1 \ifx\relax#1\relax\else \xrightarrow{#1}\fi\ifnum\arrowcount=0 \end{matrix}\else\\\expandafter\nextarrow\fi}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Tikz settings %
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{mapsto}   = [draw, |->]
+\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+
+\begin{document}
+
+\baselineskip 6.5mm
+\setlength{\parindent}{0pt}
+\title{ 
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm]
+\huge { \Huge Machine Learning \\ \large Answer Sheet for Homework 7}\\
+\horrule{2pt} \\ [0.5cm]
+}
+\author{ { \Large Da-Min HUANG } \\
+{\small R04942045} \\
+{\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
+}
+\date{January 6, 2016}
+%\allowdisplaybreaks[4]
+\maketitle
+
+\subsection*{Problem 1}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 8}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 9}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 10}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 11}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 12}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 13}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 14}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 15}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 16}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 17}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 18}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 19}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 20}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section*{Reference}
+
+\begin{enumerate}
+
+\item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
+
+\end{enumerate}
+
+\end{document}
