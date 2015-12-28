@@ -235,11 +235,42 @@ U_{T+1}=\prod_{t=1}^{T}\ParTh{2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}}
 
 \subsection*{Problem 7}
 
+To compute $s_n$, we need to find the optimal $\eta$ of
+\begin{align}
+\min_\eta\dfrac{1}{N}\sum_{n=1}^{N}\ParTh{\ParTh{y_n-s_n}-\eta g_t\ParTh{\BF{x}_n}}^2\coloneqq A
+\end{align}
+From $\Divide{\partial A}{\partial\eta}=0$, we have
+\begin{align}
+\eta=\dfrac{\sum_{n=1}^{N}g_t\ParTh{\BF{x}_n}\ParTh{y_n-s_n}}{\sum_{n=1}^{N}g^2_t\ParTh{\BF{x}_n}}
+\end{align}
+Now $s_n=0$ and $g_1\ParTh{\BF{x}}=2$, so
+\begin{align}
+\eta=\dfrac{2\sum_{n=1}^{N}y_n}{4\sum_{n=1}^{N}}=\dfrac{1}{2N}\sum_{n=1}^{N}y_n
+\end{align}
+Since $\eta=\alpha_1$, so
+\begin{align}
+\alpha_1g_1\ParTh{\BF{x}_n}=\dfrac{2}{2N}\sum_{n=1}^{N}y_n=\dfrac{1}{N}\sum_{n=1}^{N}y_n=s_n
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 8}
+
+From the equatio of optimal $\eta$, we have
+\begin{align}
+\eta=\dfrac{\sum_{n=1}^{N}g_t\ParTh{\BF{x}_n}\ParTh{y_n-s^\prime_n}}{\sum_{n=1}^{N}g^2_t\ParTh{\BF{x}_n}}=\dfrac{\sum_{n=1}^{N}y_ng_t\ParTh{\BF{x}_n}-\sum_{n=1}^{N}s^\prime_ng_t\ParTh{\BF{x}_n}}{\sum_{n=1}^{N}g^2_t\ParTh{\BF{x}_n}}=\alpha_t
+\end{align}
+so
+\begin{align}
+\sum_{n=1}^{N}y_ng_t\ParTh{\BF{x}_n}-\sum_{n=1}^{N}s^\prime_ng_t\ParTh{\BF{x}_n}=\alpha_t\sum_{n=1}^{N}g^2_t\ParTh{\BF{x}_n}=\sum_{n=1}^{N}\alpha_tg^2_t\ParTh{\BF{x}_n}=\sum_{n=1}^{N}\ParTh{s_n-s^\prime_n}g_t\ParTh{\BF{x}_n}
+\end{align}
+where $s^\prime_n$ is defined as the $s_n$ in iteration $\ParTh{t-1}$, so
+\begin{align}
+\sum_{n=1}^{N}s_ng_t\ParTh{\BF{x}_n}=\sum_{n=1}^{N}y_ng_t\ParTh{\BF{x}_n}
+\end{align}
+%Since all $s_n$ are updated in iteration $t$, we have
 
 \QEDB
 
