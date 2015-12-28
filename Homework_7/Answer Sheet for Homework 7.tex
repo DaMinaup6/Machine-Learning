@@ -91,11 +91,35 @@
 
 \subsection*{Problem 1}
 
+Set $\mu_-=1-\mu_+$, we have
+\begin{align}
+1-\mu^2_+-\mu^2_-&=1-\mu^2_+-\ParTh{1-\mu_+}^2=\ParTh{1-\mu_+}\ParTh{1+\mu_+}-\ParTh{1-\mu_+}^2\\
+&=2\mu_+\ParTh{1-\mu_+}=-2\mu^2_++2\mu_+=-2\ParTh{\mu_+-\dfrac{1}{2}}^2+\dfrac{1}{2}\\
+&\leq\dfrac{1}{2}
+\end{align}
+Hence, if $\mu_+=\Divide{1}{2}\in\SBrackets{0,1}$, then the maximum value of Gini index is $\Divide{1}{2}$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 2}
+
+The normalized Gini index is
+\begin{align}
+\dfrac{\ParTh{1-\mu^2_+-\mu^2_-}}{\ParTh{\dfrac{1}{2}}}=2\ParTh{1-\mu^2_+-\mu^2_-}
+\end{align}
+The squared error can be rewritten as
+\begin{align}
+\mu_+\ParTh{1-\ParTh{\mu_+-\mu_-}}^2+\mu_-\ParTh{-1-\ParTh{\mu_+-\mu_-}}^2&=4\mu_+\ParTh{1-\mu_+}^2+4\mu^2_+\ParTh{1-\mu_+}\\
+&=4\mu_+\ParTh{1-\mu_+}\leq4\times\dfrac{1}{4}=1
+\end{align}
+Hence the normalized squared error is
+\begin{align}
+4\mu_+\ParTh{1-\mu_+}&=2\ParTh{2\mu_+\ParTh{1-\mu_+}}=2\ParTh{\ParTh{1-\mu_+}\ParTh{1+\mu_+}-\ParTh{1-\mu_+}^2}\\
+&=2\ParTh{1-\mu^2_+-\mu^2_-}
+\end{align}
+which is equal to normalized Gini index.
 
 \QEDB
 
@@ -103,11 +127,35 @@
 
 \subsection*{Problem 3}
 
+The probability of one example not sampled is
+\begin{align}
+\ParTh{1-\dfrac{1}{N}}^{pN}=\dfrac{1}{\ParTh{\dfrac{N}{N-1}}^{pN}}=\dfrac{1}{\ParTh{1+\dfrac{1}{N-1}}^{pN}}=\ParTh{\dfrac{1}{\ParTh{1+\dfrac{1}{N-1}}^{N}}}^p
+\end{align}
+As $N\rightarrow\infty$, we have
+\begin{align}
+\lim\limits_{N\rightarrow\infty}\ParTh{\dfrac{1}{\ParTh{1+\dfrac{1}{N-1}}^{N}}}^p=\ParTh{\lim\limits_{N\rightarrow\infty}\dfrac{1}{\ParTh{1+\dfrac{1}{N-1}}^{N}}}^p=\ParTh{\dfrac{1}{e}}^p=e^{-p}
+\end{align}
+So there approximately $e^{-p}\cdot N$ of the examples not sampled.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 4}
+
+Since $G=\text{Uniform}\ParTh{\CBrackets{g_k}^3_{k=1}}$, so if at least two of $\CBrackets{g_k}^3_{k=1}$ are wrong, then $G$ outputs wrong result. Let $\CBrackets{E_k}^3_{k=1}$ be the set of examples that $g_k$ got wrong results. Apparently $\AbsVal{E_3}>\AbsVal{E_2}>\AbsVal{E_1}$ and $\AbsVal{E_1}+\AbsVal{E_2}>\AbsVal{E_3}$. So
+\begin{enumerate}
+	\item Maximum of $E_{\text{out}}\ParTh{G}$ happens at $E_3\subset\ParTh{E_1\cup E_2}$. Then $G$ outputs wrong result in the region of $E_3$ with $E_{\text{out}}\ParTh{G}=0.35$.
+	\item Minimum of $E_{\text{out}}\ParTh{G}$ happens at $E_i\cap E_j=\phi$, $i\neq j$ and $1\leq i,j\leq 3$ with $i,j\in\mathbb{N}$. Then $G$ always ouputs the correct result since $\ParTh{E_1\cup E_2\cup E_3}\subset\CBrackets{\text{all examples}}$.
+\end{enumerate}
+Hence, $0\leq E_{\text{out}}\ParTh{G}\leq0.35$.
+\begin{comment}
+\begin{align}
+\nonumber
+&~0.15\times0.25\times0.65+0.25\times0.35\times0.85+0.15\times0.35\times0.75+0.15\times0.25\times0.35\\
+=&~0.15125
+\end{align}
+\end{comment}
 
 \QEDB
 
