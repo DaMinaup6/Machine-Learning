@@ -204,6 +204,31 @@ E_{\text{out}}\ParTh{G}\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
 
 \subsection*{Problem 6}
 
+By the definition of $U_{t}$, we have
+\begin{align}
+U_{t+1}&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\exp\ParTh{-y_n\sum_{\tau=1}^{t-1}\alpha_\tau g_\tau\ParTh{\BF{x}_n}}\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\%=U_{t}\exp\ParTh{\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\sum_{n=1}^{N}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\sum_{\substack{n \\ y_n\neq g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}+\sum_{\substack{n \\ y_n=g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-y_n\alpha_tg_t\ParTh{\BF{x}_n}}\\
+&=\sum_{\substack{n \\ y_n\neq g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{\alpha_t}+\sum_{\substack{n \\ y_n=g_t\ParTh{\BF{x}_n}}}u^{\ParTh{t}}_n\exp\ParTh{-\alpha_t}\\
+&=\exp\ParTh{\alpha_t}\ParTh{\epsilon_t}\sum_{n=1}^{N}u^{\ParTh{t}}_n+\exp\ParTh{-\alpha_t}\ParTh{1-\epsilon_t}\sum_{n=1}^{N}u^{\ParTh{t}}_n\\
+&=U_t\ParTh{\exp\ParTh{\alpha_t}\ParTh{\epsilon_t}+\exp\ParTh{-\alpha_t}\ParTh{1-\epsilon_t}}=U_t\cdot2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}
+\end{align}
+Since
+\begin{align}
+U_{1}=\sum_{n=1}^{N}u^{\ParTh{1}}_n=\sum_{n=1}^{N}\dfrac{1}{N}=1
+\end{align}
+we have
+\begin{align}
+U_3&=U_2\cdot2\sqrt{\epsilon_2\ParTh{1-\epsilon_2}}=\ParTh{U_1\cdot2\sqrt{\epsilon_1\ParTh{1-\epsilon_1}}}\cdot2\sqrt{\epsilon_2\ParTh{1-\epsilon_2}}\\
+&=4\sqrt{\epsilon_1\epsilon_2\ParTh{1-\epsilon_1}\ParTh{1-\epsilon_2}}
+\end{align}
+which can be generalized as
+\begin{align}
+U_{T}=\prod_{t=1}^{T-1}\ParTh{2\sqrt{\epsilon_t\ParTh{1-\epsilon_t}}}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
