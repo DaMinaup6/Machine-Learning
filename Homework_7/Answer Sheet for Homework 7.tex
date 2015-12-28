@@ -143,7 +143,7 @@ So there approximately $e^{-p}\cdot N$ of the examples not sampled.
 
 \subsection*{Problem 4}
 
-Since $G=\text{Uniform}\ParTh{\CBrackets{g_k}^3_{k=1}}$, so if at least two of $\CBrackets{g_k}^3_{k=1}$ are wrong, then $G$ outputs wrong result. Let $\CBrackets{E_k}^3_{k=1}$ be the set of examples that $g_k$ got wrong results. Apparently $\AbsVal{E_3}>\AbsVal{E_2}>\AbsVal{E_1}$ and $\AbsVal{E_1}+\AbsVal{E_2}>\AbsVal{E_3}$. So
+Since $G=\text{Uniform}\ParTh{\CBrackets{g_k}^3_{k=1}}$, so if at least two terms of $\CBrackets{g_k}^3_{k=1}$ ouput wrong result, then $G$ outputs wrong result. Let $\CBrackets{E_k}^3_{k=1}$ be the set of examples that $\CBrackets{g_k}^K_{k=1}$ got wrong results. Apparently $\AbsVal{E_3}>\AbsVal{E_2}>\AbsVal{E_1}$ and $\AbsVal{E_1}+\AbsVal{E_2}>\AbsVal{E_3}$. So
 \begin{enumerate}
 	\item Maximum of $E_{\text{out}}\ParTh{G}$ happens at $E_3\subset\ParTh{E_1\cup E_2}$. Then $G$ outputs wrong result in the region of $E_3$ with $E_{\text{out}}\ParTh{G}=0.35$.
 	\item Minimum of $E_{\text{out}}\ParTh{G}$ happens at $E_i\cap E_j=\phi$, $i\neq j$ and $1\leq i,j\leq 3$ with $i,j\in\mathbb{N}$. Then $G$ always ouputs the correct result since $\ParTh{E_1\cup E_2\cup E_3}\subset\CBrackets{\text{all examples}}$.
@@ -162,6 +162,41 @@ Hence, $0\leq E_{\text{out}}\ParTh{G}\leq0.35$.
 \horrule{0.5pt}
 
 \subsection*{Problem 5}
+
+Since $G=\text{Uniform}\ParTh{\CBrackets{g_k}^K_{k=1}}$, so if at least $\Divide{\ParTh{K+1}}{2}$ terms of $\CBrackets{g_k}^K_{k=1}$ ouput wrong result, then $G$ outputs wrong result. Let $\CBrackets{E_k}^K_{k=1}$ be the set of examples that $\CBrackets{g_k}^K_{k=1}$ got wrong results.
+
+If $G$ outputs wrong result on some example $\BF{x}$, then we have
+\begin{align}
+\BF{x}\in\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}
+\end{align}
+where $\alpha_i$ is some index satisfies $1\leq\alpha_i\leq K$ and $m\in\ParTh{\mathbb{N}\cup\CBrackets{0}}$ with $0\leq m<\Divide{\ParTh{K+1}}{2}$. And
+\begin{align}
+\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\dfrac{2}{K+1+2m}\sum_{k=1}^{K}e_k\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
+\label{5-1}
+\end{align}
+(\ref{5-1}) holds due to %$\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\frac{2}{K+1+2m}\sum_{k=1}^{K}e_k$ holds due to
+\begin{align}
+\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}\subseteq E_{\beta}
+\end{align}
+where $\beta$ is some index such that $\AbsVal{E_{\beta}}=\min_{\alpha_i}\AbsVal{E_{\alpha_i}}$. So
+\begin{align}
+\ParTh{\dfrac{K+1}{2}+m}\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\ParTh{\dfrac{K+1}{2}+m}\AbsVal{E_{\beta}}\leq\sum_{k=1}^{K}\AbsVal{E_k}
+\label{5-2}
+\end{align}
+(\ref{5-2}) holds since size of $E_\beta$ is the samllest among $\ParTh{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}$ terms and $\sum_{k=1}^{K}\AbsVal{E_k}$ must contains the $\ParTh{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}$ terms.
+
+Hence, we have
+\begin{align}
+E_{\text{out}}\ParTh{G}\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
+\end{align}
+\begin{comment}
+\begin{align}
+\dfrac{2}{M+1}\sum_{k=1}^{M}e_k\leq\dfrac{2}{M+3}\sum_{k=1}^{M+2}e_k=\dfrac{2}{M+3}\ParTh{\sum_{k=1}^{M}e_k+e_{M+1}+e_{M+2}}
+\end{align}
+\begin{align}
+\dfrac{4}{\ParTh{M+1}\ParTh{M+3}}\sum_{k=1}^{M}e_k-e_{M+1}-e_{M+2}
+\end{align}
+\end{comment}
 
 \QEDB
 
