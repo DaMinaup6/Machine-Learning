@@ -278,11 +278,53 @@ where $s^\prime_n$ is defined as the $s_n$ in iteration $\ParTh{t-1}$ and $s_n=s
 
 \subsection*{Problem 9}
 
+$\text{OR}\ParTh{x_1,x_2,\ldots,x_d}$ means outputs TRUE if one input is TRUE; outputs FALSE if all inputs are FALSE.
+
+\underline{Claim}: $\ParTh{w_0,w_1,\ldots,w_d}=\ParTh{d-1,1,\ldots,1}$ implements $\text{OR}$.
+
+\underline{Proof of Claim}:
+\begin{enumerate}
+	\item If all $x_i=-1$, then we have
+	\begin{align}
+	\text{sign}\ParTh{\sum_{i=0}^{d}w_ix_i}=\text{sign}\ParTh{d-1+\sum_{i=1}^{d}\ParTh{-1}}=\text{sign}\ParTh{-1}=\text{FALSE}
+	\end{align}
+	\item If some $x_i=+1$ and others are $-1$, we have
+	\begin{align}
+	\text{sign}\ParTh{\sum_{i=0}^{d}w_ix_i}=\text{sign}\ParTh{d-1+1+\ParTh{-1}\ParTh{d-1}}=\text{sign}\ParTh{+1}=\text{TRUE}
+	\end{align}
+\end{enumerate}
+Hence, $\ParTh{w_0,w_1,\ldots,w_d}=\ParTh{d-1,1,\ldots,1}$ implements $\text{OR}$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 10}
+
+\underline{Claim}: $D\geq5$.
+
+\underline{Proof of Claim}:
+
+From the conclusion of Problem 21, we have $D=5$.
+\begin{comment}
+\begin{enumerate}
+	\item $D=5$ can implement $\text{XOR}$.
+	
+	We have
+	\begin{align}
+	\text{XOR}\ParTh{g_1,g_2}=\text{OR}\ParTh{\text{AND}\ParTh{-g_1,g_2},\text{AND}\ParTh{g_1,-g_2}}
+	\end{align}
+	Since there are 5 neurons in first layer, so we have $g_1,g_2,g_3$ and $g_4$ output to second layer. And
+	\begin{align}
+	\text{XOR}\ParTh{g_1,g_2,g_3,g_4}&=\text{XOR}\ParTh{\text{XOR}\ParTh{g_1,g_2},g_3,g_4}\\
+	&=\text{XOR}\ParTh{\text{XOR}\ParTh{\text{XOR}\ParTh{g_1,g_2},g_3},g_4}
+	\end{align}
+	Use logistic operator to rewrite the equation, we have
+	\begin{align}
+	\text{XOR}\ParTh{\text{XOR}\ParTh{g_1,g_2},g_3}=g^{\prime}_1g^{\prime}_2g_3+g^{\prime}_1g_2g^{\prime}_3+g_1g^{\prime}_2g^{\prime}_3+g_1g_2g_3
+	\end{align}
+\end{enumerate}
+\end{comment}
 
 \QEDB
 
@@ -290,11 +332,62 @@ where $s^\prime_n$ is defined as the $s_n$ in iteration $\ParTh{t-1}$ and $s_n=s
 
 \subsection*{Problem 11}
 
+\underline{Claim}: Only the gradient components with respect to $w^{\ParTh{L}}_{01}$ may be non-zero, all other gradient components must be zero.
+
+\underline{Proof of Claim}:
+
+Consider
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{i1}}=-2\ParTh{y_n-s^{\ParTh{L}}_1}\ParTh{x^{\ParTh{L-1}}_i}=-2\ParTh{y_n-\sum_{j=0}^{d^{\ParTh{L-2}}}w^{\ParTh{L}}_{j1}x^{\ParTh{L-1}}_j}\ParTh{x^{\ParTh{L-1}}_i}
+\end{align}
+Since all $w^{\ParTh{\ell}}_{ij}=0$, we have
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{i1}}=-2y_nx^{\ParTh{L-1}}_i%=-2y_n\tanh\ParTh{s^{\ParTh{L-1}}_i}=-2y_n\tanh\ParTh{\sum_{j=0}^{d^{\ParTh{L-1}}}w^{\ParTh{L-1}}_{ji}x^{\ParTh{L-2}}_j}
+\end{align}
+If $i\neq0$, then
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{i1}}=-2y_nx^{\ParTh{L-1}}_i=-2y_n\tanh\ParTh{s^{\ParTh{L-1}}_i}=-2y_n\tanh\ParTh{\sum_{j=0}^{d^{\ParTh{L-2}}}w^{\ParTh{L-1}}_{ji}x^{\ParTh{L-2}}_j}=0
+\end{align}
+since all $w^{\ParTh{\ell}}_{ij}=0$.
+
+If $i=0$, then
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{01}}=-2y_nx^{\ParTh{L-1}}_0=-2y_n
+\end{align}
+If $y_n\neq0$, then
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{01}}\neq0
+\end{align}
+Similarly, we have
+\begin{align}
+\dfrac{\partial e_n}{\partial w^{\ParTh{\ell}}_{0j}}=\delta^{\ParTh{\ell}}_j\ParTh{x^{\ParTh{\ell-1}}_0}=\delta^{\ParTh{\ell}}_j=\sum_{k}\ParTh{\delta^{\ParTh{\ell+1}}_k}\ParTh{w^{\ParTh{\ell+1}}_{jk}}\ParTh{\dfrac{\partial\tanh\ParTh{s^{\ParTh{\ell}}_j}}{\partial s^{\ParTh{\ell}}_j}}=0
+\end{align}
+since all $w^{\ParTh{\ell}}_{ij}=0$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 12}
+
+For $\ell=1$ and all $w^{\ParTh{\ell}}_{ij}$ initialized as 1, we have
+\begin{align}
+\eta x^{\ParTh{0}}_i\delta^{\ParTh{1}}_j&=\eta x^{\ParTh{0}}_i\sum_{k}\ParTh{\delta^{\ParTh{2}}_k}\ParTh{w^{\ParTh{2}}_{jk}}\ParTh{\dfrac{\partial\tanh\ParTh{s^{\ParTh{1}}_j}}{\partial s^{\ParTh{1}}_j}}\\
+&=\eta x^{\ParTh{0}}_i\sum_{k}\ParTh{\delta^{\ParTh{2}}_k}\ParTh{\dfrac{\partial\tanh\ParTh{s^{\ParTh{1}}_j}}{\partial s^{\ParTh{1}}_j}}
+\end{align}
+and
+\begin{align}
+s^{\ParTh{1}}_j=\sum_{i=0}^{d^{\ParTh{0}}}w^{\ParTh{1}}_{ij}x^{\ParTh{0}}_i=\sum_{i=0}^{d^{\ParTh{0}}}x^{\ParTh{0}}_i
+\end{align}
+So we have
+\begin{align}
+s^{\ParTh{1}}_1=s^{\ParTh{1}}_2=\cdots=s^{\ParTh{1}}_{d^{\ParTh{1}}}\Rightarrow\delta^{\ParTh{1}}_1=\delta^{\ParTh{1}}_2=\cdots=\delta^{\ParTh{1}}_{d^{\ParTh{1}}}
+\end{align}
+Hence, all update term of $w^{\ParTh{1}}_{ij}$ is the same for $1\leq j\leq d^{\ParTh{1}}$, so
+\begin{align}
+w^{\ParTh{1}}_{ij}=w^{\ParTh{1}}_{i\ParTh{j+1}}
+\end{align}
+for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \QEDB
 
