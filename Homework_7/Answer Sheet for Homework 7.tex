@@ -63,13 +63,13 @@
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
 
 % Tikz settings %
-\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes,arrows,positioning}
 \tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text centered, rounded corners, minimum height=4em]
 \tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
 \tikzstyle{line}     = [draw, -latex']
 \tikzstyle{mapsto}   = [draw, |->]
-\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+\tikzstyle{cloud}    = [draw, ellipse, node distance=3cm, minimum height=2em]
 
 \begin{document}
 
@@ -395,11 +395,105 @@ for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \subsection*{Problem 13}
 
+The roles of following tree are
+\begin{enumerate}
+	\item $\ParTh{\text{feature column},\text{ }s,\text{ }\theta}$. The meaning of combination of numbers.
+	\item If the feature of $\BF{x}$ is smaller than $\theta$, then go to the left tree; if not, then go to the right tree.
+	\item If go to left and there is no more node, then return $s\times\ParTh{+1}$; if go to the right and there is no more node, return $s\times\ParTh{-1}$, where $s$ is from the last node.
+\end{enumerate}
+\begin{comment}
+root (1, 1.0, 0.62623300000000004)
+	left  (0, -1.0, 0.22443950000000001)
+		left  (1, 1.0, 0.11515275)
+		right (0, -1.0, 0.54150799999999999)
+			left  (1, 1.0, 0.35862050000000001)
+				left  (0, 1.0, 0.50162499999999999)
+				right (0, 1.0, 0.26075150000000002)
+			right (1, -1.0, 0.28592499999999998)
+				left  (1, 1.0, 0.26603850000000001)
+	right (0, -1.0, 0.87817149999999999)
+\end{comment}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[node distance = 3cm, auto]
+	
+		% Node Setting %
+		
+		% 0 =======================================%
+		\node [block] (root) {$(1, 1.0, 0.626)$};
+		% 1 =======================================%
+		\node [block, below left of = root] (1st) {$(0, -1.0, 0.224)$};
+		% 2 =======================================%
+		\node [block, below left of = 1st] (3rd) {$(1, 1.0, 0.115)$};
+		% 3 =======================================%
+		\node [cloud, below left of = 3rd, yshift=0.5cm] (3rdL) {$+1$};
+		\node [cloud, below of = 3rd, yshift=1.0cm] (3rdR) {$-1$};
+		%=========================================%
+		\node [block, below right of = 1st, xshift=-0.5cm] (4th) {$(0, -1.0, 0.542)$};
+		% 3 =======================================%
+		\node [block, below left of = 4th, xshift=0.5cm] (5th) {$(1, 1.0, 0.359)$};
+		% 4 =======================================%
+		\node [block, below left of = 5th, xshift=0.5cm] (7th) {$(0, 1.0, 0.502)$};
+		% 5 =======================================%
+		\node [cloud, below left of = 7th, yshift=0.5cm] (7thL) {$+1$};
+		\node [cloud, below of = 7th, xshift=0.5cm, yshift=1.0cm] (7thR) {$-1$};
+		%=========================================%
+		\node [block, below right of = 5th, xshift=-0.6cm] (8th) {$(0, 1.0, 0.261)$};
+		% 5 =======================================%
+		\node [cloud, below left of = 8th, xshift=0.7cm, yshift=0.5cm] (8thL) {$+1$};
+		\node [cloud, below right of = 8th, xshift=-1.0cm, yshift=0.5cm] (8thR) {$-1$};
+		%=========================================%
+		% 3 =======================================%
+		\node [block, below right of = 4th, xshift=1.5cm] (6th) {$(1, -1.0, 0.286)$};
+		% 4 =======================================%
+		\node [block, below of = 6th, xshift=-0.8cm, yshift=1.0cm] (9th) {$(1, 1.0, 0.266)$};
+		% 5 =======================================%
+		\node [cloud, below of = 9th, xshift=-0.5cm, yshift=1.0cm] (9thL) {$+1$};
+		\node [cloud, below right of = 9th, yshift=0.5cm] (9thR) {$-1$};
+		%=========================================%
+		\node [cloud, below right of = 6th, xshift=-0.5cm, yshift=0.5cm] (6thR) {$+1$};
+		%=========================================%
+		% 1 =======================================%
+		\node [block, below right of = root] (2nd) {$(0, -1.0, 0.878)$};
+		% 2 =======================================%
+		\node [cloud, below of = 2nd, xshift=-0.2cm, yshift=1.0cm] (2ndL) {$-1$};
+		\node [cloud, below right of = 2nd, yshift=0.5cm] (2ndR) {$+1$};
+		%=========================================%
+		
+		% Connection %
+		
+		\path [line] (root)  -- (1st);
+		\path [line] (1st)  -- (3rd);
+		\path [line] (3rd)  -- (3rdL);
+		\path [line] (3rd)  -- (3rdR);
+		\path [line] (1st)  -- (4th);
+		\path [line] (4th)  -- (5th);
+		\path [line] (5th)  -- (7th);
+		\path [line] (7th)  -- (7thL);
+		\path [line] (7th)  -- (7thR);
+		\path [line] (5th)  -- (8th);
+		\path [line] (8th)  -- (8thL);
+		\path [line] (8th)  -- (8thR);
+		\path [line] (4th)  -- (6th);
+		\path [line] (6th)  -- (9th);
+		\path [line] (9th)  -- (9thL);
+		\path [line] (9th)  -- (9thR);
+		\path [line] (6th)  -- (6thR);
+		\path [line] (root)  -- (2nd);
+		\path [line] (2nd)  -- (2ndL);
+		\path [line] (2nd)  -- (2ndR);
+	\end{tikzpicture}
+	\caption{Tree Graph} 
+	\label{Tree}
+\end{figure}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 14}
+
+$E_{\text{in}}=0.0$.
 
 \QEDB
 
@@ -407,11 +501,21 @@ for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \subsection*{Problem 15}
 
+$E_{\text{out}}=0.126$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 16}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Q16.png}
+	\caption{Q16}
+	\label{Q16}
+\end{figure}
+The average $E_{\text{in}}\ParTh{g_t}$ of total 30,000 trees is $0.0598$.
 
 \QEDB
 
@@ -419,11 +523,45 @@ for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \subsection*{Problem 17}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{Q17.png}
+	\caption{Q17}
+	\label{Q17}
+\end{figure}
+The average $E_{\text{in}}\ParTh{G_t}$ of total 30,000 trees is $0$. Since most values are 0 so the figure seems nothing left.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{Q17-2.png}
+	\caption{Q17 first 60 points}
+	\label{Q17-2}
+\end{figure}
+The figure of first 60 points. We can see that after the ${20}^{\text{th}}$ point, $E_{\text{in}}\ParTh{G_t}$ is almost 0.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{Q17-log.png}
+	\caption{Q17 $\log_{10}\ParTh{E_{\text{in}}\ParTh{G_t}}$}
+	\label{Q17-log}
+\end{figure}
+The figure of log value of $E_{\text{in}}\ParTh{G_t}$ (removed $E_{\text{in}}\ParTh{G_t}=0$ points).
+
+We can see that most of the $E_{\text{in}}\ParTh{G_t}=0$ (only 17 points left).
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 18}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Q18.png}
+	\caption{Q18}
+	\label{Q18}
+\end{figure}
+The average $E_{\text{out}}\ParTh{G_t}$ of total 30,000 trees is $0.0753$.
+
+This curve approaches the average value as $t\rightarrow30,000$. The curve of Problem 17 oscillates and most points are 0.
 
 \QEDB
 
@@ -431,11 +569,41 @@ for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \subsection*{Problem 19}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Q19.png}
+	\caption{Q19}
+	\label{Q19}
+\end{figure}
+The average $E_{\text{in}}\ParTh{G_t}$ of total 30,000 trees is $0.1042$.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 20}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Q20.png}
+	\caption{Q20}
+	\label{Q20}
+\end{figure}
+The average $E_{\text{out}}\ParTh{G_t}$ of total 30,000 trees is $0.1483$.
+
+This curve approaches the average value as $t\rightarrow30,000$. The curve of Problem 19 oscillates between the average value.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 21}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 22}
 
 \QEDB
 
