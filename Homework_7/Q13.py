@@ -114,10 +114,6 @@ def main():
     TRAIN13_DATA = np.loadtxt(TRAIN13_FILE, dtype=np.float)
     xTra13 = TRAIN13_DATA[:, 0:(TRAIN13_DATA.shape[1] - 1)]
     yTra13 = TRAIN13_DATA[:, TRAIN13_DATA.shape[1] - 1]
-
-    # print TRAIN13_DATA[TRAIN13_DATA[:, 0].argsort()]
-    # print "========================================"
-    # print TRAIN13_DATA[TRAIN13_DATA[:, 1].argsort()]
     
     Nprime   = len(TRAIN13_DATA)
     deciTree = decisionTree(TRAIN13_DATA, 0, 0, 1.0, 0.0, Tree())
