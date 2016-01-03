@@ -69,7 +69,7 @@
 \tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
 \tikzstyle{line}     = [draw, -latex']
 \tikzstyle{mapsto}   = [draw, |->]
-\tikzstyle{cloud}    = [draw, ellipse, node distance=3cm, minimum height=2em]
+\tikzstyle{cloud}    = [draw, circle, minimum height=2em]
 
 \begin{document}
 
@@ -511,11 +511,11 @@ $E_{\text{out}}=0.126$.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{Q16.png}
+	\includegraphics[scale=0.5]{Q16.png}
 	\caption{Q16}
 	\label{Q16}
 \end{figure}
-The average $E_{\text{in}}\ParTh{g_t}$ of total 30,000 trees is $0.0598$.
+The average $E_{\text{in}}\ParTh{g_t}$ of total 30,000 trees is $0.0593$.
 
 \QEDB
 
@@ -599,11 +599,67 @@ This curve approaches the average value as $t\rightarrow30,000$. The curve of Pr
 
 \subsection*{Problem 21}
 
+Consider the projection of all convex points to diagonal line of $N$-dimensional hypercube, the value of each function is
+\begin{enumerate}
+	\item 2-D: $\ParTh{-1}\ParTh{1,1}\ParTh{-1}$
+	\item 3-D: $\ParTh{-1}\ParTh{1,1,1}\ParTh{-1,-1,-1}\ParTh{1}$
+	\item 4-D: $\ParTh{-1}\ParTh{1,1,1,1}\ParTh{-1,-1,-1,-1,-1,-1}\ParTh{1,1,1,1}\ParTh{1}$
+	\item[$\vdots$]
+\end{enumerate}
+the convex points are the input of neural network. The projections are linear transformation of these convex points, which can be implemented by $d$ linear classfier (AND or OR). By uniform blending all these linear classfier and $\text{sign}\ParTh{\CBrackets{\text{all linear classifer}}}$, we implement the $\text{XOR}\ParTh{x_1,x_2,\ldots,x_d}$.
+
+The input layer to hidden layer ($d-D$) is the linear transformation, the hidden layer to output layer ($D-1$) is the uniform blending of all these linear classifer.
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 22}
+
+The answer is $D=d-1$. Like
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[auto]
+	% Node Setting %
+	\node [point] (x0) {$x_0=+1$};
+	\node [point, below of = x0] (x1) {$x_1$};
+	\node [point, below of = x1] (x2) {$x_2$};
+	\node [point, below of = x2] (xdots) {$\vdots$};
+	\node [point, below of = xdots] (xd_1) {$x_{d-1}$};
+	\node [point, below of = xd_1] (xd) {$x_d$};
+	\node [cloud, right of = x0, xshift=1.5cm] (n0) {$\scriptstyle+1$};
+	\node [cloud, right of = x1, xshift=1.5cm] (n1) {$1$};
+	%\node [cloud, right of = x2, xshift=1.5cm] (n2) {$2$};
+	\node [point, right of = xdots, xshift=1.5cm, yshift=0.5cm] (ndots) {$\vdots$};
+	\node [cloud, right of = xd_1, xshift=1.5cm, yshift=-0.7cm] (nd) {$\scriptstyle{d-2}$};
+	\node [cloud, above right of = ndots, xshift=1.5cm] (out) {$\scriptstyle{d-1}$};
+	% Connection %
+	\path [line] (x0)  -- (n1);
+	\path [line] (x1)  -- (n1);
+	\path [line] (x2)  -- (n1);
+	\path [line] (xd_1)  -- (n1);
+	\path [line] (xd)  -- (n1);
+	%\path [line] (x0)  -- (n2);
+	%\path [line] (x1)  -- (n2);
+	%\path [line] (x2)  -- (n2);
+	%\path [line] (xd_1)  -- (n2);
+	%\path [line] (xd)  -- (n2);
+	\path [line] (x0)  -- (nd);
+	\path [line] (x1)  -- (nd);
+	\path [line] (x2)  -- (nd);
+	\path [line] (xd_1)  -- (nd);
+	\path [line] (xd)  -- (nd);
+	\path [line] (n0)  -- (out);
+	\path [line] (n1)  -- (out);
+	%\path [line] (n2)  -- (out);
+	\path [line] (nd)  -- (out);
+	\path [line] (x1)  -- (out);
+	\path [line] (x2)  -- (out);
+	\path [line] (xd_1)  -- (out);
+	\path [line] (xd)  -- (out);
+	\end{tikzpicture}
+	\label{LTC}
+\end{figure}
 
 \QEDB
 
