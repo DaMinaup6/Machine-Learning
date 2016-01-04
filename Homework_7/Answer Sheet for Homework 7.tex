@@ -304,7 +304,18 @@ Hence, $\ParTh{w_0,w_1,\ldots,w_d}=\ParTh{d-1,1,\ldots,1}$ implements $\text{OR}
 
 \underline{Proof of Claim}:
 
-From the conclusion of Problem 21, we have $D=5$.
+The weights of hidden layer and output layer are
+\begin{align}
+\text{Neuron 1}:&\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},w^{\ParTh{1}}_{31},w^{\ParTh{1}}_{41},w^{\ParTh{1}}_{51}}=\ParTh{4,1,1,1,1,1}\\
+\text{Neuron 2}:&\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},w^{\ParTh{1}}_{32},w^{\ParTh{1}}_{42},w^{\ParTh{1}}_{52}}=\ParTh{3,1,1,1,1,1}\\
+\text{Neuron 3}:&\ParTh{w^{\ParTh{1}}_{03},w^{\ParTh{1}}_{13},w^{\ParTh{1}}_{23},w^{\ParTh{1}}_{33},w^{\ParTh{1}}_{43},w^{\ParTh{1}}_{53}}=\ParTh{2,1,1,1,1,1}\\
+\text{Neuron 4}:&\ParTh{w^{\ParTh{1}}_{04},w^{\ParTh{1}}_{14},w^{\ParTh{1}}_{24},w^{\ParTh{1}}_{34},w^{\ParTh{1}}_{44},w^{\ParTh{1}}_{54}}=\ParTh{1,1,1,1,1,1}\\
+\text{Neuron 5}:&\ParTh{w^{\ParTh{1}}_{05},w^{\ParTh{1}}_{15},w^{\ParTh{1}}_{25},w^{\ParTh{1}}_{35},w^{\ParTh{1}}_{45},w^{\ParTh{1}}_{55}}=\ParTh{0,1,1,1,1,1}\\
+\text{Output Neuron}:&\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31},w^{\ParTh{2}}_{41},w^{\ParTh{2}}_{51}}=\ParTh{0,1,-1,1,-1,1}
+\end{align}
+The condition of $D=5$ is the smallest choice left to be proven in Problem 21.
+
+%From the conclusion of Problem 21, we have $D=5$.
 \begin{comment}
 \begin{enumerate}
 	\item $D=5$ can implement $\text{XOR}$.
@@ -337,7 +348,7 @@ From the conclusion of Problem 21, we have $D=5$.
 
 Consider
 \begin{align}
-\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{i1}}=-2\ParTh{y_n-s^{\ParTh{L}}_1}\ParTh{x^{\ParTh{L-1}}_i}=-2\ParTh{y_n-\sum_{j=0}^{d^{\ParTh{L-2}}}w^{\ParTh{L}}_{j1}x^{\ParTh{L-1}}_j}\ParTh{x^{\ParTh{L-1}}_i}
+\dfrac{\partial e_n}{\partial w^{\ParTh{L}}_{i1}}=-2\ParTh{y_n-s^{\ParTh{L}}_1}\ParTh{x^{\ParTh{L-1}}_i}=-2\ParTh{y_n-\sum_{j=0}^{d^{\ParTh{L-1}}}w^{\ParTh{L}}_{j1}x^{\ParTh{L-1}}_j}\ParTh{x^{\ParTh{L-1}}_i}
 \end{align}
 Since all $w^{\ParTh{\ell}}_{ij}=0$, we have
 \begin{align}
@@ -598,22 +609,67 @@ This curve approaches the average value as $t\rightarrow30,000$. The curve of Pr
 
 \subsection*{Problem 21}
 
-Consider the projection of all convex points to diagonal line of $N$-dimensional hypercube, the value of each function is
+\begin{comment}
+The weights of hidden layer and output layer are
+\begin{align}
+\text{Neuron 1}:\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},\ldots,w^{\ParTh{1}}_{d1}}&=\ParTh{d-1,1,1,\ldots,1}\\
+\text{Neuron 2}:\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},\ldots,w^{\ParTh{1}}_{d2}}&=\ParTh{d-2,1,1,\ldots,1}\\
+&\hspace{2mm}\vdots\\
+\text{Neuron }d:\ParTh{w^{\ParTh{1}}_{0d},w^{\ParTh{1}}_{1d},w^{\ParTh{1}}_{2d},\ldots,w^{\ParTh{1}}_{dd}}&=\ParTh{0,1,1,\ldots,1}\\
+\text{Output Neuron}:\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},\ldots,w^{\ParTh{2}}_{d1}}&=\ParTh{0,1,-1,\ldots,\ParTh{-1}^{i-1},\ldots,1}
+\end{align}
+where $i\in\mathbb{N}$ and $1\leq i\leq d$.
+\end{comment}
+Map all possible inputs to $D$-dimension hypercube convex points. For example, $D=2$, all possible inputs are $\ParTh{-1,-1}$, $\ParTh{+1,-1}$, $\ParTh{-1,+1}$ and $\ParTh{+1,+1}$. Then we can construct a square lies on $x\text{-}y$ plane with convex points $\ParTh{-1,-1}$, $\ParTh{+1,-1}$, $\ParTh{-1,+1}$ and $\ParTh{+1,+1}$.
+
+%Consider the projection of all convex points to diagonal line of $N$-dimensional hypercube, the value of each $\text{XOR}\ParTh{\text{convex point}}$ is
+For a $N$-dimensional hypercube, the value of each $\text{XOR}\ParTh{\text{convex point}}$ is
 \begin{enumerate}
-	\item 2-D: $\ParTh{-1}\ParTh{1,1}\ParTh{-1}$
-	\item 3-D: $\ParTh{-1}\ParTh{1,1,1}\ParTh{-1,-1,-1}\ParTh{1}$
-	\item 4-D: $\ParTh{-1}\ParTh{1,1,1,1}\ParTh{-1,-1,-1,-1,-1,-1}\ParTh{1,1,1,1}\ParTh{1}$
+	\item 2-D: $\ParTh{\text{XOR}\ParTh{-1,-1},\text{XOR}\ParTh{+1,-1},\text{XOR}\ParTh{-1,+1}\text{XOR}\ParTh{+1,+1}}=\ParTh{-1,+1,+1,-1}$
+	\item 3-D: $\cdots=\ParTh{-1,+1,+1,+1,-1,-1,-1,+1}$
+	%\item 4-D: $\cdots=\ParTh{-1,+1,+1,+1,+1,-1,-1,-1,-1,-1,-1,+1,+1,+1,+1,+1}$
 	\item[$\vdots$]
 \end{enumerate}
-the convex points are the input of neural network. The projections are linear transformation of these convex points, which can be implemented by $d$ linear classfier (AND or OR). By uniform blending all these linear classfier and $\text{sign}\ParTh{\CBrackets{\text{all linear classifer}}}$, we implement the $\text{XOR}\ParTh{x_1,x_2,\ldots,x_d}$.
+It is a little messy. Group the values by seperating $+1$ and $-1$, we have
+\begin{enumerate}
+	\item 2-D: $\underbrace{\ParTh{-1}}_{0\text{ input } +1},\underbrace{\ParTh{+1,+1}}_{1\text{ input } +1},\underbrace{\ParTh{-1}}_{2\text{ input } +1}$
+	\item 3-D: $\underbrace{\ParTh{-1}}_{0\text{ input } +1},\underbrace{\ParTh{+1,+1,+1}}_{1\text{ input } +1},\underbrace{\ParTh{-1,-1,-1}}_{2\text{ input } +1},\underbrace{\ParTh{+1}}_{3\text{ input } +1}$
+	%\item 4-D: $\ParTh{-1},\ParTh{+1,+1,+1,+1},\ParTh{-1,-1,-1,-1,-1,-1},\ParTh{+1,+1,+1,+1},\ParTh{+1}$
+	\item[$\vdots$]
+\end{enumerate}
+We can see that $n$-dimension can be seperated to $\ParTh{n+1}$ groups, where $1\leq n\leq d$, $n\in\mathbb{N}$. Each group represents different output $+1$ or $-1$. For example, $D=2$, $\text{XOR}\ParTh{-1,+1}=\text{XOR}\ParTh{+1,-1}=1$ so the two points (inputs) are in the same group. \\
 
-The input layer to hidden layer ($d-D$) is the linear transformation, the hidden layer to output layer ($D-1$) is the uniform blending of all these linear classifer.
+Consider the orthogonal projection of of all convex points onto hyperline $x_1=x_2=\cdots=x_d$, we can find that the points in the same group will be projected onto the same point. For example, $D=2$, the projections of $\ParTh{-1,+1}$ and $\ParTh{+1,-1}$ onto $y=x$ are both $\ParTh{0,0}$. \\%; $D=3$, the projections of $\ParTh{-1,-1,+1}$, $\ParTh{-1,+1,-1}$ and $\ParTh{+1,-1,-1}$ onto $x+y+z+1=0$ are all $\ParTh{0,0}$.
+
+The $d\text{-}D\text{-}1$ neural network is trying to classify all these inputs into different groups. One neuron in the hidden layer with $\ParTh{d+1}$ weights $\ParTh{w^{\ParTh{\ell}}_{0j},w^{\ParTh{\ell}}_{1j},\ldots,w^{\ParTh{\ell}}_{dj}}$ can only construct a hyperplane in $d$-dimension (since one weight is from constant input), like a classfier, seperating the convex points of hypercube into different group. And $d$-dimension hypercube needs at least $d$ hyperplanes to seperate all convex points (inputs) into $\ParTh{d+1}$ groups (output).
+
+For example, $D=2$, then we have three points $\ParTh{-1,-1}$, $\ParTh{0,0}$ and $\ParTh{+1,+1}$ after projection. We can find the hyperplane $x+y=1$ and $-x-y=1$ with corresponding neurons of $\ParTh{+1,+1,+1}$ and $\ParTh{+1,-1,-1}$ in hidden layer, neuron of $\ParTh{-1,+1,+1}$ in output layer. These hyperplanes can seperate all convex points into three groups. So we can implement $\text{XOR}\ParTh{x_1,x_2}$. Similarly, we can implement $\text{XOR}\ParTh{x_1,x_2,\ldots,x_d}$.
+
+Hence, we need at least $D=d$ to implement $\text{XOR}\ParTh{x_1,x_2,\ldots,x_d}$ with $d\text{-}D\text{-}1$ feed-forward neural network.
 
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 22}
+
+\underline{Claim}: If $d$ is odd, then $D\geq \ParTh{\Divide{\ParTh{d+1}}{2}}$; if $d$ is even, then we have $D\geq \ParTh{\Divide{d}{2}}+1$. Two cases can be implemented by $d\text{-}\ParTh{D-1}\text{-}1$ feed-forward neuron network.
+
+\underline{Proof of Claim}:
+
+From the groups seperated in Problem 21, we can find that they are symmetric. If we can connect all inputs directly to output neuron, we can specify which side are we on. Hence we can reduce the number of neurons in hidden layer by half, which is $\Divide{\ParTh{d-1}}{2}$ for $d$ is odd and $\ParTh{\Divide{d}{2}}$ for $d$ is even, where $\Divide{\ParTh{d-1}}{2}$ is due to we do not need the central hyperplane to seperate the inputs.
+
+Plus the neuron in output layer, we have $D\geq \ParTh{\Divide{\ParTh{d+1}}{2}}$ if $d$ is odd and $D\geq \ParTh{\Divide{d}{2}}+1$ if $d$ is even.
+
+\begin{comment}
+\begin{enumerate}
+\item $d$ is even.
+
+From the conclusion of Problem 21, we need at least $D=d+1$ ($d$ for hidden layer and $1$ for output layer). But now we can connect all inputs directly to output neuron to distinguish $\ParTh{-1,-1,\ldots,-1}$ and $\ParTh{+1,+1,\ldots,+1}$ with weights $\ParTh{0,+1,+1,\ldots,+1}$. Hence we can use one less neuron.
+\item $d$ is odd.
+
+If $d$ is odd, from the conclusion of Problem 21, we need $d$ hyperplanes to seperate all inputs, where $d$ is odd. So all inputs 
+\end{enumerate}
 
 The answer is $D=d-1$. Like
 \begin{figure}[H]
@@ -659,6 +715,7 @@ The answer is $D=d-1$. Like
 	\end{tikzpicture}
 	\label{LTC}
 \end{figure}
+\end{comment}
 
 \QEDB
 
