@@ -657,7 +657,20 @@ Hence, we need at least $D=d$ to implement $\text{XOR}\ParTh{x_1,x_2,\ldots,x_d}
 
 \underline{Proof of Claim}:
 
-From the groups seperated in Problem 21, we can find that they are symmetric. If we can connect all inputs directly to output neuron, we can specify which side are we on by $\text{OR}$ all inputs. Hence we can reduce the number of neurons in hidden layer by half, which is $\Divide{\ParTh{d-1}}{2}$ for $d$ is odd and $\ParTh{\Divide{d}{2}}$ for $d$ is even, where $\Divide{\ParTh{d-1}}{2}$ is due to we do not need the central hyperplane to seperate the inputs.
+From the groups seperated in Problem 21, we can find that they are symmetric. If we can connect all inputs directly to output neuron, we can specify which side are we on by $\text{ADD}$ all inputs to see if $\sum_{i=1}^{d}x_i\lessgtr0$ (for $d$ is odd) or $\sum_{i=1}^{d}x_i\lesseqgtr0$ (for $d$ is even).
+
+For example, $D=2$, we have
+\begin{align}
+\left.\underbrace{\ParTh{-1}}_{0\text{ input } +1}\middle|\underbrace{\ParTh{+1,+1}}_{1\text{ input } +1}\middle|\underbrace{\ParTh{-1}}_{2\text{ input } +1}\right.\Rightarrow\left.\underbrace{\ParTh{+1,+1}}_{\text{ Inputs summation is }0}\middle|\underbrace{\ParTh{-1}}_{\text{ Inputs summation is }\lessgtr\text{ 0}}\right.
+\end{align}
+or $D=3$,
+\begin{align}
+\left.{\ParTh{-1}}\Big\vert{\ParTh{+1,+1,+1}}\Big\vert{\ParTh{-1,-1,-1}}\Big\vert{\ParTh{+1}}\right.&\Rightarrow\underbrace{\left.{\ParTh{-1,-1,-1}}\Big\vert{\ParTh{+1}}\right.}_{\text{ Inputs summation }>\text{ 0}}\\
+\nonumber
+&\text{or }\underbrace{\left.{\ParTh{+1,+1,+1}}\Big\vert{\ParTh{-1}}\right.}_{\text{ Inputs summation }<\text{ 0}}
+\end{align}
+
+Hence we can reduce the number of neurons in hidden layer by half, which is $\Divide{\ParTh{d-1}}{2}$ for $d$ is odd and $\ParTh{\Divide{d}{2}}$ for $d$ is even, where $\Divide{\ParTh{d-1}}{2}$ is due to we do not need the central hyperplane to seperate the inputs.
 
 Plus the neuron in output layer, we have $D\geq \ParTh{\Divide{\ParTh{d+1}}{2}}$ if $d$ is odd and $D\geq \ParTh{\Divide{d}{2}}+1$ if $d$ is even.
 
