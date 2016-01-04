@@ -167,28 +167,27 @@ Since $G=\text{Uniform}\ParTh{\CBrackets{g_k}^K_{k=1}}$, so if at least $\Divide
 
 If $G$ outputs wrong result on some example $\BF{x}$, then we have
 \begin{align}
-\BF{x}\in\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}
+\BF{x}\in\bigcap^{\ParTh{\frac{{K+1}}{2}}+m}_{i=1}E_{\alpha_i}
 \end{align}
-where $\alpha_i$ is some index satisfies $1\leq\alpha_i\leq K$ and $m\in\ParTh{\mathbb{N}\cup\CBrackets{0}}$ with $0\leq m<\Divide{\ParTh{K+1}}{2}$. And
+where $\alpha_i\in\CBrackets{1,2,\ldots,K}$ satisfies $1\leq\alpha_i\leq K$ and $m\in\ParTh{\mathbb{N}\cup\CBrackets{0}}$ with $0\leq m<\Divide{{K+1}}{2}$. And
 \begin{align}
-\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\dfrac{2}{K+1+2m}\sum_{k=1}^{K}e_k\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
+\AbsVal{\bigcap^{\ParTh{\frac{{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\dfrac{2}{K+1+2m}\sum_{k=1}^{K}e_k\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
 \label{5-1}
 \end{align}
 (\ref{5-1}) holds due to %$\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\frac{2}{K+1+2m}\sum_{k=1}^{K}e_k$ holds due to
 \begin{align}
-\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}\subseteq E_{\beta}
+\bigcap^{\ParTh{\frac{{K+1}}{2}}+m}_{i=1}E_{\alpha_i}\subseteq E_{\beta}\text{ with }\AbsVal{E_\beta}\leq\AbsVal{E_{\alpha_i}},~\forall i
 \end{align}
 where $\beta$ is some index such that $\AbsVal{E_{\beta}}=\min_{\alpha_i}\AbsVal{E_{\alpha_i}}$. So
 \begin{align}
-\ParTh{\dfrac{K+1}{2}+m}\AbsVal{\bigcap^{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}\leq\ParTh{\dfrac{K+1}{2}+m}\AbsVal{E_{\beta}}\leq\sum_{k=1}^{K}\AbsVal{E_k}
+\ParTh{\dfrac{K+1}{2}+m}\AbsVal{\bigcap^{\ParTh{\frac{{K+1}}{2}}+m}_{i=1}E_{\alpha_i}}&\leq\ParTh{\dfrac{K+1}{2}+m}\AbsVal{E_{\beta}}\leq\sum_{i=1}^{\ParTh{\frac{{K+1}}{2}}+m}\AbsVal{E_{\alpha_i}}\leq\sum_{k=1}^{K}\AbsVal{E_k}
 \label{5-2}
 \end{align}
-(\ref{5-2}) holds since size of $E_\beta$ is the samllest among $\ParTh{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}$ terms and $\sum_{k=1}^{K}\AbsVal{E_k}$ must contains the $\ParTh{\ParTh{\Divide{\ParTh{K+1}}{2}}+m}$ terms.
-
-Hence, we have
+(\ref{5-2}) holds since size of $E_\beta$ is the samllest among $\ParTh{\ParTh{\frac{{K+1}}{2}}+m}$ terms and $\sum_{k=1}^{K}\AbsVal{E_k}$ must contains the $\ParTh{\ParTh{\frac{{K+1}}{2}}+m}$ terms. Hence, we have
 \begin{align}
-E_{\text{out}}\ParTh{G}\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
+E_{\text{out}}\ParTh{G}\leq\dfrac{2}{K+1+2m}\sum_{k=1}^{K}e_k\leq\dfrac{2}{K+1}\sum_{k=1}^{K}e_k
 \end{align}
+where $\AbsVal{E_k}=e_k$ by definition.
 \begin{comment}
 \begin{align}
 \dfrac{2}{M+1}\sum_{k=1}^{M}e_k\leq\dfrac{2}{M+3}\sum_{k=1}^{M+2}e_k=\dfrac{2}{M+3}\ParTh{\sum_{k=1}^{M}e_k+e_{M+1}+e_{M+2}}
@@ -395,7 +394,7 @@ for $1\leq j\leq d^{\ParTh{1}}-1$.
 
 \subsection*{Problem 13}
 
-The roles of following tree are
+The rules of following tree are
 \begin{enumerate}
 	\item $\ParTh{\text{feature column},\text{ }s,\text{ }\theta}$. The meaning of combination of numbers.
 	\item If the feature of $\BF{x}$ is smaller than $\theta$, then go to the left tree; if not, then go to the right tree.
