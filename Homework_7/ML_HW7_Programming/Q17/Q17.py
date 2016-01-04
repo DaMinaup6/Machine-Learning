@@ -136,7 +136,7 @@ def bagAlg(T, N, DATA):
         treeList.append(deciTree)
     return np.array(treeList)
 
-def plotHist(x, y, xLabel, yLabel, title, width, isFloat):
+def plotFig(x, y, xLabel, yLabel, title, width, isFloat):
     plt.ylim(0, 0.01)
     plt.title(str(title))
     plt.xlabel(str(xLabel))
@@ -186,7 +186,7 @@ def main():
         idx += 1
 
     repeatList = np.array(range(T * REPEAT)) + 1
-    plotHist(repeatList, EGtList, r"$t$", r'$E_{\mathrm{in}}(G_t)$', "Q17", 1, False)
+    plotFig(repeatList, EGtList, r"$t$", r'$E_{\mathrm{in}}(G_t)$', "Q17", 1, False)
 
     t1 = time.time()
 

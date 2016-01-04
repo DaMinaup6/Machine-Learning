@@ -136,11 +136,11 @@ def bagAlg(T, N, DATA):
         treeList.append(deciTree)
     return np.array(treeList)
 
-def plotHist(x, xLabel, yLabel, title, width, isFloat):
+def plotFig(x, xLabel, yLabel, title, width, isFloat):
     plt.title(str(title))
     plt.xlabel(str(xLabel))
     plt.ylabel(str(yLabel))
-    if isFloat: plt.hist(x)
+    if isFloat: plt.hist(x, width)
     else:
         freq = np.bincount(x)
         freqIndex = np.nonzero(freq)[0]
@@ -172,7 +172,7 @@ def main():
         EgtList = np.append(EgtList, treeCalErr(xTra16, yTra16, bagAlg(T, Nprime, TRAIN16_DATA)))
     repeatList = np.array(range(T * REPEAT)) + 1
     
-    plotHist(EgtList, r"$t$", r'$E_{\mathrm{in}}(g_t)$', "Q16", 0.01, True)
+    plotFig(EgtList, r'$E_{\mathrm{in}}(g_t)$', 'Occurrence', "Q16", 50, True)
 
     t1 = time.time()
 
