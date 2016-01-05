@@ -306,12 +306,12 @@ Hence, $\ParTh{w_0,w_1,\ldots,w_d}=\ParTh{d-1,1,\ldots,1}$ implements $\text{OR}
 
 The weights of hidden layer and output layer are
 \begin{align}
-\text{Neuron 1}:&\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},w^{\ParTh{1}}_{31},w^{\ParTh{1}}_{41},w^{\ParTh{1}}_{51}}=\ParTh{4,1,1,1,1,1}\\
-\text{Neuron 2}:&\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},w^{\ParTh{1}}_{32},w^{\ParTh{1}}_{42},w^{\ParTh{1}}_{52}}=\ParTh{3,1,1,1,1,1}\\
-\text{Neuron 3}:&\ParTh{w^{\ParTh{1}}_{03},w^{\ParTh{1}}_{13},w^{\ParTh{1}}_{23},w^{\ParTh{1}}_{33},w^{\ParTh{1}}_{43},w^{\ParTh{1}}_{53}}=\ParTh{2,1,1,1,1,1}\\
-\text{Neuron 4}:&\ParTh{w^{\ParTh{1}}_{04},w^{\ParTh{1}}_{14},w^{\ParTh{1}}_{24},w^{\ParTh{1}}_{34},w^{\ParTh{1}}_{44},w^{\ParTh{1}}_{54}}=\ParTh{1,1,1,1,1,1}\\
+\text{Neuron 1}:&\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},w^{\ParTh{1}}_{31},w^{\ParTh{1}}_{41},w^{\ParTh{1}}_{51}}=\ParTh{0,1,1,1,1,1}\\
+\text{Neuron 2}:&\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},w^{\ParTh{1}}_{32},w^{\ParTh{1}}_{42},w^{\ParTh{1}}_{52}}=\ParTh{0,1,1,1,1,1}\\
+\text{Neuron 3}:&\ParTh{w^{\ParTh{1}}_{03},w^{\ParTh{1}}_{13},w^{\ParTh{1}}_{23},w^{\ParTh{1}}_{33},w^{\ParTh{1}}_{43},w^{\ParTh{1}}_{53}}=\ParTh{0,1,1,1,1,1}\\
+\text{Neuron 4}:&\ParTh{w^{\ParTh{1}}_{04},w^{\ParTh{1}}_{14},w^{\ParTh{1}}_{24},w^{\ParTh{1}}_{34},w^{\ParTh{1}}_{44},w^{\ParTh{1}}_{54}}=\ParTh{0,1,1,1,1,1}\\
 \text{Neuron 5}:&\ParTh{w^{\ParTh{1}}_{05},w^{\ParTh{1}}_{15},w^{\ParTh{1}}_{25},w^{\ParTh{1}}_{35},w^{\ParTh{1}}_{45},w^{\ParTh{1}}_{55}}=\ParTh{0,1,1,1,1,1}\\
-\text{Output Neuron}:&\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31},w^{\ParTh{2}}_{41},w^{\ParTh{2}}_{51}}=\ParTh{0,1,-1,1,-1,1}
+\text{Output Neuron}:&\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31},w^{\ParTh{2}}_{41},w^{\ParTh{2}}_{51}}=\ParTh{1,-1,1,-1,1,-1}
 \end{align}
 The condition of $D=5$ is the smallest choice left to be proven in Problem 21.
 
@@ -571,7 +571,7 @@ We can see that most of the $E_{\text{in}}\ParTh{G_t}=0$ (only 17 points left).
 \end{figure}
 The average $E_{\text{out}}\ParTh{G_t}$ of total 30,000 trees is $0.0753$.
 
-This curve approaches the average value as $t\rightarrow30,000$. The curve of Problem 17 oscillates and most points are 0.
+This curve approaches the average value as $t\rightarrow30,000$. The curve of Problem 17 goes to 0 after $t$ is near 20. Both curves converge to the average value as $t$ grows.
 
 \QEDB
 
@@ -637,9 +637,14 @@ It is a little messy. Group the values by seperating $+1$ and $-1$, we have
 	%\item 4-D: $\ParTh{-1},\ParTh{+1,+1,+1,+1},\ParTh{-1,-1,-1,-1,-1,-1},\ParTh{+1,+1,+1,+1},\ParTh{+1}$
 	\item[$\vdots$]
 \end{enumerate}
-We can see that $n$-dimension can be seperated to $\ParTh{n+1}$ groups, where $1\leq n\leq d$, $n\in\mathbb{N}$. Each group represents different output $+1$ or $-1$. For example, $D=2$, $\text{XOR}\ParTh{-1,+1}=\text{XOR}\ParTh{+1,-1}=1$ so the two points (inputs) are in the same group. \\
+We can see that $n$-dimension can be seperated to $\ParTh{n+1}$ groups, where $1\leq n\leq d$, $n\in\mathbb{N}$. Each group represents different output of $+1$ or $-1$. For example, $D=2$, $\text{XOR}\ParTh{-1,+1}=\text{XOR}\ParTh{+1,-1}=1$ so the two points (inputs) are in the same group. \\
 
-Consider the orthogonal projection of of all convex points onto hyperline $x_1=x_2=\cdots=x_d$, we can find that the points in the same group will be projected onto the same point. For example, $D=2$, the projections of $\ParTh{-1,+1}$ and $\ParTh{+1,-1}$ onto $y=x$ are both $\ParTh{0,0}$. \\%; $D=3$, the projections of $\ParTh{-1,-1,+1}$, $\ParTh{-1,+1,-1}$ and $\ParTh{+1,-1,-1}$ onto $x+y+z+1=0$ are all $\ParTh{0,0}$.
+Consider the orthogonal projection of of all convex points onto hyperline $x_1=x_2=\cdots=x_d$, we can find that the points in the same group will be projected onto the same point. For example, $D=2$, the projections of $\ParTh{-1,+1}$ and $\ParTh{+1,-1}$ onto $y=x$ are both $\ParTh{0,0}$. This can be proved by calculating the shortest distance to the hyperline for all points with same number of $+1$ inputs,
+\begin{align}
+\text{Shortest Distance}=\sum_{i=1}^{k}\ParTh{x_i-1}^2+\sum_{j=1}^{d-k}\ParTh{x_j+1}^2=d\ParTh{x-1}^2+\ParTh{d-k}\ParTh{x+1}^2
+\end{align}
+where $k$ is the number of $+1$ of some input and set $x_1=x_2=\cdots=x_d=x$. So the projections of all points with same number of $+1$ inputs onto the hyperline is the same point.\\
+%; $D=3$, the projections of $\ParTh{-1,-1,+1}$, $\ParTh{-1,+1,-1}$ and $\ParTh{+1,-1,-1}$ onto $x+y+z+1=0$ are all $\ParTh{0,0}$.
 
 The $d\text{-}D\text{-}1$ neural network is trying to classify all these inputs into different groups. One neuron in the hidden layer with $\ParTh{d+1}$ weights $\ParTh{w^{\ParTh{\ell}}_{0j},w^{\ParTh{\ell}}_{1j},\ldots,w^{\ParTh{\ell}}_{dj}}$ can only construct a hyperplane in $d$-dimension (since one weight is from constant input), like a classfier, seperating the convex points of hypercube into different group. And $d$-dimension hypercube needs at least $d$ hyperplanes to seperate all convex points (inputs) into $\ParTh{d+1}$ groups (output).
 
