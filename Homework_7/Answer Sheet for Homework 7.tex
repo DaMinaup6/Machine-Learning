@@ -306,13 +306,27 @@ Hence, $\ParTh{w_0,w_1,\ldots,w_d}=\ParTh{d-1,1,\ldots,1}$ implements $\text{OR}
 
 The weights of hidden layer and output layer are
 \begin{align}
-\text{Neuron 1}:&\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},w^{\ParTh{1}}_{31},w^{\ParTh{1}}_{41},w^{\ParTh{1}}_{51}}=\ParTh{0,1,1,1,1,1}\\
-\text{Neuron 2}:&\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},w^{\ParTh{1}}_{32},w^{\ParTh{1}}_{42},w^{\ParTh{1}}_{52}}=\ParTh{0,1,1,1,1,1}\\
+\text{Neuron 1}:&\ParTh{w^{\ParTh{1}}_{01},w^{\ParTh{1}}_{11},w^{\ParTh{1}}_{21},w^{\ParTh{1}}_{31},w^{\ParTh{1}}_{41},w^{\ParTh{1}}_{51}}=\ParTh{4,1,1,1,1,1}\\
+\text{Neuron 2}:&\ParTh{w^{\ParTh{1}}_{02},w^{\ParTh{1}}_{12},w^{\ParTh{1}}_{22},w^{\ParTh{1}}_{32},w^{\ParTh{1}}_{42},w^{\ParTh{1}}_{52}}=\ParTh{2,1,1,1,1,1}\\
 \text{Neuron 3}:&\ParTh{w^{\ParTh{1}}_{03},w^{\ParTh{1}}_{13},w^{\ParTh{1}}_{23},w^{\ParTh{1}}_{33},w^{\ParTh{1}}_{43},w^{\ParTh{1}}_{53}}=\ParTh{0,1,1,1,1,1}\\
-\text{Neuron 4}:&\ParTh{w^{\ParTh{1}}_{04},w^{\ParTh{1}}_{14},w^{\ParTh{1}}_{24},w^{\ParTh{1}}_{34},w^{\ParTh{1}}_{44},w^{\ParTh{1}}_{54}}=\ParTh{0,1,1,1,1,1}\\
-\text{Neuron 5}:&\ParTh{w^{\ParTh{1}}_{05},w^{\ParTh{1}}_{15},w^{\ParTh{1}}_{25},w^{\ParTh{1}}_{35},w^{\ParTh{1}}_{45},w^{\ParTh{1}}_{55}}=\ParTh{0,1,1,1,1,1}\\
-\text{Output Neuron}:&\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31},w^{\ParTh{2}}_{41},w^{\ParTh{2}}_{51}}=\ParTh{1,-1,1,-1,1,-1}
+\text{Neuron 4}:&\ParTh{w^{\ParTh{1}}_{04},w^{\ParTh{1}}_{14},w^{\ParTh{1}}_{24},w^{\ParTh{1}}_{34},w^{\ParTh{1}}_{44},w^{\ParTh{1}}_{54}}=\ParTh{-2,1,1,1,1,1}\\
+\text{Neuron 5}:&\ParTh{w^{\ParTh{1}}_{05},w^{\ParTh{1}}_{15},w^{\ParTh{1}}_{25},w^{\ParTh{1}}_{35},w^{\ParTh{1}}_{45},w^{\ParTh{1}}_{55}}=\ParTh{-4,1,1,1,1,1}\\
+\text{Output Neuron}:&\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31},w^{\ParTh{2}}_{41},w^{\ParTh{2}}_{51}}=\ParTh{\Divide{1}{5},1,-1,1,-1,1}
 \end{align}
+The values table is
+\renewcommand\arraystretch{1.5}
+\begin{center}
+\begin{tabular}{ | c | c | c | }
+  \hline
+  Number of 1 in Inputs & Hidden Layer Output & Output \\ \hline
+  0&$\ParTh{-1,-1,-1,-1,-1}$&-1 \\ \hline
+  1&$\ParTh{+1,-1,-1,-1,-1}$&+1 \\ \hline
+  2&$\ParTh{+1,+1,-1,-1,-1}$&-1 \\ \hline
+  3&$\ParTh{+1,+1,+1,-1,-1}$&+1 \\ \hline
+  4&$\ParTh{+1,+1,+1,+1,-1}$&-1 \\ \hline
+  5&$\ParTh{+1,+1,+1,+1,+1}$&+1 \\ \hline
+\end{tabular}
+\end{center}
 The condition of $D=5$ is the smallest choice left to be proven in Problem 21.
 
 %From the conclusion of Problem 21, we have $D=5$.
