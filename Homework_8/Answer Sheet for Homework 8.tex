@@ -1,0 +1,350 @@
+\documentclass[12pt]{article}
+
+% Use packages %
+\usepackage{graphicx, courier, amsmath, amssymb, amscd, amsfonts, mathtools, bm, esint, leftidx, extarrows, latexsym, relsize, color, tikz, comment, stmaryrd, float}
+\usepackage[obeyspaces]{url}% http://ctan.org/pkg/url
+
+% Set length %
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{235mm}
+\setlength{\oddsidemargin}{-0mm}
+\setlength{\topmargin}{-10mm}
+
+% Define h-bar %
+\newsavebox{\myhbar}
+\savebox{\myhbar}{$\hbar$}
+\renewcommand*{\hbar}{\mathalpha{\usebox{\myhbar}}}
+
+% Chinese input %
+%\usepackage{xeCJK} 
+%\setCJKmainfont{微軟正黑體}
+%\usepackage[T1]{fontenc}
+%\makeatletter
+
+% Equation number %
+%\@addtoreset{equation}{section} 
+%\renewcommand\theequation{{\thesection}.{\arabic{equation}}}
+%\makeatletter 
+
+% Helper Command %
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\rmnum}[1]{\romannumeral #1} 
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\makeatother
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+\newcommand*{\BmVert}{\bigm\vert}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\Nelements}[3]{\left\{ #1, ~ #2, \ldots, ~ #3 \right\}}
+\newcommand{\CBrackets}[1]{\left\{#1\right\}}
+\newcommand{\SBrackets}[1]{\left[#1\right]}
+\newcommand{\BooBrackets}[1]{\left\llbracket#1\right\rrbracket}
+\newcommand{\ParTh}[1]{\left(#1\right)}
+\newcommand{\Ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\Floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\BF}[1]{{\bf#1}}
+\newcommand{\Inverse}[1]{{#1}^{-1}}
+\newcommand{\Generator}[1]{\left\langle#1\right\rangle}
+\newcommand{\AbsVal}[1]{\left|#1\right|}
+\newcommand{\VecAbsVal}[1]{\left\|#1\right\|}
+\newcommand{\BSlash}[2]{\left.#1\middle\backslash#2\right.}
+\newcommand{\Divide}[2]{\left.#1\middle/#2\right.}
+\newcommand{\SciNum}[2]{#1\times{10}^{#2}}
+\newcommand{\Matrix}[2]{\ParTh{\begin{array}{#1}#2\end{array}}}
+\newcommand{\MatrixTwo}[4]{\ParTh{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\newcommand{\MatrixNByN}[1]{\Matrix{cccc}{{#1}_{11} & {#1}_{12} & \cdots & {#1}_{1n} \\ {#1}_{21} & {#1}_{22} & \cdots & {#1}_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ {#1}_{n1} & {#1}_{n2} & \cdots & {#1}_{nn}}}
+\newcommand{\ndiv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\eqdef}{\xlongequal{\text{def}}}%
+\newcount\arrowcount
+\newcommand\arrows[1]{\global\arrowcount#1 \ifnum\arrowcount>0
+\begin{matrix}\expandafter\nextarrow\fi}
+\newcommand\nextarrow[1]{\global\advance\arrowcount-1 \ifx\relax#1\relax\else \xrightarrow{#1}\fi\ifnum\arrowcount=0 \end{matrix}\else\\\expandafter\nextarrow\fi}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Tikz settings %
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=white!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block}    = [rectangle, draw, fill=white!20, text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{point}    = [fill = white!20, minimum size=0.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{mapsto}   = [draw, |->]
+\tikzstyle{cloud}    = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=2em]
+
+\begin{document}
+
+\baselineskip 6.5mm
+\setlength{\parindent}{0pt}
+\title{ 
+\normalfont \normalsize 
+\horrule{0.5pt} \\[0.4cm]
+\huge { \Huge Machine Learning \\ \large Answer Sheet for Homework 8}\\
+\horrule{2pt} \\ [0.5cm]
+}
+\author{ { \Large Da-Min HUANG } \\
+{\small R04942045} \\
+{\small\textit{Graduate Institute of Communication Engineering, National Taiwan University}}
+}
+\date{January 20, 2016}
+%\allowdisplaybreaks[4]
+\maketitle
+
+\subsection*{Problem 1}
+
+\begin{enumerate}
+	\item Forward:
+	\begin{align}
+	\ParTh{A+1}\times B+\ParTh{B+1}\times1=\ParTh{A+2}B+1
+	\end{align}
+	\item Backward:
+	
+	$\delta^{\ParTh{L}}_1=-2\ParTh{y_n-s^{\ParTh{L}}_1}x^{\ParTh{L-1}}_i$ counts and
+	\begin{align}
+	\dfrac{\partial e_n}{\partial w^{\ParTh{\ell}}_{ij}}=\delta^{\ParTh{\ell}}_jx^{\ParTh{\ell-1}}_i\text{ for }0\leq i\leq d^{\ParTh{\ell-1}}\text{ and }1\leq j\leq d^{\ParTh{\ell}}
+	\end{align}
+	with
+	\begin{align}
+	\delta^{\ParTh{\ell}}_j=\sum_{k}\ParTh{\delta^{\ParTh{\ell+1}}_k}\ParTh{w^{\ParTh{\ell+1}}_{jk}}\ParTh{\tanh^\prime\ParTh{s^{\ell}_j}}
+	\end{align}
+	So one backward counts
+	\begin{align}
+	\underbrace{\ParTh{B+1}\times1}_{\text{output layer}}+\underbrace{B\times\ParTh{A+1}}_{\text{hidden layer}}+\underbrace{B}_{\text{hidden layer }\delta^{\ParTh{\ell}}_j}=\ParTh{A+3}B+1
+	\end{align}
+\end{enumerate}
+Hence, total number of operations required in a single iteration of backpropagation is
+\begin{align}
+\ParTh{\ParTh{A+2}B+1}+\ParTh{\ParTh{A+3}B+1}=\ParTh{2A+5}B+2
+\end{align}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 2}
+
+Suppose we have $k$ hidden layers, which means $L=k+1$, with $d^{\ParTh{1}}$, $d^{\ParTh{2}}$,$\ldots$, $d^{\ParTh{k}}$ units ($x^{\ParTh{\ell}}_0$ is not counted here) in each layer. The number of total weights is
+\begin{align}
+\sum_{i=0}^{k-1}\ParTh{d^{\ParTh{i}}+1}d^{\ParTh{i+1}}+\ParTh{d^{\ParTh{k}}+1}\times1=\sum_{i=0}^{k-1}d^{\ParTh{i}}d^{\ParTh{i+1}}+\sum_{j=1}^{k}d^{\ParTh{j}}+\ParTh{d^{\ParTh{k}}+1}\coloneqq N_w
+\end{align}
+with
+\begin{align}
+\sum_{j=1}^{k}\ParTh{d^{\ParTh{j}}+1}=\ParTh{\sum_{j=1}^{k}d^{\ParTh{j}}}+k=36\text{ and }d^{\ParTh{0}}=9
+\end{align}
+So we have
+\begin{align}
+N_w=\ParTh{37-k}+9d^{\ParTh{1}}+\ParTh{\sum_{i=1}^{k-1}d^{\ParTh{i}}d^{\ParTh{i+1}}}+d^{\ParTh{k}}
+\end{align}
+Since $d^{\ParTh{\ell}}\geq1$ for $0\leq\ell\leq k+1$, so we have $1\leq k\leq18$.
+
+\underline{Claim}: $k=18$ minimizes $N_w$.
+
+\underline{Proof of Claim}:
+
+If $k=18$, we have 2 units in each hidden layer (one is $x^{\ParTh{\ell}}_0$, not counted in $d^{\ParTh{\ell}}$), so
+\begin{align}
+\left.N_w\right|_{k=18}=\ParTh{37-18}+9\times1+\ParTh{\sum_{i=1}^{17}1\times1}+1=46
+\end{align}
+\begin{comment}
+If $k=17$, consider the following cases
+\begin{enumerate}
+	\item Put two units of original $d^{\ParTh{18}}$ (include $x^{\ParTh{18}}_0$) in some hidden layer. If in the last hidden layer, we have
+	\begin{align}
+	\left.N_w\right|_{k=17}=\ParTh{37-17}+9\times1+\ParTh{\sum_{i=1}^{15}1\times1+1\times\ParTh{1+2}}+3=50>\left.N_w\right|_{k=18}
+	\end{align}
+	If in some $d^{\ParTh{\ell}}$ with $2\leq\ell\leq16$ (if $\ell=1$ then $N_w$ will be added more then 9), we have
+	\begin{align}
+	\left.N_w\right|_{k=17}=\ParTh{37-17}+9\times1+\ParTh{\sum_{i=1}^{14}1\times1+1\times3+3\times1}+2=51>\left.N_w\right|_{k=18}
+	\end{align}
+	\item Put one unit in some hidden layer and one in some other hidden layer.  W.L.O.G., put the one unit in $d^{\ParTh{17}}$ and one in $d^{\ParTh{16}}$, we have
+	\begin{align}
+	\left.N_w\right|_{k=17}=\ParTh{37-17}+9\times1+\ParTh{\sum_{i=1}^{14}1\times1+1\times2+2\times2}+2=50>\left.N_w\right|_{k=18}
+	\end{align}
+\end{enumerate}
+\end{comment}
+If $k=18-m$, $m\in\mathbb{N}$ and $1\leq m\leq17$, we have
+\begin{align}
+\left.N_w\right|_{k=18-m}&=\ParTh{19+m}+9d^{\prime\ParTh{1}}+\ParTh{\sum_{i=1}^{17-m}d^{\prime\ParTh{i}}d^{\prime\ParTh{i+1}}}+d^{\prime\ParTh{18-m}}\\
+\label{2-1}
+&\geq\ParTh{19+m}+9+\ParTh{17-m}+1\\
+&=19+9+17+1=\left.N_w\right|_{k=18}
+\end{align}
+where $d^{\prime\ParTh{\ell}}$ is the new number of each hidden layer if $k=18-m$ and (\ref{2-1}) holds due to $d^{\prime\ParTh{i}}d^{\prime\ParTh{i+1}}\geq1$ and $d^{\prime\ParTh{i}}\geq1$, $\forall i$ (by definition).
+
+Hence, we have $N_w\geq46$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 3}
+
+Following the setting of Problem 2.
+
+\underline{Claim}: $k=2$ with $21$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$ and $13$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$ maxmizes $N_w$.
+
+\underline{Proof of Claim}:
+
+If $k=2$ with $21$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$ and $13$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, we have
+\begin{align}
+\left.N_w\right|_{k=2}=\ParTh{37-2}+9\times21+\ParTh{21\times13}+13=510
+\end{align}
+Consider following cases,
+\begin{enumerate}
+	\item If $k=2$ with $34-m$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$ and $m$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, where $m\in\mathbb{N}$ and $1\leq m\leq33$, we have
+	\begin{align}
+	\left.N_w\right|_{k=2}=\ParTh{37-2}+9\times\ParTh{34-m}+\ParTh{\ParTh{34-m}\times m}+m=-\ParTh{m-13}^2+510
+	\end{align}
+	Hence, $m=13$ maximize $\left.N_w\right|_{k=2}$.
+	\item If $k=1$.
+	\begin{align}
+	\left.N_w\right|_{k=1}=\ParTh{37-1}+9\times35+35=386<510
+	\end{align}
+	\item If $k=3$ with $33-n_1-n_2$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$ and $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$, where $n_1,n_2\in\mathbb{N}$ and $1\leq n_1,n_2\leq32$, we have
+	\begin{align}
+	\left.N_w\right|_{k=3}&=\ParTh{37-3}+9\times\ParTh{33-n_1-n_2}+\ParTh{\ParTh{33-n_1-n_2}\times n_1+n_1\times n_2}+n_2\\
+	&=-\ParTh{n_1-12}^2-8n_2+475\leq-8n_2+475\leq467<510
+	\end{align}
+	We can see that if we have no $d^{\ParTh{3}}$ layer (which means $n_2=0$), then $\left.N_w\right|_{k=3}$ can be larger.
+	\item If $18\geq k=s\geq4$ with with $\ParTh{36-s}-\sum_{i=1}^{s-1}n_i$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$,..., $n_{s-1}$ units (not included $x^{\ParTh{s}}_0$) in $d^{\ParTh{s}}$ where $n_i\in\mathbb{N}$ and $1\leq n_i\leq\ParTh{35-s}$, $\forall i$, we have
+	\begin{align}
+	\nonumber
+	\left.N_w\right|_{k=s}=&\ParTh{37-s}+9\times\ParTh{\ParTh{36-s}-\sum_{i=1}^{s-1}n_i}\\
+	&+\ParTh{\ParTh{\ParTh{36-s}-\sum_{i=1}^{s-1}n_i}\times n_1+\cdots+n_{s-2}\times n_{s-1}}+n_{s-1}
+	\end{align}
+	We can find that there is no $n_1n_2$ term, only $n_2n_3$ term exists and no other terms contains $n_2$. We have
+	\begin{align}
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_2}=n_3=0\text{ as }\left.N_w\right|_{k=s}\text{ reaches maximum}
+	\end{align}
+	This implies $\left.N_w\right|_{k=s}$ can be larger without $d^{\ParTh{4}}$ layer. So $k=s\geq4$ cannot maximize $N_w$.
+\end{enumerate}
+Hence, we have $N_w\geq510$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 4}
+
+\begin{align}
+\nabla_{\BF{w}}\text{err}_n\ParTh{\BF{w}}&=\dfrac{\partial}{\partial\BF{w}}\VecAbsVal{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^2=\dfrac{\partial}{\partial\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^T\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
+&=\dfrac{\partial}{\partial\BF{w}}\ParTh{\BF{x}^T_n-\BF{x}^T_n\BF{w}^T\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
+&=\ParTh{-2\BF{x}^T_n\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}+\ParTh{\BF{x}^T_n-\BF{x}^T_n\BF{w}^T\BF{w}}\ParTh{-2\BF{w}\BF{x}_n}\\
+&=-2\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\ParTh{\BF{x}^T_n\BF{w}}\BF{w}\ParTh{\BF{x}^T_n\BF{w}}^T-2\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\BF{x}^T_n\ParTh{\BF{w}^T\BF{w}}\BF{w}\BF{x}_n\\
+&=-4\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\ParTh{\BF{x}^T_n\BF{w}}^2\BF{w}+2\BF{x}^T_n\ParTh{\BF{w}^T\BF{w}}\BF{w}\BF{x}_n
+\end{align}
+where we have used
+\begin{align}
+\ParTh{\BF{x}^T_n\BF{w}}\BF{w}\ParTh{\BF{x}^T_n\BF{w}}^T&=\ParTh{\Matrix{cccc}{x_1&x_2&\cdots&x_n}\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}}\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}\ParTh{\BF{x}^T_n\BF{w}}^T\\
+&=c\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}c=\Matrix{c}{c^2w_{1}\\c^2w_{2}\\\vdots\\c^2w_{n}}=\ParTh{\BF{x}^T_n\BF{w}}^2\BF{w}
+\end{align}
+with $c\coloneqq\sum_{i=1}^{n}x_iw_i$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 5}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 6}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 7}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 8}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 9}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 10}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 11}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 12}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 13}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 14}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 15}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 16}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 17}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 18}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 19}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 20}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\section*{Reference}
+
+\begin{enumerate}
+
+\item[{[1]}] Lecture Notes by Hsuan-Tien LIN, Department of Computer Science and Information Engineering, National Taiwan University, Taipei 106, Taiwan.
+
+\end{enumerate}
+
+\end{document}
