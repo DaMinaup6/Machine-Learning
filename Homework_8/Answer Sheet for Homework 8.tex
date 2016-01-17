@@ -245,6 +245,19 @@ with $c\coloneqq\sum_{i=1}^{n}x_iw_i$.
 
 \subsection*{Problem 5}
 
+\begin{align}
+E_{\text{in}}\ParTh{\BF{w}}&=\dfrac{1}{N}\sum_{n=1}^{N}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\ParTh{\BF{x}_n+\bm{\epsilon}_n}}^T\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\ParTh{\BF{x}_n+\bm{\epsilon}_n}}\\
+&=\dfrac{1}{N}\sum_{n=1}^{N}\ParTh{\BF{x}^T_n-\ParTh{\BF{x}_n+\bm{\epsilon}_n}^T\BF{w}^T\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\ParTh{\BF{x}_n+\bm{\epsilon}_n}}\\
+\nonumber
+&=\dfrac{1}{N}\sum_{n=1}^{N}\VecAbsVal{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^2-\bm{\epsilon}^T_n\BF{w}^T\BF{w}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
+&\hspace{4mm}-\BF{w}\BF{w}^T\bm{\epsilon}_n\ParTh{\BF{x}^T_n-\BF{x}^T_n\BF{w}^T\BF{w}}+\ParTh{\bm{\epsilon}_n}^2\ParTh{\BF{w}^T\BF{w}}^2
+\end{align}
+Since $\bm{\epsilon}_n$ is generated from a zero-mean, unit variance Gaussian distribution, so $\mathcal{E}\ParTh{\bm{\epsilon}}=0$ and $\mathcal{E}\ParTh{\VecAbsVal{\bm{\epsilon}}^2}=1$. Hence
+\begin{align}
+\mathcal{E}\ParTh{E_{\text{in}}\ParTh{\BF{w}}}=\dfrac{1}{N}\sum_{n=1}^{N}\VecAbsVal{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^2+\ParTh{\BF{w}^T\BF{w}}^2
+\end{align}
+So $\Omega\ParTh{\BF{w}}=\ParTh{\BF{w}^T\BF{w}}^2$.
+
 \QEDB
 
 \horrule{0.5pt}
