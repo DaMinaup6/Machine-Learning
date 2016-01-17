@@ -302,11 +302,49 @@ Hence, we have proved the claim.
 
 \subsection*{Problem 7}
 
+If $g_{\text{RBFNET}}$ outputs $+1$, which means
+\begin{align}
+\beta_+\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2}+\beta_-\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}>0
+\end{align}
+Since $\beta_+>0>\beta_-$, we have
+\begin{align}
+\AbsVal{\dfrac{\beta_+}{\beta_-}}\dfrac{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2}}{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}}&<1\\
+\AbsVal{\dfrac{\beta_+}{\beta_-}}\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&<1\\
+\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&<\AbsVal{\dfrac{\beta_-}{\beta_+}}\\
+2\ParTh{\bm{\mu}_+-\bm{\mu}_-}^T\BF{x}&<\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2\\
+2\ParTh{\bm{\mu}_--\bm{\mu}_+}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2}&>0
+\end{align}
+Similarly, if $g_{\text{RBFNET}}$ outputs $-1$, we have
+\begin{align}
+2\ParTh{\bm{\mu}_--\bm{\mu}_+}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2}<0
+\end{align}
+Hence
+\begin{align}
+2\ParTh{\bm{\mu}_--\bm{\mu}_+},~b=\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 8}
+
+\begin{align}
+\text{optimal }\beta_n&=\ParTh{\ParTh{\text{Z}^T\text{Z}}^{-1}\text{Z}^T\BF{y}}_n
+\end{align}
+where $\text{Z}$ is
+\begin{align}
+\text{Z}=\Matrix{cccc}{\BooBrackets{\BF{x}_1\neq\BF{x}_1}&\BooBrackets{\BF{x}_1\neq\BF{x}_2}&\cdots&\BooBrackets{\BF{x}_1\neq\BF{x}_N}\\\BooBrackets{\BF{x}_2\neq\BF{x}_1}&\BooBrackets{\BF{x}_2\neq\BF{x}_2}&\cdots&\BooBrackets{\BF{x}_2\neq\BF{x}_N}\\\vdots&\vdots&\ddots&\vdots\\\BooBrackets{\BF{x}_N\neq\BF{x}_1}&\BooBrackets{\BF{x}_N\neq\BF{x}_2}&\cdots&\BooBrackets{\BF{x}_N\neq\BF{x}_N}}=\Matrix{cccc}{0&1&\cdots&1\\1&0&\cdots&1\\\vdots&\vdots&\ddots&\vdots\\1&1&\cdots&0}
+\end{align}
+so
+\begin{align}
+\label{8-1}
+\ParTh{\text{Z}^T\text{Z}}^{-1}\text{Z}^T=\dfrac{1}{N-1}\Matrix{cccc}{-\ParTh{N-2}&1&\cdots&1\\1&-\ParTh{N-2}&\cdots&1\\\vdots&\vdots&\ddots&\vdots\\1&1&\cdots&-\ParTh{N-2}}
+\end{align}
+Hence we have
+\begin{align}
+\beta_n=\dfrac{1}{N-1}\ParTh{\sum_{i\neq n}y_i-\ParTh{N-2}y_n}
+\end{align}
 
 \QEDB
 
@@ -314,11 +352,36 @@ Hence, we have proved the claim.
 
 \subsection*{Problem 9}
 
+$\text{V}$ is initialized as
+\begin{align}
+\text{V}_{\tilde{d}\times N}=\Matrix{cccc}{1&1&\cdots&1}
+\end{align}
+so
+\begin{align}
+\min_{w_m}\dfrac{1}{N}\sum_{n}^{N}\ParTh{r_{nm}-w_mv_n}^2=\min_{w_m}\dfrac{1}{N}\sum_{n}^{N}\ParTh{r_{nm}-w_m}^2
+\end{align}
+and we have
+\begin{align}
+\dfrac{\partial}{\partial w_m}\dfrac{1}{N}\sum_{n}^{N}\ParTh{r_{nm}-w_m}^2=-\dfrac{2}{N}\sum_{n}^{N}\ParTh{r_{nm}-w_m}=-2\ParTh{\ParTh{\dfrac{1}{N}\sum_{n}^{N}r_{nm}}-w_m}=0
+\end{align}
+Hence,
+\begin{align}
+w_m=\dfrac{1}{N}\sum_{n}^{N}r_{nm}=\text{average rating of the }m\text{-th movie}
+\end{align}
+
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 10}
+
+\begin{align}
+\BF{v}^T_{N+1}\BF{w}_m=\dfrac{1}{N}\ParTh{\sum_{n=1}^{N}\BF{v}^T_n}\BF{w}_m=\dfrac{1}{N}\sum_{n=1}^{N}\BF{v}^T_n\BF{w}_m=\dfrac{1}{N}\sum_{n=1}^{N}r_{nm}
+\end{align}
+Hence, we have
+\begin{align}
+\max_{m}\BF{v}^T_{N+1}\BF{w}_m=\max_{m}\dfrac{1}{N}\sum_{n=1}^{N}r_{nm}=\text{the movie with largest average rating}
+\end{align}
 
 \QEDB
 
