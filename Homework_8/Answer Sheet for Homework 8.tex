@@ -264,6 +264,38 @@ So $\Omega\ParTh{\BF{w}}=\ParTh{\BF{w}^T\BF{w}}^2$.
 
 \subsection*{Problem 6}
 
+\underline{Claim}: $\BF{w}=2\ParTh{\BF{x}_+-\BF{x}_-}$, $b=-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2$.
+
+\underline{Proof of Claim}:
+
+Consider the following cases.
+\begin{enumerate}
+	\item If $\BF{x}=\BF{x}_+$, $\BF{w}^T\BF{x}+b>0$.
+	\begin{align}
+	\BF{w}^T\BF{x}+b&=2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\BF{x}_++\ParTh{-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2}\\
+	&=\VecAbsVal{\BF{x}_+}^2-2\BF{x}^T_-\BF{x}_++\VecAbsVal{\BF{x}_-}^2=\VecAbsVal{\BF{x}_+}^2-\BF{x}^T_-\BF{x}_+-\BF{x}^T_+\BF{x}_-+\VecAbsVal{\BF{x}_-}^2\\
+	&=\VecAbsVal{\BF{x}_+-\BF{x}_-}^2>0
+	\end{align}
+	\item If $\BF{x}=\BF{x}_-$, $\BF{w}^T\BF{x}+b<0$.
+	\begin{align}
+	\BF{w}^T\BF{x}+b&=2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\BF{x}_-+\ParTh{-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2}\\
+	&=-\VecAbsVal{\BF{x}_+}^2+2\BF{x}^T_-\BF{x}_+-\VecAbsVal{\BF{x}_-}^2=-\VecAbsVal{\BF{x}_+}^2+\BF{x}^T_-\BF{x}_++\BF{x}^T_+\BF{x}_--\VecAbsVal{\BF{x}_-}^2\\
+	&=-\VecAbsVal{\BF{x}_+-\BF{x}_-}^2<0
+	\end{align}
+	\item If $\BF{x}=\Divide{\ParTh{\BF{x}_++\BF{x}_-}}{2}$, $\BF{w}^T\BF{x}+b=0$.
+	\begin{align}
+	\BF{w}^T\BF{x}+b&=2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\Divide{\ParTh{\BF{x}_++\BF{x}_-}}{2}+\ParTh{-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2}\\
+	&=\ParTh{\VecAbsVal{\BF{x}_+}^2-\VecAbsVal{\BF{x}_-}^2}+\ParTh{-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2}=0
+	\end{align}
+	\item If $\BF{x}=\Divide{\ParTh{\BF{x}_++\BF{x}_-}}{2}+\BF{x}^\prime$, $\BF{w}^T\BF{x}+b>0$ if $\VecAbsVal{\BF{x}_+-\BF{x}^\prime}^2<\VecAbsVal{\BF{x}_--\BF{x}^\prime}^2$; $\BF{w}^T\BF{x}+b<0$ if $\VecAbsVal{\BF{x}_+-\BF{x}^\prime}^2>\VecAbsVal{\BF{x}_--\BF{x}^\prime}^2$.
+	\begin{align}
+	\BF{w}^T\BF{x}+b&=2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\ParTh{\Divide{\ParTh{\BF{x}_++\BF{x}_-}}{2}+\BF{x}^\prime}+\ParTh{-\VecAbsVal{\BF{x}_+}^2+\VecAbsVal{\BF{x}_-}^2}\\
+	&=2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\BF{x}^\prime
+	\end{align}
+	If $\VecAbsVal{\BF{x}_+-\BF{x}^\prime}^2<\VecAbsVal{\BF{x}_--\BF{x}^\prime}^2$, then $\BF{x}^T_+\BF{x}^\prime>0$ and $\BF{x}^T_-\BF{x}^\prime<0\Rightarrow2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\BF{x}^\prime>0$; if $\VecAbsVal{\BF{x}_+-\BF{x}^\prime}^2>\VecAbsVal{\BF{x}_--\BF{x}^\prime}^2$, then $\BF{x}^T_+\BF{x}^\prime<0$ and $\BF{x}^T_-\BF{x}^\prime>0\Rightarrow2\ParTh{\BF{x}^T_+-\BF{x}^T_-}\BF{x}^\prime<0$.
+\end{enumerate}
+Hence, we have proved the claim.
+
 \QEDB
 
 \horrule{0.5pt}
