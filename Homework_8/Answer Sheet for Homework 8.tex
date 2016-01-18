@@ -199,25 +199,76 @@ Consider following cases,
 	\begin{align}
 	\left.N_w\right|_{k=1}=\ParTh{37-1}+9\times35+35=386<510
 	\end{align}
-	\item If $k=3$ with $33-n_1-n_2$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$ and $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$, where $n_1,n_2\in\mathbb{N}$ and $1\leq n_1,n_2\leq32$, we have
+	\item If $k=3$ with $33-n_1-n_2$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$ and $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$, where $n_1,n_2\in\mathbb{N}$ and $1\leq n_1,n_2\leq31$, we have
 	\begin{align}
 	\left.N_w\right|_{k=3}&=\ParTh{37-3}+9\times\ParTh{33-n_1-n_2}+\ParTh{\ParTh{33-n_1-n_2}\times n_1+n_1\times n_2}+n_2\\
 	&=-\ParTh{n_1-12}^2-8n_2+475\leq-8n_2+475\leq467<510
 	\end{align}
-	We can see that if we have no $d^{\ParTh{3}}$ layer (which means $n_2=0$), then $\left.N_w\right|_{k=3}$ can be larger.
-	\item If $18\geq k=s\geq4$ with with $\ParTh{36-s}-\sum_{i=1}^{s-1}n_i$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$,..., $n_{s-1}$ units (not included $x^{\ParTh{s}}_0$) in $d^{\ParTh{s}}$ where $n_i\in\mathbb{N}$ and $1\leq n_i\leq\ParTh{35-s}$, $\forall i$, we have
+	We can see that this results in 9-20-12-1-1 neuron network, which is equal to grab one neuron (and one constant neuron) from 9-21-13-1 neuron network to create the third hidden layer.
+	\begin{comment}
+	\item If $18\geq k=s\geq4$ with with $\ParTh{36-s}-\sum_{i=1}^{s-1}n_i$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$,..., $n_{s-1}$ units (not included $x^{\ParTh{s}}_0$) in $d^{\ParTh{s}}$ where $n_i\in\mathbb{N}$ and $1\leq n_i\leq\ParTh{34-s}$, $\forall i$, we have
 	\begin{align}
 	\nonumber
 	\left.N_w\right|_{k=s}=&\ParTh{37-s}+9\times\ParTh{\ParTh{36-s}-\sum_{i=1}^{s-1}n_i}\\
 	&+\ParTh{\ParTh{\ParTh{36-s}-\sum_{i=1}^{s-1}n_i}\times n_1+\cdots+n_{s-2}\times n_{s-1}}+n_{s-1}
 	\end{align}
-	We can find that there is no $n_1n_2$ term, only $n_2n_3$ term exists and no other terms contains $n_2$. We have
+	We can find that as $N_w$ reaches maximum, we have
 	\begin{align}
-	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_2}=n_3=0\text{ as }\left.N_w\right|_{k=s}\text{ reaches maximum}
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{1}}&=\ParTh{\ParTh{36-s}-2n_1-\sum_{i=3}^{s-1}n_i}-9=0\Rightarrow n_1=\dfrac{1}{2}\ParTh{27-s-\sum_{i=3}^{s-1}n_i}\\
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{2}}&=n_{3}-9=0\Rightarrow n_{3}=9\\
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{3}}&=n_{4}+n_{2}-n_1-9=0\Rightarrow n_{4}=n_1+9-n_2\\
+	&\hspace{2mm}\vdots\\
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{s-5}}&=n_{s-4}+n_{s-6}-n_1-9=0\Rightarrow n_{s-6}=n_1+8\\
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{s-3}}&=n_{s-2}+n_{s-4}-n_1-9=0\Rightarrow n_{s-4}=1\\
+	\dfrac{\partial\left.N_w\right|_{k=s}}{\partial n_{s-1}}&=-8-n_1+n_{s-2}=0\Rightarrow n_{s-2}=n_1+8
 	\end{align}
 	This implies $\left.N_w\right|_{k=s}$ can be larger without $d^{\ParTh{4}}$ layer. So $k=s\geq4$ cannot maximize $N_w$.
+	\end{comment}
 \end{enumerate}
-Hence, we have $N_w\geq510$.
+\underline{Claim}: The structure of neuron network of $s$ hidden layers and maximum number of weights is constructed by adding single neuron hidden layer to neuron network of $s-1$ hidden layers with maximum number of weights if $18\geq s\geq3$ and $s\in\mathbb{N}$.
+
+\underline{Proof of Claim}:
+
+We will prove this claim by induction.
+\begin{enumerate}
+	\item For $s=3$, it is proven above.
+	\item Suppose this holds for $s=\ell$.
+	\item Let $\max\ParTh{\left.N_w\right|_{k=\ell}}=N^{\ParTh{\ell}}_w$, if neuron network of $\ell+1$ hidden layers is constructed by adding single neuron hidden layer to neuron network, we have
+	\begin{align}
+	\nonumber
+	\left.N_w\right|_{k=\ell+1}=&\ParTh{37-\ParTh{\ell+1}}+9\ParTh{d^{\ParTh{1}}-1}+\ParTh{\ParTh{d^{\ParTh{1}}-1}\ParTh{d^{\ParTh{2}}-1}+\ParTh{d^{\ParTh{2}}-1}d^{\ParTh{3}}}\\
+	&+\ParTh{\sum_{i=3}^{\ell-1}d^{\ParTh{i}}d^{\ParTh{i+1}}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}
+	\end{align}
+	where $d^{\ParTh{i}}$ is the number of neurons of $i$-th hidden layer in $\ell$ hidden layers neuron network. So the number of first and second hidden layer in new neuron network is $d^{\ParTh{1}}-1$ and $d^{\ParTh{2}}-1$. Then we have
+	\begin{align}
+	\left.N_w\right|_{k=\ell+1}&=-1-9-d^{\ParTh{1}}-d^{\ParTh{2}}+1-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	&=-9-d^{\ParTh{1}}-d^{\ParTh{2}}-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	\label{3-1}
+	&=-9-d^{\ParTh{1}}-d^{\ParTh{2}}+N^{\ParTh{\ell}}_w
+	\end{align}
+	(\ref{3-1}) holds due to $d^{\ParTh{3}}=d^{\ParTh{\ell}}=d^{\ParTh{\ell+1}}=1$. Since $d^{\ParTh{i}}=1$ for $i\geq3$, we need to take at least two neurons from first and second layer when adding one more layer. If let $d^{\ParTh{\ell+1}}=2$, one is from $d^{\ParTh{1}}$ the other two is from $d^{\ParTh{2}}$, we have
+	\begin{align}
+	\nonumber
+	\left.N_w\right|_{k=\ell+1}&=\ParTh{37-\ParTh{\ell+1}}+9\ParTh{d^{\ParTh{1}}-1}+\ParTh{\ParTh{d^{\ParTh{1}}-1}\ParTh{d^{\ParTh{2}}-2}+\ParTh{d^{\ParTh{2}}-2}d^{\ParTh{3}}}\\
+	&\hspace{4mm}+\ParTh{\sum_{i=3}^{\ell-1}d^{\ParTh{i}}d^{\ParTh{i+1}}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}\\
+	&=-1-9-2d^{\ParTh{1}}-d^{\ParTh{2}}+2-2d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	&=-8-2d^{\ParTh{1}}-d^{\ParTh{2}}-2d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	\label{3-1}
+	&=-7-2d^{\ParTh{1}}-d^{\ParTh{2}}+N^{\ParTh{\ell}}_w<-9-d^{\ParTh{1}}-d^{\ParTh{2}}+N^{\ParTh{\ell}}_w
+	\end{align}
+	For $18\geq\ell\geq3$, we have $d^{\ParTh{1}}>2$ for sure. If we take two from $d^{\ParTh{1}}$, then we have
+	\begin{align}
+	\nonumber
+	\left.N_w\right|_{k=\ell+1}&=\ParTh{37-\ParTh{\ell+1}}+9\ParTh{d^{\ParTh{1}}-2}+\ParTh{\ParTh{d^{\ParTh{1}}-2}\ParTh{d^{\ParTh{2}}-1}+\ParTh{d^{\ParTh{2}}-1}d^{\ParTh{3}}}\\
+	&\hspace{4mm}+\ParTh{\sum_{i=3}^{\ell-1}d^{\ParTh{i}}d^{\ParTh{i+1}}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}\\
+	&=-1-18-d^{\ParTh{1}}-2d^{\ParTh{2}}+2-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	&=-17-d^{\ParTh{1}}-2d^{\ParTh{2}}-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
+	\label{3-1}
+	&=-15-d^{\ParTh{1}}-2d^{\ParTh{2}}+N^{\ParTh{\ell}}_w<-9-d^{\ParTh{1}}-d^{\ParTh{2}}+N^{\ParTh{\ell}}_w
+	\end{align}
+	Similarly, take more neurons from the first two layers will make $\left.N_w\right|_{k=\ell+1}$. Hence, the way to get $N^{\ParTh{\ell+1}}_w$ is to put only one neuron to the last hidden layer.
+\end{enumerate}
+From the conclusion above, we see that for any $s\geq3$ hidden layers, if $s$ is bigger, then the maximum number is smaller. Hence $N_w\leq510$.
 
 \QEDB
 
@@ -442,6 +493,71 @@ Hence, we have
 \horrule{0.5pt}
 
 \subsection*{Problem 20}
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 21}
+
+Now we have $\Delta\geq2$ and $N\geq3\Delta\log_2\Delta\geq6$, so $2^N\geq2^6=64$ and $N^\Delta+1\geq6^2+1=37$. For fixed $\Delta$, we have
+\begin{comment}
+\begin{align}
+2^N&\geq2^{3\Delta\log_2\Delta}\geq2^{6}=64\\
+N^\Delta+1&\geq\ParTh{3\Delta\log_2\Delta}^\Delta+1\geq6^2+1=37
+\end{align}
+and for fixed $\Delta$, we have
+
+\begin{align}
+\dfrac{\partial}{\partial\Delta}\ParTh{2^{3\Delta\log_2\Delta}}&=\ln\ParTh{2}\ParTh{3\log_2\Delta+\dfrac{3}{\ln\ParTh{2}}}2^{3\Delta\log_2\Delta}\\
+\dfrac{\partial}{\partial\Delta}\ParTh{\ParTh{3\Delta\log_2\Delta}^\Delta+1}&=3\Delta^\Delta
+\end{align}
+\end{comment}
+\begin{align}
+\dfrac{\partial}{\partial N}\ParTh{2^{N}}&=\ln\ParTh{2}2^{N}\\
+\dfrac{\partial}{\partial N}\ParTh{N^\Delta+1}&=\Delta N^{\Delta-1}
+\end{align}
+so
+\begin{align}
+\dfrac{\partial_N\ParTh{2^{N}}}{\partial_N\ParTh{N^\Delta+1}}=\dfrac{\ln\ParTh{2}2^N}{\Delta N^{\Delta-1}}%\geq\dfrac{\ln\ParTh{2}2^N}{N^\Delta}\text{ since }N\geq3\Delta\log_2\Delta
+\end{align}
+We have
+\begin{align}
+\lim\limits_{N\rightarrow\infty}\dfrac{\ln\ParTh{2}2^N}{\Delta N^{\Delta-1}}=\infty
+\end{align}
+%Consider $2^N=N^\Delta$, we have $N=\Delta\log_2\ParTh{N}$.
+which means $\ln\ParTh{2}2^N$ grows faster than $\Delta N^{\Delta-1}$ if $N$ is large. Consider $\min N=3\Delta\log_2\Delta$, we have
+\begin{align}
+\dfrac{\ln\ParTh{2}2^N}{\Delta N^{\Delta-1}}=\dfrac{\ln\ParTh{2}2^{3\Delta\log_2\Delta}}{\Delta\ParTh{3\Delta\log_2\Delta}^{\Delta-1}}
+\end{align}
+This graphs is like
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{21-1.png}
+\end{figure}
+and this function is greater than 1 for $\Delta\geq2$. For some fixed $\Delta$, we have
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{21-2.png}
+\end{figure}
+We can see that this function is greater than 1 for $N\geq3\Delta\log_2\Delta$.
+
+As $N$ becomes larger, $2^N$ always grows faster than $N^{\Delta}+1$ and $\min\ParTh{2^N}>\min\ParTh{N^\Delta+1}$, so $N^\Delta+1<2^N$.
+
+\QEDB
+
+\horrule{0.5pt}
+
+\subsection*{Problem 22}
+
+Since $\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh{2}}_{31}}=\ParTh{-2.5,1,1,1}$, the function of output layer is
+\begin{align}
+\text{AND}\ParTh{x^{\ParTh{1}}_1,x^{\ParTh{1}}_2,x^{\ParTh{1}}_3}
+\end{align}
+\begin{align}
+\Delta=\ParTh{3\ParTh{d+1}+1}&,~N=3\Delta\log_2\Delta\\
+\Delta\log_2\ParTh{N}<&\log_2\ParTh{N^\Delta+1}<N
+\end{align}
 
 \QEDB
 
