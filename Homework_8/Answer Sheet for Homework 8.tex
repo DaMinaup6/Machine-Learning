@@ -278,8 +278,8 @@ From the conclusion above, we see that for any $s\geq3$ hidden layers, if $s$ is
 
 \begin{align}
 \nabla_{\BF{w}}\text{err}_n\ParTh{\BF{w}}&=\dfrac{\partial}{\partial\BF{w}}\VecAbsVal{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^2=\dfrac{\partial}{\partial\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}^T\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
-&=\dfrac{\partial}{\partial\BF{w}}\ParTh{\BF{x}^T_n-\BF{x}^T_n\BF{w}^T\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
-&=\ParTh{-2\BF{x}^T_n\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}+\ParTh{\BF{x}^T_n-\BF{x}^T_n\BF{w}^T\BF{w}}\ParTh{-2\BF{w}\BF{x}_n}\\
+&=\dfrac{\partial}{\partial\BF{w}}\ParTh{\BF{x}^T_n-\BF{x}^T_n\ParTh{\BF{w}\BF{w}^T}^T}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}\\
+&=\ParTh{-2\BF{x}^T_n\BF{w}}\ParTh{\BF{x}_n-\BF{w}\BF{w}^T\BF{x}_n}+\ParTh{\BF{x}^T_n-\BF{x}^T_n\ParTh{\BF{w}\BF{w}^T}}\ParTh{-2\BF{w}\BF{x}_n}\\
 &=-2\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\ParTh{\BF{x}^T_n\BF{w}}\BF{w}\ParTh{\BF{x}^T_n\BF{w}}^T-2\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\BF{x}^T_n\ParTh{\BF{w}^T\BF{w}}\BF{w}\BF{x}_n\\
 &=-4\ParTh{\BF{x}^T_n\BF{w}}\BF{x}_n+2\ParTh{\BF{x}^T_n\BF{w}}^2\BF{w}+2\BF{x}^T_n\ParTh{\BF{w}^T\BF{w}}\BF{w}\BF{x}_n
 \end{align}
@@ -287,6 +287,14 @@ where we have used
 \begin{align}
 \ParTh{\BF{x}^T_n\BF{w}}\BF{w}\ParTh{\BF{x}^T_n\BF{w}}^T&=\ParTh{\Matrix{cccc}{x_1&x_2&\cdots&x_n}\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}}\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}\ParTh{\BF{x}^T_n\BF{w}}^T\\
 &=c\Matrix{c}{w_{1}\\w_{2}\\\vdots\\w_{n}}c=\Matrix{c}{c^2w_{1}\\c^2w_{2}\\\vdots\\c^2w_{n}}=\ParTh{\BF{x}^T_n\BF{w}}^2\BF{w}
+\end{align}
+and
+\begin{align}
+\ParTh{\BF{w}\BF{w}^T}\BF{w}\BF{x}_n=\BF{w}\ParTh{\BF{w}^T\BF{w}}\BF{x}_n=\BF{w}\ParTh{\sum_{i=1}^{n}w^2_i}\BF{x}_n=\ParTh{\sum_{i=1}^{n}w^2_i}\BF{w}\BF{x}_n=\ParTh{\BF{w}^T\BF{w}}\BF{w}\BF{x}_n
+\end{align}
+and
+\begin{align}
+\ParTh{\BF{w}\BF{w}^T}^T=\ParTh{w_iw_j}^T_{ij}=\ParTh{w_jw_i}^T_{ij}=\ParTh{w_jw_i}_{ji}=\BF{w}\BF{w}^T
 \end{align}
 with $c\coloneqq\sum_{i=1}^{n}x_iw_i$.
 
@@ -359,19 +367,19 @@ If $g_{\text{RBFNET}}$ outputs $+1$, which means
 \end{align}
 Since $\beta_+>0>\beta_-$, we have
 \begin{align}
-\AbsVal{\dfrac{\beta_+}{\beta_-}}\dfrac{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2}}{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}}&<1\\
-\AbsVal{\dfrac{\beta_+}{\beta_-}}\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&<1\\
-\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&<\AbsVal{\dfrac{\beta_-}{\beta_+}}\\
-2\ParTh{\bm{\mu}_+-\bm{\mu}_-}^T\BF{x}&<\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2\\
-2\ParTh{\bm{\mu}_--\bm{\mu}_+}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2}&>0
+\AbsVal{\dfrac{\beta_+}{\beta_-}}\dfrac{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2}}{\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}}&>1\\
+\AbsVal{\dfrac{\beta_+}{\beta_-}}\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&>1\\
+\exp\ParTh{-\VecAbsVal{\BF{x}-\bm{\mu}_+}^2+\VecAbsVal{\BF{x}-\bm{\mu}_-}^2}&>\AbsVal{\dfrac{\beta_-}{\beta_+}}\\
+2\ParTh{\bm{\mu}_+-\bm{\mu}_-}^T\BF{x}&>\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2\\
+2\ParTh{\bm{\mu}_+-\bm{\mu}_-}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_+}{\beta_-}}-\VecAbsVal{\bm{\mu}_+}^2+\VecAbsVal{\bm{\mu}_-}^2}&>0
 \end{align}
 Similarly, if $g_{\text{RBFNET}}$ outputs $-1$, we have
 \begin{align}
-2\ParTh{\bm{\mu}_--\bm{\mu}_+}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2}<0
+2\ParTh{\bm{\mu}_+-\bm{\mu}_-}^T\BF{x}+\ParTh{\ln\AbsVal{\dfrac{\beta_+}{\beta_-}}-\VecAbsVal{\bm{\mu}_+}^2+\VecAbsVal{\bm{\mu}_-}^2}<0
 \end{align}
 Hence
 \begin{align}
-2\ParTh{\bm{\mu}_--\bm{\mu}_+},~b=\ln\AbsVal{\dfrac{\beta_-}{\beta_+}}+\VecAbsVal{\bm{\mu}_+}^2-\VecAbsVal{\bm{\mu}_-}^2
+2\ParTh{\bm{\mu}_+-\bm{\mu}_-},~b=\ln\AbsVal{\dfrac{\beta_+}{\beta_-}}-\VecAbsVal{\bm{\mu}_+}^2+\VecAbsVal{\bm{\mu}_-}^2
 \end{align}
 
 \QEDB
@@ -438,21 +446,13 @@ Hence, we have
 
 \horrule{0.5pt}
 
-\subsection*{Problem 11}
-
-
-
-\QEDB
-
-\horrule{0.5pt}
-
 \subsection*{Problem 12}
 
-\QEDB
-
-\horrule{0.5pt}
-
-\subsection*{Problem 13}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Q12.png}
+\end{figure}
+$E_{\text{in}}\ParTh{g_{k\text{-nbor}}}$ reaches maximum at $k=5$. And $E_{\text{in}}\ParTh{g_{k\text{-nbor}}}=0$ at $k=1$, as expect.
 
 \QEDB
 
@@ -460,11 +460,11 @@ Hence, we have
 
 \subsection*{Problem 14}
 
-\QEDB
-
-\horrule{0.5pt}
-
-\subsection*{Problem 15}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Q14.png}
+\end{figure}
+$E_{\text{in}}\ParTh{g_{k\text{-nbor}}}$ reaches minimum at $k=3$. After $k=7$, $E_{\text{in}}\ParTh{g_{k\text{-nbor}}}$ decreases.
 
 \QEDB
 
@@ -472,11 +472,12 @@ Hence, we have
 
 \subsection*{Problem 16}
 
-\QEDB
-
-\horrule{0.5pt}
-
-\subsection*{Problem 17}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Q16.png}
+	\includegraphics[scale=0.5]{Q16-log.png}
+\end{figure}
+As $\log\gamma>-1$, $E_{\text{in}}\ParTh{g_{\text{uniform}}}$ decreases dramatically.
 
 \QEDB
 
@@ -484,17 +485,24 @@ Hence, we have
 
 \subsection*{Problem 18}
 
-\QEDB
-
-\horrule{0.5pt}
-
-\subsection*{Problem 19}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Q18.png}
+	\includegraphics[scale=0.5]{Q18-log.png}
+\end{figure}
+As $\log\gamma=0$, $E_{\text{out}}\ParTh{g_{\text{uniform}}}$ reaches minimum and then increases. Combine the results of Problem 16, $\log\gamma>0$ may cause overfitting in this case.
 
 \QEDB
 
 \horrule{0.5pt}
 
 \subsection*{Problem 20}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Q20.png}
+\end{figure}
+As $k$ increases, $E_{\text{in}}$ decreases. This is reasonable since $\VecAbsVal{\BF{x}_n-\bm{\mu}_m}^2$ should be smaller if $k$ is larger.
 
 \QEDB
 
