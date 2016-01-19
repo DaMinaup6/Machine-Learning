@@ -81,8 +81,9 @@ def main():
     eInList = []
     for k in kList:
         eIn = Parallel(n_jobs=num_cores)(delayed(kMeans)(k, xTra20) for i in range(REPEAT))
-        print "k =", k, "and Ein =", np.mean(eIn)
-        eInList.append(np.mean(eIn))
+        eIn = np.mean(eIn)
+        print "k =", k, "and Ein =", eIn
+        eInList.append(eIn)
 
     plotFig(kList, eInList, r"$k$", r'$E_{\mathrm{in}}$', "Q20", 1, False)
 
