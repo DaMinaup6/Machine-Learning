@@ -204,7 +204,7 @@ Consider following cases,
 	\left.N_w\right|_{k=3}&=\ParTh{37-3}+9\times\ParTh{33-n_1-n_2}+\ParTh{\ParTh{33-n_1-n_2}\times n_1+n_1\times n_2}+n_2\\
 	&=-\ParTh{n_1-12}^2-8n_2+475\leq-8n_2+475\leq467<510
 	\end{align}
-	We can see that this results in 9-20-12-1-1 neuron network, which is equal to grab one neuron (and one constant neuron) from 9-21-13-1 neuron network to create the third hidden layer.
+	We can see that this results in 9-20-12-1-1 neural network, which is equal to grab one neuron (and one constant neuron) from 9-21-13-1 neural network to create the third hidden layer.
 	\begin{comment}
 	\item If $18\geq k=s\geq4$ with with $\ParTh{36-s}-\sum_{i=1}^{s-1}n_i$ units (not included $x^{\ParTh{1}}_0$) in $d^{\ParTh{1}}$, $n_1$ units (not included $x^{\ParTh{2}}_0$) in $d^{\ParTh{2}}$, $n_2$ units (not included $x^{\ParTh{3}}_0$) in $d^{\ParTh{3}}$,..., $n_{s-1}$ units (not included $x^{\ParTh{s}}_0$) in $d^{\ParTh{s}}$ where $n_i\in\mathbb{N}$ and $1\leq n_i\leq\ParTh{34-s}$, $\forall i$, we have
 	\begin{align}
@@ -225,7 +225,7 @@ Consider following cases,
 	This implies $\left.N_w\right|_{k=s}$ can be larger without $d^{\ParTh{4}}$ layer. So $k=s\geq4$ cannot maximize $N_w$.
 	\end{comment}
 \end{enumerate}
-\underline{Claim}: The structure of neuron network of $s$ hidden layers and maximum number of weights is constructed by adding single neuron hidden layer to neuron network of $s-1$ hidden layers with maximum number of weights if $18\geq s\geq3$ and $s\in\mathbb{N}$.
+\underline{Claim}: The structure of neural network of $s$ hidden layers and maximum number of weights is constructed by adding single neuron hidden layer to neural network of $s-1$ hidden layers with maximum number of weights if $18\geq s\geq3$ and $s\in\mathbb{N}$.
 
 \underline{Proof of Claim}:
 
@@ -233,13 +233,13 @@ We will prove this claim by induction.
 \begin{enumerate}
 	\item For $s=3$, it is proven above.
 	\item Suppose this holds for $s=\ell$.
-	\item Let $\max\ParTh{\left.N_w\right|_{k=\ell}}=N^{\ParTh{\ell}}_w$, if neuron network of $\ell+1$ hidden layers is constructed by adding single neuron hidden layer to neuron network, we have
+	\item Let $\max\ParTh{\left.N_w\right|_{k=\ell}}=N^{\ParTh{\ell}}_w$, if neural network of $\ell+1$ hidden layers is constructed by adding single neuron hidden layer to neural network, we have
 	\begin{align}
 	\nonumber
 	\left.N_w\right|_{k=\ell+1}=&\ParTh{37-\ParTh{\ell+1}}+9\ParTh{d^{\ParTh{1}}-1}+\ParTh{\ParTh{d^{\ParTh{1}}-1}\ParTh{d^{\ParTh{2}}-1}+\ParTh{d^{\ParTh{2}}-1}d^{\ParTh{3}}}\\
 	&+\ParTh{\sum_{i=3}^{\ell-1}d^{\ParTh{i}}d^{\ParTh{i+1}}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}
 	\end{align}
-	where $d^{\ParTh{i}}$ is the number of neurons of $i$-th hidden layer in $\ell$ hidden layers neuron network. So the number of first and second hidden layer in new neuron network is $d^{\ParTh{1}}-1$ and $d^{\ParTh{2}}-1$. Then we have
+	where $d^{\ParTh{i}}$ is the number of neurons of $i$-th hidden layer in $\ell$ hidden layers neural network. So the number of first and second hidden layer in new neural network is $d^{\ParTh{1}}-1$ and $d^{\ParTh{2}}-1$. Then we have
 	\begin{align}
 	\left.N_w\right|_{k=\ell+1}&=-1-9-d^{\ParTh{1}}-d^{\ParTh{2}}+1-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
 	&=-9-d^{\ParTh{1}}-d^{\ParTh{2}}-d^{\ParTh{3}}-d^{\ParTh{\ell}}+d^{\ParTh{\ell}}d^{\ParTh{\ell+1}}+d^{\ParTh{\ell+1}}+N^{\ParTh{\ell}}_w\\
@@ -510,7 +510,55 @@ As $k$ increases, $E_{\text{in}}$ decreases. This is reasonable since $\VecAbsVa
 
 \subsection*{Problem 21}
 
-Now we have $\Delta\geq2$ and $N\geq3\Delta\log_2\Delta\geq6$, so $2^N\geq2^6=64$ and $N^\Delta+1\geq6^2+1=37$. For fixed $\Delta$, we have
+%Now we have $\Delta\geq2$ and $N\geq3\Delta\log_2\Delta\geq6$, so $2^N\geq2^6=64$ and $N^\Delta+1\geq6^2+1=37$.
+For $N=\min N=3\Delta\log_2\ParTh{\Delta}$, we have the following figure
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{21-3.png}
+	\caption{$2^N$ and $N^\Delta+1$ with $N=3\Delta\log_2\ParTh{\Delta}$.}
+\end{figure}
+The values of $\Delta$ satisfy
+\begin{align}
+2^N=2^{3\Delta\log_2\ParTh{\Delta}}=\ParTh{3\Delta\log_2\ParTh{\Delta}}^\Delta+1=N^\Delta+1
+\end{align}
+are $\Delta=1$ and $\Delta\approx1.21033$. $\forall\Delta\geq2$, we have
+\begin{align}
+\ParTh{3\Delta\log_2\ParTh{\Delta}}^\Delta+1<2^{3\Delta\log_2\ParTh{\Delta}}
+\end{align}
+Consider some fixed $\Delta\geq2$, we have
+\begin{align}
+\lim\limits_{N\rightarrow\infty}\dfrac{N^\Delta+1}{2^N}=\lim\limits_{N\rightarrow\infty}\dfrac{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{N^\Delta+1}}{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{2^N}}
+\end{align}
+If $\Delta\in\mathbb{N}$, we have
+\begin{align}
+\lim\limits_{N\rightarrow\infty}\dfrac{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{N^\Delta+1}}{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{2^N}}=\lim\limits_{N\rightarrow\infty}\dfrac{\Delta!}{\ParTh{\ln\ParTh{2}}^\Delta2^N}=0
+\end{align}
+if $\Delta\notin\mathbb{N}$, we have
+\begin{align}
+\lim\limits_{N\rightarrow\infty}\dfrac{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{N^\Delta+1}}{\frac{\partial^{\lceil\Delta\rceil}}{\partial N^{\lceil\Delta\rceil}}\ParTh{2^N}}=\lim\limits_{N\rightarrow\infty}\dfrac{0}{\ParTh{\ln\ParTh{2}}^{\lceil\Delta\rceil}2^N}=0
+\end{align}
+This result shows that $2^N$ must be larger than $N^\Delta+1$ if $N$ is enough. Plot the figure, we have
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.27]{21-4.png}
+	\caption{$2^N$ and $N^\Delta+1$ for some fixed $\Delta$.}
+\end{figure}
+The values of $N$ satisfy $2^N=N^\Delta+1$ are $1$ and $f\ParTh{\Delta}$ with $f\ParTh{\Delta}>1$ and $2^N>N^\Delta+1$ if $N>f\ParTh{\Delta}$, $f\ParTh{\Delta}$ here is the ``large enough'' point for $N$.
+
+\underline{Claim}: $f\ParTh{\Delta}\leq3\Delta\log_2\ParTh{\Delta}$.
+
+\underline{Proof of Claim}:
+
+Suppose by contradiction, if there exists $\Delta$ such that $f\ParTh{\Delta}>3\Delta\log_2\ParTh{\Delta}$, we have
+\begin{align}
+2^{3\Delta\log_2\ParTh{\Delta}} < \ParTh{3\Delta\log_2\ParTh{\Delta}}^\Delta+1\Rightarrow1<\Delta<1.21033...
+\end{align}
+This violates the assumption that $\Delta\geq2$. So $f\ParTh{\Delta}\leq3\Delta\log_2\ParTh{\Delta}$.
+
+Since $N\geq3\Delta\log_2\ParTh{\Delta}\geq f\ParTh{\Delta}$, we have
+\begin{align}
+N^\Delta+1<2^N\text{ if }N\geq3\Delta\log_2\ParTh{\Delta},~\forall\Delta\geq2
+\end{align}
 \begin{comment}
 \begin{align}
 2^N&\geq2^{3\Delta\log_2\Delta}\geq2^{6}=64\\
@@ -522,7 +570,7 @@ and for fixed $\Delta$, we have
 \dfrac{\partial}{\partial\Delta}\ParTh{2^{3\Delta\log_2\Delta}}&=\ln\ParTh{2}\ParTh{3\log_2\Delta+\dfrac{3}{\ln\ParTh{2}}}2^{3\Delta\log_2\Delta}\\
 \dfrac{\partial}{\partial\Delta}\ParTh{\ParTh{3\Delta\log_2\Delta}^\Delta+1}&=3\Delta^\Delta
 \end{align}
-\end{comment}
+
 \begin{align}
 \dfrac{\partial}{\partial N}\ParTh{2^{N}}&=\ln\ParTh{2}2^{N}\\
 \dfrac{\partial}{\partial N}\ParTh{N^\Delta+1}&=\Delta N^{\Delta-1}
@@ -553,6 +601,7 @@ and this function is greater than 1 for $\Delta\geq2$. For some fixed $\Delta$, 
 We can see that this function is greater than 1 for $N\geq3\Delta\log_2\Delta$.
 
 As $N$ becomes larger, $2^N$ always grows faster than $N^{\Delta}+1$ and $\min\ParTh{2^N}>\min\ParTh{N^\Delta+1}$, so $N^\Delta+1<2^N$.
+\end{comment}
 
 \QEDB
 
@@ -564,11 +613,29 @@ Since $\ParTh{w^{\ParTh{2}}_{01},w^{\ParTh{2}}_{11},w^{\ParTh{2}}_{21},w^{\ParTh
 \begin{align}
 \text{AND}\ParTh{x^{\ParTh{1}}_1,x^{\ParTh{1}}_2,x^{\ParTh{1}}_3}
 \end{align}
-And we have $\ParTh{d+1}\times3=3\ParTh{d+1}$ weights between input and hidden layer.
+And we have $\ParTh{d+1}\times3=3\ParTh{d+1}$ weights between input and hidden layer. With one fixed weights of output layer, set $\Delta=3\ParTh{d+1}+1$. The VC dimension of neural network is approximately
 \begin{align}
-\Delta=\ParTh{3\ParTh{d+1}+1}&,~N=3\Delta\log_2\Delta\\
-\Delta\log_2\ParTh{N}<&\log_2\ParTh{N^\Delta+1}<N
+O\ParTh{\underbrace{3}_{\text{number of layers}}\times\underbrace{\ParTh{3\ParTh{d+1}+1}}_{\text{number of weights}}}
 \end{align}
+Set $\Delta\coloneqq3\ParTh{d+1}+1\geq2$ and $O\ParTh{3\ParTh{3\ParTh{d+1}+1}}=3\Delta f\ParTh{\Delta}$.
+
+\underline{Claim}: $3\Delta f\ParTh{\Delta}<3\Delta\log_2\ParTh{\Delta}$.
+
+\underline{Proof of Claim}:
+
+Suppose by contradiction, we have
+\begin{align}
+3\Delta f\ParTh{\Delta}\geq3\Delta\log_2\ParTh{\Delta}
+\end{align}
+which means
+\begin{align}
+\left.m_{\mathcal{H}}\ParTh{N}\right|_{N=3\Delta\log_2\ParTh{\Delta}}=\left.2^N\right|_{N=3\Delta\log_2\ParTh{\Delta}}=2^{3\Delta\log_2\ParTh{\Delta}}
+\end{align}
+This is a contradiction since $m_{\mathcal{H}}\ParTh{N}\propto N^d$ and from the conclusion of Problem 21,
+\begin{align}
+N^d<N^\Delta+1<2^N
+\end{align}
+Hence, we have $3\Delta f\ParTh{\Delta}<3\Delta\log_2\ParTh{\Delta}$.
 
 \QEDB
 
