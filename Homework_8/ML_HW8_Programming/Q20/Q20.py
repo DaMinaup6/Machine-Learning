@@ -12,11 +12,11 @@ def sign(x):
 
 def kMeans(k, xData):
     grArr = []
+    oriGr = []
     muArr = xData[np.random.choice(xData.shape[0], k)]
     converge = False
     while not converge:
         grArr = []
-        oriMu = np.copy(muArr)
         # optimize S
         for x in xData:
             dtArr = []
@@ -25,6 +25,9 @@ def kMeans(k, xData):
             dtArr = np.array(dtArr)
             dtArr = dtArr[dtArr[:, 1].argsort()]
             grArr.append(dtArr[0][0])
+        if np.array_equal(oriGr, np.sort(grArr)):
+            converge = True
+        oriGr = np.copy(np.sort(grArr))
         grArr = np.column_stack((np.array(grArr), xData))
         grArr = grArr[grArr[:, 0].argsort()]
         # optimize mu
@@ -42,8 +45,6 @@ def kMeans(k, xData):
                 muTmp += grArr[row][range(1, grArr.shape[1])]
             if row == grArr.shape[0] - 1:
                 muArr[muIdx] = (muTmp / muNum)
-        if np.array_equal(muArr, oriMu):
-            converge = True
     return errCalc(muArr, grArr)
 
 
@@ -80,6 +81,7 @@ def main():
     eInList = []
     for k in kList:
         eIn = Parallel(n_jobs=num_cores)(delayed(kMeans)(k, xTra20) for i in range(REPEAT))
+        print "k =", k, "and Ein =", np.mean(eIn)
         eInList.append(np.mean(eIn))
 
     plotFig(kList, eInList, r"$k$", r'$E_{\mathrm{in}}$', "Q20", 1, False)
